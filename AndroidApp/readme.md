@@ -1,2 +1,2 @@
-### Spletna aplikacija
-Spletna aplikacija pri predmetu elektronsko poslovanje.
+### Mobilna aplikacija
+Mobilna aplikacija pri predmetu elektronsko poslovanje.
