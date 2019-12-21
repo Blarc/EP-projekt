@@ -6,9 +6,24 @@ Za pogon spletne aplikacije potrebujemo XAMP.
 (https://youtu.be/H3uRXvwXz1o)
 
 Kot virtual host naslov uproabi nekaj drugega kot .dev, saj
-na firefox/chrome to ne dela. Npr. laravel.test
+na firefox/chrome to ne dela. Npr. `laravel.test`
 
 Projekt ne rabi biti nujno v apache2/htdocs, vendar če
 želimo da je kje drugje, je potrebno spremeniti pot do
 direktorija v config-u (glej video).
+
+##### Podatkovna baza (mySQL)
+V datoteki nastavimo potrebne parametere:
+```
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=laravel
+- DB_USERNAME=root
+- DB_PASSWORD=password
+```
+
+Poženemo migracijo:
+`php artisan migrate`
+
 
