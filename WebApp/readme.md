@@ -26,4 +26,7 @@ V datoteki `.env` nastavimo potrebne parametere:
 Poženemo migracijo:
 `php artisan migrate`
 
+Če želimo napolniti bazo poženemo:
+`php artisan db:seed`
+
 
