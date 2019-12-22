@@ -31,32 +31,39 @@ class ShoppingListsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
     {
         // TODO exception validator
-        $shoppingList = ShoppingList::query() -> create($request -> all());
+
+        // Create Shopping list
+        $shoppingList = new ShoppingList;
+        $shoppingList->name = $request->input('name');
+        // TODO add user id from auth
+//        $shoppingList->userId =
+        $shoppingList->save();
+
         return new Response($shoppingList, Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
     {
         // TODO exception
-        return new Response(ShoppingList::query() -> find($id), Response::HTTP_OK);
+        return new Response(ShoppingList::query()->find($id), Response::HTTP_OK);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -67,15 +74,15 @@ class ShoppingListsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
     {
         // TODO exception validator
-        $shoppingList = ShoppingList::query() -> findOrFail($id);
-        $shoppingList -> update($request -> all());
+        $shoppingList = ShoppingList::query()->findOrFail($id);
+        $shoppingList->update($request->all());
 
         return new Response($shoppingList, Response::HTTP_CREATED);
     }
@@ -83,14 +90,14 @@ class ShoppingListsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
     {
         // TODO exception
-        $shoppingList = ShoppingList::query() -> findOrFail($id);
-        $shoppingList -> delete();
+        $shoppingList = ShoppingList::query()->findOrFail($id);
+        $shoppingList->delete();
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }

@@ -15,6 +15,14 @@ Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 
-Route::resource('/items', 'ItemsController');
-Route::resource('/shoppingLists', 'ShoppingListsController');
+//Route::resource('/items', 'ItemsController');
+//Route::resource('/shoppingLists', 'ShoppingListsController');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');

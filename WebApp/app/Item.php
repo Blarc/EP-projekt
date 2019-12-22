@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $fillable = [
-        'name'
-    ];
+    protected $fillable = ['name'];
 
-    public function shoppingList() {
-        return $this -> belongsTo('App\ShoppingList');
+    public function shoppingList()
+    {
+        return $this->belongsToMany(ShoppingList::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -41,28 +42,30 @@ class ItemsController extends Controller
 //        ]);
 
 //        Create Item
-//        $item = new Item;
-//        $item -> name = $request->input('name');
-//        $item -> save();
+        $item = new Item;
+        $item->name = $request->input('name');
+        $item->save();
 
-        return new Response($request -> all(), Response::HTTP_CREATED);
+        return new Response($item, Response::HTTP_CREATED);
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
     {
-        return new Response(Item::query() -> find($id), Response::HTTP_OK);
+        // TODO add exception
+        return new Response(Item::query()->find($id), Response::HTTP_OK);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -74,13 +77,14 @@ class ItemsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $id)
     {
-        $item = Item::query() -> findOrFail($id);
-        $item -> update($request -> all());
+        // FIXME
+        $item = Item::query()->findOrFail($id);
+        $item->update($request->all());
 
         return new Response($item, Response::HTTP_CREATED);
     }
@@ -88,13 +92,18 @@ class ItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function destroy($id)
     {
-        $item = Item::query() -> findOrFail($id);
-        $item -> delete();
+        // TODO add exception
+        $item = Item::query()->findOrFail($id);
+        try {
+            $item->delete();
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_NOT_FOUND);
+        }
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
