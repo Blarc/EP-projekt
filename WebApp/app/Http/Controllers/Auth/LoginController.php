@@ -60,7 +60,7 @@ class LoginController extends Controller
         $user = Auth::guard('api')->user();
 
         if ($user) {
-            $user->api_token = null;
+            $user->apiToken = null;
             $user->save();
         }
 
