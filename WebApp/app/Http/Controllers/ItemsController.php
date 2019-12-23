@@ -40,7 +40,7 @@ class ItemsController extends Controller
 //        $this -> validate($request, [
 //            'name' => 'required'
 //        ]);
-
+//        TODO validator
 //        Create Item
         $item = new Item;
         $item->name = $request->input('name');
@@ -58,8 +58,11 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-        // TODO add exception
-        return new Response(Item::query()->find($id), Response::HTTP_OK);
+        $item = Item::query()->find($id);
+        if ($item != null) {
+            return new Response($item, Response::HTTP_OK);
+        }
+        return new Response([], Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -82,11 +85,19 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // FIXME
-        $item = Item::query()->findOrFail($id);
-        $item->update($request->all());
+        // TODO add validator?
+        $item = Item::query()->find($id);
 
-        return new Response($item, Response::HTTP_CREATED);
+        if ($item != null) {
+            $name = $request->input('name');
+            if ($name != null) {
+                $item->name = $name;
+            }
+            $item->save();
+            return new Response($item, Response::HTTP_OK);
+        } else {
+            return new Response([], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -97,12 +108,11 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        // TODO add exception
         $item = Item::query()->findOrFail($id);
         try {
             $item->delete();
         } catch (Exception $e) {
-            return new Response($e, Response::HTTP_NOT_FOUND);
+            return new Response($e, Response::HTTP_BAD_REQUEST);
         }
 
         return new Response(null, Response::HTTP_NO_CONTENT);

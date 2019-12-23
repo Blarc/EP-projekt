@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\ShoppingList;
+use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ShoppingListsController extends Controller
 {
@@ -25,7 +28,7 @@ class ShoppingListsController extends Controller
      */
     public function create()
     {
-        //
+        //TODO
     }
 
     /**
@@ -41,9 +44,13 @@ class ShoppingListsController extends Controller
         // Create Shopping list
         $shoppingList = new ShoppingList;
         $shoppingList->name = $request->input('name');
-        // TODO add user id from auth
-//        $shoppingList->userId =
+        $shoppingList->user()->associate(User::query()->find(Auth::id()));
         $shoppingList->save();
+
+        $items = $request->input('items');
+        if (count($items) > 0) {
+            $shoppingList->items()->attach($items);
+        }
 
         return new Response($shoppingList, Response::HTTP_CREATED);
     }
@@ -56,8 +63,13 @@ class ShoppingListsController extends Controller
      */
     public function show($id)
     {
-        // TODO exception
-        return new Response(ShoppingList::query()->find($id), Response::HTTP_OK);
+        $shoppingList = ShoppingList::query()->find($id);
+
+        if ($shoppingList != null) {
+            return new Response(ShoppingList::query()->find($id), Response::HTTP_OK);
+        }
+        return new Response([], Response::HTTP_BAD_REQUEST);
+
     }
 
     /**
@@ -68,7 +80,7 @@ class ShoppingListsController extends Controller
      */
     public function edit($id)
     {
-        //
+        //TODO
     }
 
     /**
@@ -80,11 +92,27 @@ class ShoppingListsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // TODO exception validator
-        $shoppingList = ShoppingList::query()->findOrFail($id);
-        $shoppingList->update($request->all());
+        $shoppingList = ShoppingList::query()->find($id);
 
-        return new Response($shoppingList, Response::HTTP_CREATED);
+        if ($shoppingList != null && $shoppingList instanceof ShoppingList) {
+
+            $name = $request->input('name');
+            if ($name != null) {
+                $shoppingList->name = $name;
+            }
+
+            $items = $request->input('items');
+            if (count($items) > 0) {
+                $shoppingList->items()->sync($items);
+            }
+
+            // TODO check if this works
+            $shoppingList->save();
+            return new Response($shoppingList, Response::HTTP_OK);
+        } else {
+            return new Response($shoppingList, Response::HTTP_BAD_REQUEST);
+        }
+
     }
 
     /**
@@ -95,10 +123,15 @@ class ShoppingListsController extends Controller
      */
     public function destroy($id)
     {
-        // TODO exception
-        $shoppingList = ShoppingList::query()->findOrFail($id);
-        $shoppingList->delete();
-
-        return new Response(null, Response::HTTP_NO_CONTENT);
+        $shoppingList = ShoppingList::query()->find($id);
+        if ($shoppingList != null) {
+            try {
+                $shoppingList->delete();
+                return new Response([], Response::HTTP_NO_CONTENT);
+            } catch (Exception $e) {
+                return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
+        }
+        return new Response([], Response::HTTP_BAD_REQUEST);
     }
 }

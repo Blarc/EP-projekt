@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ShoppingList extends Model
 {
@@ -13,6 +14,12 @@ class ShoppingList extends Model
         return $this->belongsTo('App\User');
     }
 
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return BelongsToMany
+     */
     public function items()
     {
         return $this->belongsToMany(Item::class)->withTimestamps();
