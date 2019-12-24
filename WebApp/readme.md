@@ -12,6 +12,8 @@ Projekt ne rabi biti nujno v apache2/htdocs, vendar če
 želimo da je kje drugje, je potrebno spremeniti pot do
 direktorija v config-u (glej video).
 
+Za delovanje je potrebno preimenovati datoteko `.env.example` v `.env`.
+
 ##### Podatkovna baza (mySQL)
 V datoteki `.env` nastavimo potrebne parametere:
 ```
