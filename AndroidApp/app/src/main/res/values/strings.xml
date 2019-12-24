@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AndroidApp</string>
+    <string name="registerActivityName">Name</string>
+    <string name="registerActivityEmail">Email</string>
+    <string name="registerActivityPassword">Password</string>
+    <string name="registerActivityPasswordConfirm">Confirm password</string>
+    <string name="registerActivityButton">Register</string>
+    <string name="loginActivityEmail">Email</string>
+    <string name="loginActivityPassword">Password</string>
+    <string name="loginActivityLogin">Login</string>
+</resources>
