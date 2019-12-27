@@ -26,3 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
