@@ -64,7 +64,9 @@ class LoginController extends Controller
             $user->save();
         }
 
-        return response()->json(['data' => 'User logged out.'], 200);
+        Auth::logout();
+        //$this->middleware('guest')->except('logout');
+        return redirect('/');
 
     }
 }

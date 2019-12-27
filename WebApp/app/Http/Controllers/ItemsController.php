@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Item;
 use Exception;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        return new Response(Item::all());
+        $items = Item::all();
+        return view('items.index')->with('items', $items);
     }
 
     /**
