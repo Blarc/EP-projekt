@@ -40,6 +40,9 @@
                                 <a href="/home">Home</a>
                             </li>
                             <li class="dropdown-item">
+                                <a href="/preferences">Preferences</a>
+                            </li>
+                            <li class="dropdown-item">
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
