@@ -17,7 +17,8 @@ class ItemsTableSeeder extends Seeder
         // And now, let's create some items in our database:
         for ($i = 0; $i < 50; $i++) {
             Item::query()->create([
-                'name' => $faker->city
+                'name' => $faker->city,
+                'description' => $faker->name
             ]);
         }
 
