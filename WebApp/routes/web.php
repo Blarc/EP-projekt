@@ -22,15 +22,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-  Route::prefix('admin')->group(function() {
-    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
-    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route::get('/', 'AdminController@index')->name('admin.dashboard');
-  });
+Route::prefix('admin')->group(function() {
+Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+Route::get('/', 'AdminController@index')->name('admin.dashboard');
+});
+
+Route::get('/seller', 'SellerController@index')->name('admin.dashboard');
 
 if (Auth::guard('admin')->check()) {
   Route::get('/preferences', 'PagesController@index');
-} 
+}
 else {
   Route::get('/preferences', 'Auth\AdminLoginController@showLoginForm');
 
