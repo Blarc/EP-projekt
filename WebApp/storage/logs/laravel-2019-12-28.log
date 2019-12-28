@@ -258,3 +258,36 @@ Did you mean this?
 #32 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #33 {main}
 "} 
+[2019-12-28 17:46:27] local.ERROR: There are no commands defined in the "migrate:" namespace.
+
+Did you mean this?
+    migrate {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"migrate:\" namespace.
+
+Did you mean this?
+    migrate at C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\symfony\\console\\Application.php:598)
+[stacktrace]
+#0 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\symfony\\console\\Application.php(651): Symfony\\Component\\Console\\Application->findNamespace('migrate:')
+#1 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\symfony\\console\\Application.php(236): Symfony\\Component\\Console\\Application->find('migrate::refres...')
+#2 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\symfony\\console\\Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 
+[2019-12-28 17:47:36] local.ERROR: Command "seed" is not defined.
+
+Did you mean one of these?
+    db:seed
+    make:seeder {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"seed\" is not defined.
+
+Did you mean one of these?
+    db:seed
+    make:seeder at C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\symfony\\console\\Application.php:670)
+[stacktrace]
+#0 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\symfony\\console\\Application.php(236): Symfony\\Component\\Console\\Application->find('seed')
+#1 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\symfony\\console\\Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\xampp\\htdocs\\EP-projekt\\WebApp\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
