@@ -1,9 +1,9 @@
 package ep.project.androidapp.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ep.project.androidapp.R
@@ -56,6 +56,8 @@ class ItemsListActivity : AppCompatActivity(), ItemsListAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: Item) {
-        Toast.makeText(this, "Item name: ${item.name}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, ItemDetailsActivity::class.java)
+        intent.putExtra("item", item)
+        startActivity(intent);
     }
 }

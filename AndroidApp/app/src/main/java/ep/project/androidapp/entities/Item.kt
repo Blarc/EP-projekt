@@ -4,7 +4,9 @@ import java.io.Serializable
 
 data class Item(
     val id: Int = 0,
-    val name: String = ""
+    val name: String = "testName",
+    val description: String = "This is a test description." +
+            " If you see this, then the item has no description."
 
 
 ) : Serializable {
@@ -16,6 +18,7 @@ data class Item(
 
         if (id != other.id) return false
         if (name != other.name) return false
+        if (description != other.description) return false
 
         return true
     }
@@ -23,6 +26,7 @@ data class Item(
     override fun hashCode(): Int {
         var result = id
         result = 31 * result + name.hashCode()
+        result = 31 * result + description.hashCode()
         return result
     }
 }
