@@ -1,10 +1,12 @@
-package ep.project.androidapp
+package ep.project.androidapp.activities
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ep.project.androidapp.ApplicationObject
+import ep.project.androidapp.R
 import ep.project.androidapp.entities.User
 import ep.project.androidapp.services.UserService
 import kotlinx.android.synthetic.main.activity_register.*
@@ -25,28 +27,45 @@ class RegisterActivity : AppCompatActivity(), Callback<User> {
             registerLoading.visibility = View.VISIBLE
             registerButton.visibility = View.GONE
 
-            // TODO validator
-            UserService.instance.register(
-                registerName.text.trim().toString(),
-                registerEmail.text.trim().toString(),
-                registerPassword.text.trim().toString(),
-                registerPasswordConfirm.text.trim().toString()
-            ).enqueue(this)
+            val password = registerPassword.text.trim().toString()
+            val passwordConfirm = registerPasswordConfirm.text.trim().toString()
+
+            if (password == passwordConfirm) {
+                UserService.instance.register(
+                    registerName.text.trim().toString(),
+                    registerEmail.text.trim().toString(),
+                    password,
+                    passwordConfirm
+                ).enqueue(this)
+            } else {
+                registerLoading.visibility = View.GONE
+                registerButton.visibility = View.VISIBLE
+                Toast.makeText(this, "Password doesn't match!", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
     override fun onResponse(call: Call<User>, response: Response<User>) {
-        Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Success!", Toast.LENGTH_LONG).show()
 
         registerLoading.visibility = View.GONE
         registerButton.visibility = View.VISIBLE
+
+        (application as ApplicationObject).user = response.body()
+
+//        TODO
+//        val intent = Intent(this, LoginActivity::class.java)
+//        startActivity(intent);
+
     }
 
     override fun onFailure(call: Call<User>, t: Throwable) {
         Log.e(TAG, "Error: ${t.message}")
-        Toast.makeText(this, "Error: ${t.message}!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Error: ${t.message}!", Toast.LENGTH_LONG).show()
 
         registerLoading.visibility = View.GONE
         registerButton.visibility = View.VISIBLE
+
+        (application as ApplicationObject).user = null;
     }
 }

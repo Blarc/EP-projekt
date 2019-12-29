@@ -1,10 +1,12 @@
-package ep.project.androidapp
+package ep.project.androidapp.activities
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ep.project.androidapp.ApplicationObject
+import ep.project.androidapp.R
 import ep.project.androidapp.entities.User
 import ep.project.androidapp.services.UserService
 import kotlinx.android.synthetic.main.activity_login.*
@@ -39,6 +41,12 @@ class LoginActivity : AppCompatActivity(), Callback<User> {
 
         loginLoading.visibility = View.GONE
         loginButton.visibility = View.VISIBLE
+
+        (application as ApplicationObject).user = response.body();
+
+//        TODO
+//        val intent = Intent(this, LoginActivity::class.java)
+//        startActivity(intent);
     }
 
     override fun onFailure(call: Call<User>, t: Throwable) {
@@ -47,5 +55,7 @@ class LoginActivity : AppCompatActivity(), Callback<User> {
 
         loginLoading.visibility = View.GONE
         loginButton.visibility = View.VISIBLE
+
+        (application as ApplicationObject).user = null;
     }
 }
