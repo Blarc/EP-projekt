@@ -2,21 +2,24 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
+    use HasRoles;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstName', 'lastName', 'email', 'password',
     ];
 
     /**
@@ -37,16 +40,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function shoppingList()
-    {
-        return $this->hasMany('App\ShoppingList');
-    }
-
     public function generateToken()
     {
         $this->apiToken = Str::random(60);
         $this->save();
 
         return $this->apiToken;
+    }
+
+    public function shoppingList()
+    {
+        return $this->hasMany('App\ShoppingList');
     }
 }
