@@ -1,5 +1,6 @@
 package ep.project.androidapp.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -44,9 +45,8 @@ class LoginActivity : AppCompatActivity(), Callback<User> {
 
         (application as ApplicationObject).user = response.body();
 
-//        TODO
-//        val intent = Intent(this, LoginActivity::class.java)
-//        startActivity(intent);
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent);
     }
 
     override fun onFailure(call: Call<User>, t: Throwable) {

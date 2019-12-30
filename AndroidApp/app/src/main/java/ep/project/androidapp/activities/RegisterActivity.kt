@@ -1,7 +1,7 @@
 package ep.project.androidapp.activities
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +15,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity(), Callback<User> {
-
-    private val TAG = RegisterActivity::class.java.canonicalName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +51,11 @@ class RegisterActivity : AppCompatActivity(), Callback<User> {
 
         (application as ApplicationObject).user = response.body()
 
-//        TODO
-//        val intent = Intent(this, LoginActivity::class.java)
-//        startActivity(intent);
-
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent);
     }
 
     override fun onFailure(call: Call<User>, t: Throwable) {
-        Log.e(TAG, "Error: ${t.message}")
         Toast.makeText(this, "Error: ${t.message}!", Toast.LENGTH_LONG).show()
 
         registerLoading.visibility = View.GONE

@@ -11,4 +11,18 @@
     <string name="itemDetailsDescriptionPlaceholder">In post mean shot ye. There out her child sir his lived. Design at uneasy me season of branch on praise esteem. Abilities discourse believing consisted remaining to no. Mistaken no me denoting dashwood as screened. Whence or esteem easily he on. Dissuade husbands at of no if disposal. Eat imagine you chiefly few end ferrars compass. Be visitor females am ferrars inquiry. Latter law remark two lively thrown. Spot set they know rest its. Raptures law diverted believed jennings consider children the see. Had invited beloved carried the colonel. Occasional principles discretion it as he unpleasing boisterous. She bed sing dear now son half. Allow miles wound place the leave had. To sitting subject no improve studied limited. Ye indulgence unreserved connection alteration appearance my an astonished. Up as seen sent make he they of. Her raising and himself pasture believe females. Fancy she stuff after aware merit small his. Charmed esteems luckily age out.</string>
     <string name="itemDetailsDescriptionTag">Description:</string>
     <string name="itemDetailsIdTag">Id:</string>
+    <string name="itemDetailsRemoveButton">Remove from shopping list</string>
+    <string name="itemDetailsAddButton">Add to shopping list</string>
+    <string name="profileActivity.profile">Profile</string>
+    <string name="nameSettingsProfile">Name</string>
+    <string name="emailSettingsProfile">Email</string>
+    <string name="passwordSettingsProfile">Password</string>
+    <string name="passwordConfirmSettingsProfile">Confirm password</string>
+    <string name="saveButtonSettingsProfile">Save</string>
+
+    <string-array name="profileSpinnerEntries">
+        <item>Shopping lists</item>
+        <item>Settings</item>
+        <item>Log out</item>
+    </string-array>
 </resources>

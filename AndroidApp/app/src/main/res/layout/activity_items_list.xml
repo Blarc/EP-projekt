@@ -3,12 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.ItemsListActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/itemsListToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/itemsRecyclerView" />
+        android:id="@+id/itemsRecyclerView"
+        android:layout_below="@+id/itemsListToolbar" />
 
     <ProgressBar
         android:id="@+id/itemsListLoading"

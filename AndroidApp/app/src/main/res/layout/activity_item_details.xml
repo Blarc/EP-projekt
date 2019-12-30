@@ -69,4 +69,38 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:text="@string/itemDetailsAddButton"
+            android:background="@color/colorPrimary"
+            android:id="@+id/itemDetailsAddButton" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:text="@string/itemDetailsRemoveButton"
+            android:background="@color/colorAccent"
+            android:id="@+id/itemDetailsRemoveButton" />
+
+    </LinearLayout>
+
 </LinearLayout>

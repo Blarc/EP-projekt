@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import ep.project.androidapp.ApplicationObject
 import ep.project.androidapp.R
 import ep.project.androidapp.TopSpacingItemDecoration
 import ep.project.androidapp.adapters.ItemsListAdapter
@@ -25,6 +26,9 @@ class ItemsListActivity : AppCompatActivity(), ItemsListAdapter.Interaction {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items_list)
+        setSupportActionBar(findViewById(R.id.itemsListToolbar))
+
+        val appObject = application as ApplicationObject
 
         itemsListLoading.visibility = View.VISIBLE
         initView()
