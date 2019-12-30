@@ -18,7 +18,7 @@ class ItemsTableSeeder extends Seeder
         for ($i = 0; $i < 50; $i++) {
             Item::query()->create([
                 'name' => $faker->city,
-                'description' => $faker->name
+                'description' => $faker->paragraph
             ]);
         }
 
