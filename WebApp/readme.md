@@ -17,12 +17,12 @@ Za delovanje je potrebno preimenovati datoteko `.env.example` v `.env`.
 ##### Podatkovna baza (mySQL)
 V datoteki `.env` nastavimo potrebne parametere:
 ```
-- DB_CONNECTION=mysql
-- DB_HOST=127.0.0.1
-- DB_PORT=3306
-- DB_DATABASE=laravel
-- DB_USERNAME=root
-- DB_PASSWORD=password
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=password
 ```
 
 Poženemo migracijo:

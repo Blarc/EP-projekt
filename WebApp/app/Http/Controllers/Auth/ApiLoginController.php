@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -24,6 +26,7 @@ class ApiLoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+
     /**
      * Create a new controller instance.
      *
@@ -33,6 +36,7 @@ class ApiLoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
     public function login(Request $request)
     {
         $this->validateLogin($request);
@@ -45,6 +49,7 @@ class ApiLoginController extends Controller
         }
         return $this->sendFailedLoginResponse($request);
     }
+
     public function logout(Request $request)
     {
         $user = Auth::guard('api')->user();
