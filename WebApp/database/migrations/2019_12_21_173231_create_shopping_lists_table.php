@@ -13,7 +13,7 @@ class CreateShoppingListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shoppingLists', function (Blueprint $table) {
+        Schema::create('shopping_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('name')->default("New Shopping List");
@@ -28,6 +28,6 @@ class CreateShoppingListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shoppingLists');
+        Schema::dropIfExists('shopping_lists');
     }
 }

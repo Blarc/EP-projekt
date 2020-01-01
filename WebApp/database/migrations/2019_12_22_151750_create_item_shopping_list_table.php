@@ -13,7 +13,7 @@ class CreateItemShoppingListTable extends Migration
      */
     public function up()
     {
-        Schema::create('itemShoppingList', function (Blueprint $table) {
+        Schema::create('item_shopping_list', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('itemId')->unsigned();
@@ -24,7 +24,7 @@ class CreateItemShoppingListTable extends Migration
 //                ->onDelete('cascade')
 //                ->onUpdate('cascade');
 
-            $table->integer('shoppingListId')->unsigned();
+            $table->integer('shopping_list_id')->unsigned();
 
             $table->timestamps();
         });
@@ -37,6 +37,6 @@ class CreateItemShoppingListTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('itemShoppingList');
+        Schema::dropIfExists('item_shopping_list');
     }
 }

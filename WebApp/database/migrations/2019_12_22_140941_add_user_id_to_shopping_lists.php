@@ -13,8 +13,8 @@ class AddUserIdToShoppingLists extends Migration
      */
     public function up()
     {
-        Schema::table('shoppingLists', function (Blueprint $table) {
-            $table->integer('userId');
+        Schema::table('shopping_lists', function (Blueprint $table) {
+            $table->integer('user_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddUserIdToShoppingLists extends Migration
      */
     public function down()
     {
-        Schema::table('shoppingLists', function (Blueprint $table) {
-            $table->dropColumn(['userId']);
+        Schema::table('shopping_lists', function (Blueprint $table) {
+            $table->dropColumn(['user_id']);
         });
     }
 }
