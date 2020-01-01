@@ -20,12 +20,6 @@ class ApiLoginController extends Controller
     |
     */
     use AuthenticatesUsers;
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -43,9 +37,7 @@ class ApiLoginController extends Controller
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
             $user->generateToken();
-            return response()->json([
-                'data' => $user->toArray()
-            ]);
+            return response()->json($user->toArray());
         }
         return $this->sendFailedLoginResponse($request);
     }
@@ -57,6 +49,6 @@ class ApiLoginController extends Controller
             $user->apiToken = null;
             $user->save();
         }
-        return response()->json(['data' => 'User logged out.'], 200);
+        return response()->json('User logged out.', 200);
     }
 }
