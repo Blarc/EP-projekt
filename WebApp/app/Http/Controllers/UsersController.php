@@ -73,7 +73,7 @@ class UsersController extends Controller
                 $user->save();
                 return new Response($user, Response::HTTP_OK);
             } else {
-                return new Response("User does not exist!", Response::HTTP_BAD_REQUEST);
+                return new Response("User with specified id does not exist!", Response::HTTP_BAD_REQUEST);
             }
         } catch (Exception $e) {
             return new Response($e, Response::HTTP_BAD_REQUEST);
