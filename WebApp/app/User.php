@@ -24,7 +24,6 @@ class User extends Authenticatable
         'email', 
         'password',
         'telephone',
-        'address',
         'role',
     ];
 
@@ -57,5 +56,10 @@ class User extends Authenticatable
     public function shoppingList()
     {
         return $this->hasMany('App\ShoppingList');
+    }
+
+    public function address()
+    {
+        return $this->belongsTo('App\Address');
     }
 }

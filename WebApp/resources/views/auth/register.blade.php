@@ -40,6 +40,64 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="street" class="col-md-4 col-form-label text-md-right">{{ __('Street') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="street" type="street" class="form-control @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}" required autocomplete="street">
+
+                                @error('street')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="post" class="col-md-4 col-form-label text-md-right">{{ __('Post') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="post" type="post" class="form-control @error('post') is-invalid @enderror" name="post" value="{{ old('post') }}" required autocomplete="post">
+
+                                @error('post')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="postCode" class="col-md-4 col-form-label text-md-right">{{ __('Post Code') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="postCode" type="postCode" class="form-control @error('postCode') is-invalid @enderror" name="postCode" value="{{ old('postCode') }}" required autocomplete="postCode">
+
+                                @error('postCode')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="telephone" class="col-md-4 col-form-label text-md-right">{{ __('Telephone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="telephone" type="telephone" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}" required autocomplete="telephone">
+
+                                @error('telephone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">

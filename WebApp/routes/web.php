@@ -19,10 +19,7 @@ Route::get('/services', 'PagesController@services');
 
 Auth::routes();
 
-
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/seller', 'SellerController@index')->name('admin.dashboard');
 
 Route::resource('/', 'ItemsController');
 

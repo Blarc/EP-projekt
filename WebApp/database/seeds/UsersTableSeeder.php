@@ -16,33 +16,37 @@ class UsersTableSeeder extends Seeder
             'firstName' => "admin",
             'lastName' => "admin",
             'email' => 'admin@gmail.com',
-            'address' => "",
             'telephone' => "",
             'password' => bcrypt('asdfasdf'),
             'role' => 'admin',
         ]);
         $user->assignRole('admin');
+        $user->generateToken();
 
         $user = User::query()->create([
             'firstName' => "customer",
             'lastName' => "customer",
             'email' => 'customer@gmail.com',
-            'address' => 'Večna pot 113',
             'telephone' => '01 999 999',
             'password' => bcrypt('asdfasdf'),
             'role' => 'customer',
         ]);
         $user->assignRole('customer');
+        $user->generateToken();
+        $address = App\Address::find(1);
+        // $address->user()->associate($user);
+        $user->address()->associate($address);
+        $user->save();
 
         $user = User::query()->create([
             'firstName' => "seller",
             'lastName' => "seller",
             'email' => 'seller@gmail.com',
-            'address' => "",
             'telephone' => "",
             'password' => bcrypt('asdfasdf'),
             'role' => 'seller',
         ]);
         $user->assignRole('seller');
+        $user->generateToken();
     }
 }
