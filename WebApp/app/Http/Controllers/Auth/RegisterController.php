@@ -52,6 +52,8 @@ class RegisterController extends Controller
             'lastName' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'address' => 'required|max:255',
+            'telephone' => 'required|max:255'
         ]);
     }
 
@@ -68,6 +70,8 @@ class RegisterController extends Controller
             'lastName' => $data['lastName'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'address' => $data['address'],
+            'telephone' => $data['telephone']
         ]);
         $user->assignRole('customer');
         $user->generateToken();
