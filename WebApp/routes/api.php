@@ -28,8 +28,10 @@ Route::get('items/{id}', 'ItemsController@get');
 Route::post('items', 'ItemsController@post');
 
 // SHOPPING LISTS (public)
-Route::get('shoppingLists', 'ShoppingListsController@index');
-Route::get('shoppingLists/{id}', 'ShoppingListsController@show');
+Route::get('shoppingLists', 'ShoppingListsController@getAll');
+Route::get('shoppingLists/{id}', 'ShoppingListsController@get');
+Route::post('shoppingLists', 'ShoppingListsController@post');
+Route::put('shoppingLists/{id}/addItem', 'ShoppingListsController@putItems');
 
 // USERS (TODO will not be public)
 Route::get('users', 'UsersController@getAll');
@@ -43,7 +45,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('items/{id}', 'ItemsController@delete');
 
     // SHOPPING LISTS (locked)
-    Route::post('shoppingLists', 'ShoppingListsController@store');
-    Route::put('shoppingLists/{id}', 'ShoppingListsController@update');
-    Route::delete('shoppingLists/{id}', 'ShoppingListsController@destroy');
+    // Route::post('shoppingLists', 'ShoppingListsController@store');
+    Route::put('shoppingLists/{id}', 'ShoppingListsController@put');
+    Route::delete('shoppingLists/{id}', 'ShoppingListsController@delete');
 });

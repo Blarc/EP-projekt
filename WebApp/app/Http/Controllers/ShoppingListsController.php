@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ShoppingList;
+use App\Http\Resources\ShoppingListsResource as ShoppingListsResource;
+use App\Http\Resources\ShoppingListsDetailsResource as ShoppingListsDetailsResource;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -18,7 +20,7 @@ class ShoppingListsController extends Controller
      */
     public function index()
     {
-        return new Response(ShoppingList::all(), Response::HTTP_OK);
+        // TODO
     }
 
     /**
@@ -28,7 +30,7 @@ class ShoppingListsController extends Controller
      */
     public function create()
     {
-        //TODO
+        // TODO
     }
 
     /**
@@ -39,20 +41,7 @@ class ShoppingListsController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO exception validator
-
-        // Create Shopping list
-        $shoppingList = new ShoppingList;
-        $shoppingList->name = $request->input('name');
-        $shoppingList->user()->associate(User::query()->find(Auth::id()));
-        $shoppingList->save();
-
-        $items = $request->input('items');
-        if (count($items) > 0) {
-            $shoppingList->items()->attach($items);
-        }
-
-        return new Response($shoppingList, Response::HTTP_CREATED);
+        // TODO
     }
 
     /**
@@ -63,13 +52,7 @@ class ShoppingListsController extends Controller
      */
     public function show($id)
     {
-        $shoppingList = ShoppingList::query()->find($id);
-
-        if ($shoppingList != null) {
-            return new Response(ShoppingList::query()->find($id), Response::HTTP_OK);
-        }
-        return new Response([], Response::HTTP_BAD_REQUEST);
-
+        // TODO
     }
 
     /**
@@ -92,27 +75,7 @@ class ShoppingListsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $shoppingList = ShoppingList::query()->find($id);
-
-        if ($shoppingList != null && $shoppingList instanceof ShoppingList) {
-
-            $name = $request->input('name');
-            if ($name != null) {
-                $shoppingList->name = $name;
-            }
-
-            $items = $request->input('items');
-            if (count($items) > 0) {
-                $shoppingList->items()->sync($items);
-            }
-
-            // TODO check if this works
-            $shoppingList->save();
-            return new Response($shoppingList, Response::HTTP_OK);
-        } else {
-            return new Response($shoppingList, Response::HTTP_BAD_REQUEST);
-        }
-
+        // TODO
     }
 
     /**
@@ -123,15 +86,120 @@ class ShoppingListsController extends Controller
      */
     public function destroy($id)
     {
-        $shoppingList = ShoppingList::query()->find($id);
-        if ($shoppingList != null) {
-            try {
-                $shoppingList->delete();
-                return new Response([], Response::HTTP_NO_CONTENT);
-            } catch (Exception $e) {
-                return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
-            }
+        // TODO
+    }
+
+    /**
+     * API
+     */
+
+    public function getAll()
+    {
+        try {
+            // $shoppingLists = ShoppingList::query()->paginate(5);
+            $shoppingLists = ShoppingList::all();
+            return ShoppingListsResource::collection($shoppingLists);
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
         }
-        return new Response([], Response::HTTP_BAD_REQUEST);
+    }
+
+    public function get($id)
+    {
+        try {
+            $shoppingList = ShoppingList::query()->find($id);
+            if ($shoppingList != null) {
+                return new ShoppingListsDetailsResource($shoppingList);
+            }
+            return new Response("Shopping list with specified ID doesn't exist!", Response::HTTP_BAD_REQUEST);
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function post(Request $request)
+    {
+        try {
+            $shoppingList = new ShoppingList;
+            $name = $request->input('name');
+            if ($name != null) {
+                $shoppingList->name = $name;
+            }
+            else {
+                return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
+            }
+            $shoppingList->user()->associate(User::query()->find(Auth::id()));
+
+//            $items = $request->input('items');
+//            if (count($items) > 0) {
+//                $shoppingList->items()->attach($items);
+//            }
+
+            return new ShoppingListsDetailsResource($shoppingList);
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function put(Request $request, $id)
+    {
+        try {
+            $shoppingList = ShoppingList::query()->find($id);
+
+            if ($shoppingList != null) {
+                $name = $request->input('name');
+                if ($name != null) {
+                    $shoppingList->name = $name;
+                }
+                else {
+                    return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
+                }
+
+//                $items = $request->input('items');
+//                if (count($items) > 0) {
+//                    $shoppingList->items()->sync($items);
+//                }
+
+                return new ShoppingListsDetailsResource($shoppingList);
+            } else {
+                return new Response("Shopping list with specified id does not exist!", Response::HTTP_BAD_REQUEST);
+            }
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function putItems(Request $request, $id)
+    {
+        try {
+            $shoppingList = ShoppingList::query()->find($id);
+
+            if ($shoppingList != null) {
+                $items = $request->input('items');
+                if (count($items) > 0) {
+                    $shoppingList->items()->sync($items);
+                }
+                return new ShoppingListsDetailsResource($shoppingList);
+            } else {
+                return new Response("Shopping list with specified id does not exist!", Response::HTTP_BAD_REQUEST);
+            }
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $item = ShoppingList::query()->find($id);
+            if ($item != null) {
+                $item->delete();
+            } else {
+                return new Response("Item with specified id does not exist!", Response::HTTP_BAD_REQUEST);
+            }
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
+        }
     }
 }

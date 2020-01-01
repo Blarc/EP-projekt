@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ShoppingList extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'user_id'];
 
     public function user()
     {

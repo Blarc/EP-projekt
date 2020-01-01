@@ -16,7 +16,7 @@ class CreateItemShoppingListTable extends Migration
         Schema::create('item_shopping_list', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('itemId')->unsigned();
+            $table->integer('item_id')->unsigned();
             // TODO cascade?
 //            $table->foreign('item_id')
 //                ->references('id')

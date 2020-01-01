@@ -136,7 +136,13 @@ class ItemsController extends Controller
     {
         try {
             $item = new Item;
-            $item->name = $request->input('name');
+            $name = $request->input('name');
+            if ($name != null) {
+                $item->name = $name;
+            }
+            else {
+                return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
+            }
             $item->description = $request->input('description');
             $item->save();
 
@@ -164,6 +170,9 @@ class ItemsController extends Controller
                 $description = $request->input('description');
                 if ($name != null) {
                     $item->name = $name;
+                }
+                else {
+                    return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
                 }
                 if ($description != null) {
                     $item->description = $description;
