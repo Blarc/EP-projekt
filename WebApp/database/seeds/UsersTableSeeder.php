@@ -1,8 +1,5 @@
 <?php
 
-use App\Admin;
-use App\Customer;
-use App\Seller;
 use App\User;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
@@ -14,15 +11,15 @@ class UsersTableSeeder extends Seeder
     {
         // Let's truncate our existing records to start from scratch.
         User::query()->truncate();
-        //Admin::query()->truncate();
-        //Customer::query()->truncate();
-        //Seller::query()->truncate();
                 
         $user = User::query()->create([
             'firstName' => "admin",
             'lastName' => "admin",
             'email' => 'admin@gmail.com',
+            'address' => "",
+            'telephone' => "",
             'password' => bcrypt('asdfasdf'),
+            'role' => 'admin',
         ]);
         $user->assignRole('admin');
 
@@ -30,9 +27,10 @@ class UsersTableSeeder extends Seeder
             'firstName' => "customer",
             'lastName' => "customer",
             'email' => 'customer@gmail.com',
-            //'address' => 'Večna pot 113',
-            //'telephone_number' => '01 999 999',
+            'address' => 'Večna pot 113',
+            'telephone' => '01 999 999',
             'password' => bcrypt('asdfasdf'),
+            'role' => 'customer',
         ]);
         $user->assignRole('customer');
 
@@ -40,7 +38,10 @@ class UsersTableSeeder extends Seeder
             'firstName' => "seller",
             'lastName' => "seller",
             'email' => 'seller@gmail.com',
+            'address' => "",
+            'telephone' => "",
             'password' => bcrypt('asdfasdf'),
+            'role' => 'seller',
         ]);
         $user->assignRole('seller');
     }
