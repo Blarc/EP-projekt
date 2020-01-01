@@ -4,6 +4,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Resources\UsersDetailsResource;
+use App\Http\Resources\UsersResource;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class UsersController extends Controller
     {
         try {
             $users = User::all();
-            return new Response($users, Response::HTTP_OK);
+            return UsersResource::collection($users);
         } catch (Exception $e) {
             return new Response($e, Response::HTTP_BAD_REQUEST);
         }
@@ -24,9 +26,9 @@ class UsersController extends Controller
     public function get($id)
     {
         try {
-            $item = User::query()->find($id);
-            if ($item != null) {
-                return new Response($item, Response::HTTP_OK);
+            $user = User::query()->find($id);
+            if ($user != null) {
+                return new UsersDetailsResource($user);
             }
             return new Response("User with specified ID doesn't exist!", Response::HTTP_BAD_REQUEST);
         } catch (Exception $e) {
@@ -71,7 +73,7 @@ class UsersController extends Controller
                 }
                 $user->generateToken();
                 $user->save();
-                return new Response($user, Response::HTTP_OK);
+                return new UsersDetailsResource($user);
             } else {
                 return new Response("User with specified id does not exist!", Response::HTTP_BAD_REQUEST);
             }
