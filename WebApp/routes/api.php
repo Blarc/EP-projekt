@@ -22,7 +22,6 @@ Route::post('register', 'Auth\ApiRegisterController@register');
 Route::post('login', 'Auth\ApiLoginController@login');
 Route::post('logout', 'Auth\ApiLoginController@logout');
 
-
 // ITEMS (public)
 Route::get('items', 'ItemsController@getAll');
 Route::get('items/{id}', 'ItemsController@get');
@@ -31,6 +30,11 @@ Route::post('items', 'ItemsController@post');
 // SHOPPING LISTS (public)
 Route::get('shoppingLists', 'ShoppingListsController@index');
 Route::get('shoppingLists/{id}', 'ShoppingListsController@show');
+
+// USERS (TODO will not be public)
+Route::get('users', 'UsersController@getAll');
+Route::get('users/{id}', 'UsersController@get');
+Route::put('users/{id}', 'UsersController@put');
 
 Route::group(['middleware' => 'auth:api'], function () {
     // ITEMS (locked)
