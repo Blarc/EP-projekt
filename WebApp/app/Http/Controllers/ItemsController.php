@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ItemsDetailsResource;
+use App\Http\Resources\ItemsResource;
 use App\Item;
 use Exception;
 use Illuminate\Contracts\View\Factory;
@@ -92,45 +94,28 @@ class ItemsController extends Controller
      * API
      */
 
-    /**
-     * Returns all items in json format
-     *
-     * @return Response
-     */
     public function getAll()
     {
         try {
             $items = Item::all();
-            return new Response($items, Response::HTTP_OK);
+            return ItemsResource::collection($items);
         } catch (Exception $e) {
             return new Response($e, Response::HTTP_BAD_REQUEST);
         }
     }
 
-    /**
-     * Returns item with @param int $id in json format
-     *
-     * @return Response
-     */
     public function get($id)
     {
         try {
             $item = Item::query()->find($id);
             if ($item != null) {
-                return new Response($item, Response::HTTP_OK);
+               return new ItemsDetailsResource($item);
             }
             return new Response("Item with specified ID doesn't exist!", Response::HTTP_BAD_REQUEST);
         } catch (Exception $e) {
             return new Response($e, Response::HTTP_BAD_REQUEST);
         }
     }
-
-    /**
-     * Post request for creating new item
-     *
-     * @param Request $request
-     * @return Response
-     */
 
     public function post(Request $request)
     {
@@ -146,19 +131,11 @@ class ItemsController extends Controller
             $item->description = $request->input('description');
             $item->save();
 
-            return new Response($item, Response::HTTP_CREATED);
+            return new ItemsDetailsResource($item);
         } catch (Exception $e) {
             return new Response($e, Response::HTTP_BAD_REQUEST);
         }
     }
-
-    /**
-     * Put request for updating an item
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
 
     public function put(Request $request, $id)
     {
@@ -178,9 +155,9 @@ class ItemsController extends Controller
                     $item->description = $description;
                 }
                 $item->save();
-                return new Response($item, Response::HTTP_OK);
+                return new ItemsDetailsResource($item);
             } else {
-                return new Response([], Response::HTTP_BAD_REQUEST);
+                return new Response("Item with specified id does not exist!", Response::HTTP_BAD_REQUEST);
             }
         } catch (Exception $e) {
             return new Response($e, Response::HTTP_BAD_REQUEST);

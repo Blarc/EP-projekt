@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ShoppingList;
-use App\Http\Resources\ShoppingListsResource as ShoppingListsResource;
-use App\Http\Resources\ShoppingListsDetailsResource as ShoppingListsDetailsResource;
+use App\Http\Resources\ShoppingListsResource;
+use App\Http\Resources\ShoppingListsDetailsResource;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -135,6 +135,7 @@ class ShoppingListsController extends Controller
 //                $shoppingList->items()->attach($items);
 //            }
 
+            $shoppingList->save();
             return new ShoppingListsDetailsResource($shoppingList);
         } catch (Exception $e) {
             return new Response($e, Response::HTTP_BAD_REQUEST);
@@ -160,6 +161,7 @@ class ShoppingListsController extends Controller
 //                    $shoppingList->items()->sync($items);
 //                }
 
+                $shoppingList->save();
                 return new ShoppingListsDetailsResource($shoppingList);
             } else {
                 return new Response("Shopping list with specified id does not exist!", Response::HTTP_BAD_REQUEST);
@@ -179,6 +181,7 @@ class ShoppingListsController extends Controller
                 if (count($items) > 0) {
                     $shoppingList->items()->sync($items);
                 }
+                $shoppingList->save();
                 return new ShoppingListsDetailsResource($shoppingList);
             } else {
                 return new Response("Shopping list with specified id does not exist!", Response::HTTP_BAD_REQUEST);

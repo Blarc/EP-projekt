@@ -12,16 +12,16 @@ class User extends Authenticatable
 {
     use Notifiable;
     use HasRoles;
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'firstName', 
-        'lastName', 
-        'email', 
+        'firstName',
+        'lastName',
+        'email',
         'password',
         'telephone',
         'role',
@@ -53,7 +53,7 @@ class User extends Authenticatable
         return $this->apiToken;
     }
 
-    public function shoppingList()
+    public function shoppingLists()
     {
         return $this->hasMany('App\ShoppingList');
     }

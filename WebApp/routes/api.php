@@ -25,12 +25,15 @@ Route::post('logout', 'Auth\ApiLoginController@logout');
 // ITEMS (public)
 Route::get('items', 'ItemsController@getAll');
 Route::get('items/{id}', 'ItemsController@get');
+// TODO move to locked
 Route::post('items', 'ItemsController@post');
 
-// SHOPPING LISTS (public)
+// SHOPPING LISTS (public) TODO move to locked
 Route::get('shoppingLists', 'ShoppingListsController@getAll');
 Route::get('shoppingLists/{id}', 'ShoppingListsController@get');
 Route::post('shoppingLists', 'ShoppingListsController@post');
+Route::put('shoppingLists{id}', 'ShoppingListsController@put');
+Route::delete('shoppingLists{id}', 'ShoppingListsController@delete');
 Route::put('shoppingLists/{id}/addItem', 'ShoppingListsController@putItems');
 
 // USERS (TODO will not be public)
@@ -46,6 +49,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     // SHOPPING LISTS (locked)
     // Route::post('shoppingLists', 'ShoppingListsController@store');
-    Route::put('shoppingLists/{id}', 'ShoppingListsController@put');
-    Route::delete('shoppingLists/{id}', 'ShoppingListsController@delete');
+    // Route::put('shoppingLists/{id}', 'ShoppingListsController@put');
+    // Route::delete('shoppingLists/{id}', 'ShoppingListsController@delete');
 });

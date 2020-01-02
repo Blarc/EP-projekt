@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShoppingListsDetailsResource extends JsonResource
@@ -9,16 +10,17 @@ class ShoppingListsDetailsResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
+        self::withoutWrapping();
         return [
             'id' => $this -> id,
             'name' => $this -> name,
             'user_id' => $this -> user_id,
-            'items' => ItemResource::collection($this -> items)
+            'items' => ItemsResource::collection($this -> items)
         ];
     }
 }
