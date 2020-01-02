@@ -20,7 +20,8 @@ object ItemService {
         @POST("items")
         fun insert(
             @Field("name") name: String,
-            @Field("description") description: String
+            @Field("description") description: String,
+            @Field("price") price: Float
         ): Call<Item>
 
         @FormUrlEncoded
@@ -28,7 +29,8 @@ object ItemService {
         fun update(
             @Path("id") id: Int,
             @Field("name") name: String,
-            @Field("description") description: String
+            @Field("description") description: String,
+            @Field("price") price: Float
         ): Call<Item>
 
         @DELETE("items/{id}")

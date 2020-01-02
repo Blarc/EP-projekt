@@ -38,6 +38,29 @@
     </LinearLayout>
 
     <LinearLayout
+        android:paddingBottom="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/itemDetailsPriceTag"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:id="@+id/itemDetailsPrice" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:paddingBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,6 +80,7 @@
     <LinearLayout
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -87,8 +111,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:paddingRight="20dp"
-        android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

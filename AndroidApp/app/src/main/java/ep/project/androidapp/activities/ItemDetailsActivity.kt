@@ -17,6 +17,7 @@ class ItemDetailsActivity : AppCompatActivity() {
         itemDetailsName.text = item.name
         itemDetailsId.text = item.id.toString()
         itemDetailsDescription.text = item.description
+        itemDetailsPrice.text = getString(R.string.singleItemLayout_price, item.price)
 
     }
 }

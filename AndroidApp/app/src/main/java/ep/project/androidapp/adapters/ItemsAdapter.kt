@@ -65,8 +65,10 @@ class ItemsAdapter(private val interaction: Interaction? = null) :
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            itemView.itemName.text = item.name
             itemView.itemId.text = item.id.toString()
+            itemView.itemName.text = item.name
+            itemView.itemPrice.text =
+                resources.getString(R.string.singleItemLayout_price, item.price)
         }
     }
 
