@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UsersDetailsResource;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class ApiLoginController extends Controller
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
             $user->generateToken();
-            return response()->json($user->toArray());
+            return new UsersDetailsResource($user);
         }
         return $this->sendFailedLoginResponse($request);
     }
@@ -49,6 +50,6 @@ class ApiLoginController extends Controller
             $user->apiToken = null;
             $user->save();
         }
-        return response()->json('User logged out.', 200);
+        return new UsersDetailsResource($user);
     }
 }

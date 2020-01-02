@@ -34,7 +34,7 @@ Route::get('shoppingLists/{id}', 'ShoppingListsController@get');
 Route::post('shoppingLists', 'ShoppingListsController@post');
 Route::put('shoppingLists{id}', 'ShoppingListsController@put');
 Route::delete('shoppingLists{id}', 'ShoppingListsController@delete');
-Route::put('shoppingLists/{id}/addItem', 'ShoppingListsController@putItems');
+Route::put('shoppingLists/{id}/addItems', 'ShoppingListsController@addItems');
 
 // USERS (TODO will not be public)
 Route::get('users', 'UsersController@getAll');

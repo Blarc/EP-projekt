@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".MainActivity" >
+    tools:context=".activities.MainActivity">
 
     <TextView
         android:id="@+id/welcomeTv"
@@ -42,5 +42,15 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
+
+    <Button
+        android:id="@+id/itemsListBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Item list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
