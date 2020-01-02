@@ -37,6 +37,11 @@ class UsersController extends Controller
         }
     }
 
+    public function getCurrent(Request $request)
+    {
+        return new UsersDetailsResource($request->user('api'));
+    }
+
     public function put(Request $request, $id)
     {
         try {

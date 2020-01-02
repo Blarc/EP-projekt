@@ -2,10 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -48,10 +47,10 @@ class User extends Authenticatable
 
     public function generateToken()
     {
-        $this->apiToken = Str::random(60);
+        $this->api_token = Str::random(60);
         $this->save();
 
-        return $this->apiToken;
+        return $this->api_token;
     }
 
     public function shoppingLists()
