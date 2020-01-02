@@ -10,16 +10,17 @@ class ItemsDetailsResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
     {
         self::withoutWrapping();
         return [
-            'id' => $this -> id,
-            'name' => $this -> name,
-            'description' => $this -> description
+            'id' => $this->id,
+            'name' => $this->name,
+            'price' => $this->price,
+            'description' => $this->description
         ];
     }
 }

@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Address;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UsersDetailsResource;
 use App\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ApiRegisterController extends Controller
@@ -40,7 +38,7 @@ class ApiRegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -60,7 +58,7 @@ class ApiRegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return User
      */
     protected function create(array $data)
@@ -92,6 +90,6 @@ class ApiRegisterController extends Controller
     {
         $user->generateToken();
 
-        return response()->json($user->toArray(), 201);
+        return new UsersDetailsResource($user);
     }
 }

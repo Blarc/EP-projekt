@@ -109,7 +109,7 @@ class ItemsController extends Controller
         try {
             $item = Item::query()->find($id);
             if ($item != null) {
-               return new ItemsDetailsResource($item);
+                return new ItemsDetailsResource($item);
             }
             return new Response("Item with specified ID doesn't exist!", Response::HTTP_BAD_REQUEST);
         } catch (Exception $e) {
@@ -122,12 +122,18 @@ class ItemsController extends Controller
         try {
             $item = new Item;
             $name = $request->input('name');
+            $price = $request->input('price');
             if ($name != null) {
                 $item->name = $name;
-            }
-            else {
+            } else {
                 return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
             }
+            if ($price != null) {
+                $item->price = $price;
+            } else {
+                return new Response("Price must not be null!", Response::HTTP_BAD_REQUEST);
+            }
+
             $item->description = $request->input('description');
             $item->save();
 
@@ -145,11 +151,17 @@ class ItemsController extends Controller
             if ($item != null) {
                 $name = $request->input('name');
                 $description = $request->input('description');
+                $price = $request->input('price');
+
                 if ($name != null) {
                     $item->name = $name;
-                }
-                else {
+                } else {
                     return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
+                }
+                if ($price != null) {
+                    $item->price = $price;
+                } else {
+                    return new Response("Price must not be null!", Response::HTTP_BAD_REQUEST);
                 }
                 $item->description = $description;
                 $item->save();

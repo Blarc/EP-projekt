@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\ShoppingList;
-use App\Http\Resources\ShoppingListsResource;
 use App\Http\Resources\ShoppingListsDetailsResource;
+use App\Http\Resources\ShoppingListsResource;
+use App\ShoppingList;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -124,8 +124,7 @@ class ShoppingListsController extends Controller
             $name = $request->input('name');
             if ($name != null) {
                 $shoppingList->name = $name;
-            }
-            else {
+            } else {
                 return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
             }
             $shoppingList->user()->associate(User::query()->find(Auth::id()));
@@ -151,8 +150,7 @@ class ShoppingListsController extends Controller
                 $name = $request->input('name');
                 if ($name != null) {
                     $shoppingList->name = $name;
-                }
-                else {
+                } else {
                     return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
                 }
 
@@ -171,7 +169,7 @@ class ShoppingListsController extends Controller
         }
     }
 
-    public function putItems(Request $request, $id)
+    public function addItems(Request $request, $id)
     {
         try {
             $shoppingList = ShoppingList::query()->find($id);
@@ -179,7 +177,7 @@ class ShoppingListsController extends Controller
             if ($shoppingList != null) {
                 $items = $request->input('items');
                 if (count($items) > 0) {
-                    $shoppingList->items()->sync($items);
+                    $shoppingList->items()->sync(array_column($items, 'id'));
                 }
                 $shoppingList->save();
                 return new ShoppingListsDetailsResource($shoppingList);
