@@ -7,10 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import ep.project.androidapp.ApplicationObject
 import ep.project.androidapp.R
 import ep.project.androidapp.TopSpacingItemDecoration
-import ep.project.androidapp.adapters.ItemsListAdapter
+import ep.project.androidapp.adapters.ItemsAdapter
 import ep.project.androidapp.entities.Item
 import ep.project.androidapp.services.ItemService
 import kotlinx.android.synthetic.main.activity_items_list.*
@@ -18,18 +17,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ItemsListActivity : AppCompatActivity(), ItemsListAdapter.Interaction {
+class ItemsListActivity : AppCompatActivity(), ItemsAdapter.Interaction {
 
     private val TAG = this.javaClass.canonicalName
 
-    private lateinit var itemsAdapter: ItemsListAdapter
+    private lateinit var itemsAdapter: ItemsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items_list)
         setSupportActionBar(findViewById(R.id.itemsListToolbar))
-
-        val appObject = application as ApplicationObject
 
         itemsListLoading.visibility = View.VISIBLE
         initView()
@@ -57,7 +54,7 @@ class ItemsListActivity : AppCompatActivity(), ItemsListAdapter.Interaction {
             layoutManager = LinearLayoutManager(this@ItemsListActivity)
             val topSpacingItemDecoration = TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingItemDecoration)
-            itemsAdapter = ItemsListAdapter(this@ItemsListActivity)
+            itemsAdapter = ItemsAdapter(this@ItemsListActivity)
             adapter = itemsAdapter
         }
     }

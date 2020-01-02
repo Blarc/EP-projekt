@@ -19,15 +19,17 @@ object ItemService {
         @FormUrlEncoded
         @POST("items")
         fun insert(
-            @Field("name") name: String
-        ): Call<Void>
+            @Field("name") name: String,
+            @Field("description") description: String
+        ): Call<Item>
 
         @FormUrlEncoded
         @PUT("items/{id}")
         fun update(
             @Path("id") id: Int,
-            @Field("name") name: String
-        ): Call<Void>
+            @Field("name") name: String,
+            @Field("description") description: String
+        ): Call<Item>
 
         @DELETE("items/{id}")
         fun delete(@Path("id") id: Int): Call<Void>

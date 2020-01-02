@@ -10,7 +10,7 @@ import ep.project.androidapp.R
 import ep.project.androidapp.entities.Item
 import kotlinx.android.synthetic.main.single_item_layout.view.*
 
-class ItemsListAdapter(private val interaction: Interaction? = null) :
+class ItemsAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Item>() {

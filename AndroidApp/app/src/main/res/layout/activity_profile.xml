@@ -59,5 +59,12 @@
         android:id="@+id/shoppingListsProfile"
         android:paddingStart="20dp" />
 
+    <ProgressBar
+        android:id="@+id/loadingProfile"
+        android:layout_marginTop="30dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>
