@@ -18,7 +18,8 @@ class ItemsTableSeeder extends Seeder
         for ($i = 0; $i < 50; $i++) {
             Item::query()->create([
                 'name' => $faker->city,
-                'description' => $faker->paragraph
+                'description' => $faker->paragraph,
+                'price' => $faker->randomFloat(2, 0, 1000)
             ]);
         }
 
