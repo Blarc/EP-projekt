@@ -24,6 +24,8 @@ DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=password
 ```
+Za uporabo paketa laravel/permission:
+`composer require spatie/laravel-permission`
 
 Poženemo migracijo:
 `php artisan migrate`

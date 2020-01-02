@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Address;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -70,9 +71,6 @@ class RegisterController extends Controller
         $user = User::create([
             'firstName' => $data['firstName'],
             'lastName' => $data['lastName'],
-            'street' => $data['street'],
-            'post' => $data['post'],
-            'postCode' => $data['postCode'],
             'email' => $data['email'],
             'telephone' => $data['telephone'],
             'password' => bcrypt($data['password']),
@@ -80,6 +78,15 @@ class RegisterController extends Controller
         ]);
         $user->assignRole('customer');
         $user->generateToken();
+
+        $address = Address::create([
+            'street' => $data['street'],
+            'post' => $data['post'],
+            'postCode' => $data['postCode'],
+        ]);
+
+        $user->address()->associate($address);
+        $user->save();
 
         return $user;
     }
