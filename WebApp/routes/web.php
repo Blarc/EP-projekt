@@ -20,6 +20,8 @@ Route::get('/services', 'PagesController@services');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/preferences', 'HomeController@getPreferences')->name('preferences');
+Route::post('/preferences', 'HomeController@postPreferences')->name('preferences.submit');
 
 Route::resource('/', 'ItemsController');
 

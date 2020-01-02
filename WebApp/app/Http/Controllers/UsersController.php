@@ -66,7 +66,7 @@ class UsersController extends Controller
                     return new Response("Email is not valid!", Response::HTTP_BAD_REQUEST);
                 }
                 if ($password != null && strlen($password) >= 8 && $password == $passwordConfirmation) {
-                    $user->password = $password;
+                    $user->password = bcrypt($password);
                 }
                 else {
                     return new Response("Password must be at least 8 long and must match!", Response::HTTP_BAD_REQUEST);
