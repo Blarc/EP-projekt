@@ -18,9 +18,13 @@ class ProfileActivity : AppCompatActivity() {
 
         val appObject = application as ApplicationObject
         if (appObject.loggedIn) {
-            idProfile.text = appObject.user!!.id.toString()
-            nameProfile.text = appObject.user!!.name
-            emailProfile.text = appObject.user!!.email
+
+            val user = appObject.user!!
+
+            idProfile.text = user.id.toString()
+            nameProfile.text =
+                getString(R.string.profileActivity_name, user.firstName, user.lastName)
+            emailProfile.text = user.email
         }
     }
 

@@ -13,10 +13,15 @@ object UserService {
         @FormUrlEncoded
         @POST("register")
         fun register(
-            @Field("name") name: String,
+            @Field("firstName") firstName: String,
+            @Field("lastName") lastName: String,
             @Field("email") email: String,
             @Field("password") password: String,
-            @Field("password_confirmation") passwordConfirmation: String
+            @Field("password_confirmation") passwordConfirmation: String,
+            @Field("telephone") telephone: String,
+            @Field("street") street: String,
+            @Field("post") post: String,
+            @Field("postCode") postCode: String
         ): Call<User>
 
         @FormUrlEncoded
@@ -30,9 +35,15 @@ object UserService {
         @PUT("users/{id}")
         fun update(
             @Path("id") id: Int,
-            @Field("name") name: String,
+            @Field("firstName") firstName: String,
+            @Field("lastName") lastName: String,
             @Field("email") email: String,
-            @Field("password") password: String
+            @Field("street") street: String,
+            @Field("post") post: String,
+            @Field("postCode") postCode: String,
+            @Field("telephone") telephone: String,
+            @Field("password") password: String,
+            @Field("password_confirmation") passwordConfirmation: String
         ): Call<User>
 
     }

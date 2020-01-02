@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ep.project.androidapp.ApplicationObject
@@ -45,6 +46,8 @@ class ItemsListActivity : AppCompatActivity(), ItemsListAdapter.Interaction {
 
             override fun onFailure(call: Call<List<Item>>, t: Throwable) {
                 Log.e(TAG, "Error: ${t.message}")
+                Toast.makeText(this@ItemsListActivity, "Error: ${t.message}", Toast.LENGTH_LONG)
+                    .show()
             }
         })
     }
@@ -60,8 +63,20 @@ class ItemsListActivity : AppCompatActivity(), ItemsListAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: Item) {
-        val intent = Intent(this, ItemDetailsActivity::class.java)
-        intent.putExtra("item", item)
-        startActivity(intent);
+
+        val call = ItemService.instance.get(item.id)
+        call.enqueue(object : Callback<Item> {
+            override fun onResponse(call: Call<Item>, response: Response<Item>) {
+                val intent = Intent(this@ItemsListActivity, ItemDetailsActivity::class.java)
+                intent.putExtra("item", response.body()!!)
+                startActivity(intent);
+            }
+
+            override fun onFailure(call: Call<Item>, t: Throwable) {
+                Log.e(TAG, "Error: ${t.message}")
+                Toast.makeText(this@ItemsListActivity, "Error: ${t.message}", Toast.LENGTH_LONG)
+                    .show()
+            }
+        })
     }
 }

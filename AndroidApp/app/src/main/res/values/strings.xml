@@ -13,12 +13,25 @@
     <string name="itemDetailsIdTag">Id:</string>
     <string name="itemDetailsRemoveButton">Remove from shopping list</string>
     <string name="itemDetailsAddButton">Add to shopping list</string>
-    <string name="profileActivity.profile">Profile</string>
     <string name="nameSettingsProfile">Name</string>
     <string name="emailSettingsProfile">Email</string>
     <string name="passwordSettingsProfile">Password</string>
     <string name="passwordConfirmSettingsProfile">Confirm password</string>
     <string name="saveButtonSettingsProfile">Save</string>
+    <string name="profileActivity.profile">Profile</string>
+    <string name="profileActivity.name">%1$s %2$s</string>
+    <string name="firstNameSettingsProfile">First name</string>
+    <string name="lastNameSettingsProfile">Last name</string>
+    <string name="streetSettingsProfile">Street name</string>
+    <string name="postSettingsProfile">Post</string>
+    <string name="postCodeSettingsProfile">Post code</string>
+    <string name="telephoneSettingsProfile">Telephone number</string>
+    <string name="registerFirstName">First name</string>
+    <string name="registerLastName">Last name</string>
+    <string name="registerStreet">Street name</string>
+    <string name="registerPost">Post</string>
+    <string name="registerPostCode">Post code</string>
+    <string name="registerTelephone">Telephone number</string>
 
     <string-array name="profileSpinnerEntries">
         <item>Shopping lists</item>

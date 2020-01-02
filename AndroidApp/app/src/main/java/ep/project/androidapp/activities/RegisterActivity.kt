@@ -28,9 +28,14 @@ class RegisterActivity : AppCompatActivity(), Callback<User> {
             val password = registerPassword.text.trim().toString()
             val passwordConfirm = registerPasswordConfirm.text.trim().toString()
 
-            if (password == passwordConfirm) {
+            if (password.length >= 8 && password == passwordConfirm) {
                 UserService.instance.register(
-                    registerName.text.trim().toString(),
+                    registerFirstName.text.trim().toString(),
+                    registerLastName.text.trim().toString(),
+                    registerStreet.text.trim().toString(),
+                    registerPost.text.trim().toString(),
+                    registerPostCode.text.trim().toString(),
+                    registerTelephone.text.replace("\\s".toRegex(), ""),
                     registerEmail.text.trim().toString(),
                     password,
                     passwordConfirm
@@ -38,7 +43,8 @@ class RegisterActivity : AppCompatActivity(), Callback<User> {
             } else {
                 registerLoading.visibility = View.GONE
                 registerButton.visibility = View.VISIBLE
-                Toast.makeText(this, "Password doesn't match!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Password is too short or doesn't match!", Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }

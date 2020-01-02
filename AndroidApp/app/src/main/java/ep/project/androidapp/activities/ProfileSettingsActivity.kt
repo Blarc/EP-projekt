@@ -26,7 +26,12 @@ class ProfileSettingsActivity : AppCompatActivity(), Callback<User> {
 
         val user = (application as ApplicationObject).user!!
 
-        nameSettingsProfile.setText(user.name)
+        firstNameSettingsProfile.setText(user.firstName)
+        lastNameSettingsProfile.setText(user.lastName)
+        streetSettingsProfile.setText(user.address.street)
+        postSettingsProfile.setText(user.address.post)
+        postCodeSettingsProfile.setText(user.address.postCode)
+        telephoneSettingsProfile.setText(user.telephone)
         emailSettingsProfile.setText(user.email)
 
         saveButtonSettingsProfile.setOnClickListener {
@@ -37,18 +42,24 @@ class ProfileSettingsActivity : AppCompatActivity(), Callback<User> {
             val password = passwordSettingsProfile.text.trim().toString()
             val passwordConfirm = passwordConfirmSettingsProfile.text.trim().toString()
 
-            if (password == passwordConfirm) {
-                // TODO implement user API on server
+            if (password.length >= 8 && password == passwordConfirm) {
                 UserService.instance.update(
                     user.id,
-                    nameSettingsProfile.text.trim().toString(),
+                    firstNameSettingsProfile.text.trim().toString(),
+                    lastNameSettingsProfile.text.trim().toString(),
                     emailSettingsProfile.text.trim().toString(),
-                    password
+                    streetSettingsProfile.text.trim().toString(),
+                    postSettingsProfile.text.trim().toString(),
+                    postCodeSettingsProfile.text.trim().toString(),
+                    telephoneSettingsProfile.text.replace("\\s".toRegex(), ""),
+                    password,
+                    passwordConfirmSettingsProfile.text.trim().toString()
                 ).enqueue(this)
             } else {
                 loadingSettingsProfile.visibility = View.GONE
                 saveButtonSettingsProfile.visibility = View.VISIBLE
-                Toast.makeText(this, "Password doesn't match!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Password is too short or doesn't match!", Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
