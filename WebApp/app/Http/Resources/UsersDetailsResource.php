@@ -21,7 +21,7 @@ class UsersDetailsResource extends JsonResource
             'firstName' => $this -> firstName,
             'lastName' => $this -> lastName,
             'email' => $this -> email,
-            'address' => $this -> address,
+            'address' => new AddressResource($this -> address),
             'telephone' => $this -> telephone,
             'role' => $this -> role,
             'apiToken' => $this -> apiToken,

@@ -151,10 +151,9 @@ class ItemsController extends Controller
                 else {
                     return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
                 }
-                if ($description != null) {
-                    $item->description = $description;
-                }
+                $item->description = $description;
                 $item->save();
+
                 return new ItemsDetailsResource($item);
             } else {
                 return new Response("Item with specified id does not exist!", Response::HTTP_BAD_REQUEST);

@@ -2,6 +2,7 @@
 
 use App\Address;
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 
 class AddressTableSeeder extends Seeder
 {
@@ -12,12 +13,18 @@ class AddressTableSeeder extends Seeder
      */
     public function run()
     {
+        // Let's truncate our existing records to start from scratch.
         Address::query()->truncate();
 
-        $address = Address::query()->create([
-            'street' => "Večna Pot 113",
-            'post' => 'Ljubljana',
-            'postCode' => '1000',
-        ]);
+        $faker = Factory::create();
+
+        // And now, let's create some items in our database:
+        for ($i = 0; $i < 50; $i++) {
+            Address::query()->create([
+                'street' => $faker->streetAddress,
+                'post' => $faker->city,
+                'postCode' => $faker->postcode
+            ]);
+        }
     }
 }

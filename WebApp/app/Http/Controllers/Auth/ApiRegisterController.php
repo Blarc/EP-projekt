@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Address;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -46,10 +48,12 @@ class ApiRegisterController extends Controller
         return Validator::make($data, [
             'firstName' => 'required|max:255',
             'lastName' => 'required|max:255',
+            'street' => 'required|max:255',
+            'post' => 'required|max:255',
+            'postCode' => 'required|regex:/[0-9]{4}/',
+            'telephone' => 'required|regex:/[0-9]{9}/',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'address' => 'required|max:255',
-            'telephone' => 'required|max:255'
+            'password' => 'required|min:6|confirmed'
         ]);
     }
 
@@ -65,11 +69,21 @@ class ApiRegisterController extends Controller
             'firstName' => $data['firstName'],
             'lastName' => $data['lastName'],
             'email' => $data['email'],
+            'telephone' => $data['telephone'],
             'password' => bcrypt($data['password']),
-            'address' => $data['address'],
-            'telephone' => $data['telephone']
+            'role' => 'customer',
         ]);
         $user->assignRole('customer');
+        $user->generateToken();
+
+        $address = Address::create([
+            'street' => $data['street'],
+            'post' => $data['post'],
+            'postCode' => $data['postCode'],
+        ]);
+
+        $user->address()->associate($address);
+        $user->save();
 
         return $user;
     }

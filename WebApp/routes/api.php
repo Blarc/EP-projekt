@@ -41,6 +41,13 @@ Route::get('users', 'UsersController@getAll');
 Route::get('users/{id}', 'UsersController@get');
 Route::put('users/{id}', 'UsersController@put');
 
+// ADDRESSES
+Route::get('addresses', 'AddressesController@getAll');
+Route::get('addresses/{id}', 'AddressesController@get');
+Route::post('addresses/{id}', 'AddressesController@post');
+Route::put('addresses/{id}', 'AddressesController@put');
+Route::delete('addresses/{id}', 'AddressesController@delete');
+
 Route::group(['middleware' => 'auth:api'], function () {
     // ITEMS (locked)
     // Route::post('items', 'ItemsController@store');
