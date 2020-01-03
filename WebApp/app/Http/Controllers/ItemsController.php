@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Http\Resources\ItemsDetailsResource;
 use App\Http\Resources\ItemsResource;
 use App\Item;
@@ -22,6 +23,12 @@ class ItemsController extends Controller
     {
         $items = Item::all();
         return view('items.index')->with('items', $items);
+    }
+
+    public function sellerindex()
+    {
+        $items = DB::table('items')->paginate(10);
+        return view('seller.manage')->with('items', $items);
     }
 
     /**
@@ -56,6 +63,12 @@ class ItemsController extends Controller
         // TODO
     }
 
+    public function sellershow($id)
+    {
+        $item = Item::find($id);
+        return view('seller.create-item')->with('item', $item);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -65,6 +78,12 @@ class ItemsController extends Controller
     public function edit($id)
     {
         // TODO
+    }
+
+    public function selleredit($id)
+    {
+        $item = Item::find($id);
+        return view('seller.show')->with('item', $item);
     }
 
     /**
@@ -87,7 +106,9 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        // TODO
+        $item = Item::find($id);
+        $item->delete();
+        return redirect('/seller');
     }
 
     /**

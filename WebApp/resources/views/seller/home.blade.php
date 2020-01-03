@@ -28,9 +28,12 @@
                                 <a style='float: right;' href='{{ route('manageCustomer.submit', $customer->id) }}' type="button" class="btn btn-danger btn-sm">Deactivate customer</a>
                                 <a style='float: right;' href='{{ route('manageCustomer.submit', $customer->id) }}' type="button" class="btn btn-success btn-sm">Activate customer</a>
                             </li>
-                        @endforeach 
+                        @endforeach
                     </ul>
                     <a type="button" href='{{ route('createCustomer') }}' class="btn btn-primary">Create new customer</a>
+                    <a type="button" href='{{ route('manageItems') }}' class="btn btn-primary">Create new item</a>
+
+
                 </div>
             </div>
         </div>

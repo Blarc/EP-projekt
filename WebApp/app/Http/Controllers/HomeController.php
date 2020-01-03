@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user();
-        
+
         if ($user->hasPermissionTo('viewAdminHome')) {
             return view('admin.home');
         }
@@ -46,10 +46,10 @@ class HomeController extends Controller
 
     // preferences of current user
     public function getPreferences() {
-        
+
         $user = auth()->user();
         $address = (new AddressesController)->get($user->address_id);
-        
+
         if ($user->hasPermissionTo('viewAdminPreferences')) {
             return view('admin.preferences');
         }
@@ -64,21 +64,23 @@ class HomeController extends Controller
     }
 
     public function postPreferences(Request $request) {
-        
+
         $user = auth()->user();
 
-        $response = ($user->role == 'admin' || $user->role == 'seller' ? 
+        $response = ($user->role == 'admin' || $user->role == 'seller' ?
             (new UsersController)->putAdminOrSeller($request, $user->id) : (new UsersController)->put($request, $user->id));
-    
+
         if (!isset($response->id)) {
             return redirect()->back()->with('error', $response->original);
         }
         return redirect()->back()->with('success', 'Profile updated successfully');
-        
+
     }
 
     public function viewManagedProfile($id) {
-        
+
+    public function viewManagedProfile(Request $request, $id) {
+
         $user = auth()->user();
         if ($user->hasRole('admin')) {
             $seller = $user->sellers->find($id);
@@ -110,7 +112,7 @@ class HomeController extends Controller
             $customer = $user->customers->find($id);
             $response = (new UsersController)->put($request, $customer->id);
         }
-    
+
         //dd($response);
         if (!isset($response->id)) {
             return redirect()->back()->with('error', $response->original);
@@ -134,7 +136,7 @@ class HomeController extends Controller
     }
 
     public function createManagedProfile(Request $request) {
-        
+
         $user = auth()->user();
 
         if ($user->hasRole('admin')) {
@@ -169,13 +171,13 @@ class HomeController extends Controller
             ]);
             $customer->assignRole('customer');
             $customer->generateToken();
-    
+
             $address = Address::create([
                 'street' => $request['street'],
                 'post' => $request['post'],
                 'postCode' => $request['postCode'],
             ]);
-    
+
             $customer->address()->associate($address);
             $customer->save();
             $user->customers()->attach($customer);
@@ -184,7 +186,12 @@ class HomeController extends Controller
         }
 
         return view('seller.home')->with('error', 'Error occured when creating new profile!');
-        
+
+    }
+
+    public function createItem(){
+        // TODO
+        return view('seller.create-item');
     }
 
 }

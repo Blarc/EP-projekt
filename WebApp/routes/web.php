@@ -32,6 +32,11 @@ Route::post('/seller-create', 'HomeController@createManagedProfile')->name('crea
 // for updating and creating customer accounts
 Route::get('/customer-preferences/{id}', 'HomeController@viewManagedProfile')->name('manageCustomer');
 Route::post('/customer-preferences/{id}', 'HomeController@editManagedProfile')->name('manageCustomer.submit');
+Route::get('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer');
+Route::get('/item-manage', 'ItemsController@sellerindex')->name('manageItems');
+Route::get('/item-create', 'HomeController@createItem')->name('createItem');
+Route::get('/item-show/{id}', 'ItemsController@sellershow')->name('showItem');
+Route::get('/item/{id}/edit', 'ItemsController@selleredit')->name('editItem');
 Route::get('/customer-create', 'HomeController@viewCreateForm')->name('createCustomer');
 Route::post('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer.post');
 
