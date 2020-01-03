@@ -23,10 +23,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/preferences', 'HomeController@getPreferences')->name('preferences');
 Route::post('/preferences', 'HomeController@postPreferences')->name('preferences.submit');
 
+// for updating and creating seller accounts
 Route::get('/seller-preferences/{id}', 'HomeController@viewManagedProfile')->name('manageSeller');
 Route::post('/seller-preferences/{id}', 'HomeController@editManagedProfile')->name('manageSeller.submit');
-Route::get('/seller-create', 'HomeController@createManagedProfile')->name('createSeller');
+Route::get('/seller-create', 'HomeController@viewCreateForm')->name('createSeller');
+Route::post('/seller-create', 'HomeController@createManagedProfile')->name('createSeller.post');
 
+// for updating and creating customer accounts
 Route::get('/customer-preferences/{id}', 'HomeController@viewManagedProfile')->name('manageCustomer');
 Route::post('/customer-preferences/{id}', 'HomeController@editManagedProfile')->name('manageCustomer.submit');
 Route::get('/customer-create', 'HomeController@viewCreateForm')->name('createCustomer');

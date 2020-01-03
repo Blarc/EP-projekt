@@ -137,30 +137,54 @@ class HomeController extends Controller
         
         $user = auth()->user();
 
-        $customer = User::create([
-            'firstName' => $request['firstName'],
-            'lastName' => $request['lastName'],
-            'email' => $request['email'],
-            'telephone' => $request['telephone'],
-            'password' => bcrypt($request['password']),
-            'role' => 'customer',
-        ]);
-        $customer->assignRole('customer');
-        $customer->generateToken();
+        if ($user->hasRole('admin')) {
 
-        $address = Address::create([
-            'street' => $request['street'],
-            'post' => $request['post'],
-            'postCode' => $request['postCode'],
-        ]);
+            $seller = User::create([
+                'firstName' => $request['firstName'],
+                'lastName' => $request['lastName'],
+                'email' => $request['email'],
+                'telephone' => "",
+                'password' => bcrypt($request['password']),
+                'role' => 'seller',
+            ]);
 
-        $customer->address()->associate($address);
-        $customer->save();
+            $seller->assignRole('seller');
+            $seller->generateToken();
+            $seller->save();
+            $user->sellers()->attach($seller);
 
-        $user->customers()->attach($customer);
+            return redirect()->intended('/home')->with('success', 'Seller created successfully');
 
-        //return $user;
-        return view('seller.home');
+        }
+
+        else if ($user->hasRole('seller')) {
+
+            $customer = User::create([
+                'firstName' => $request['firstName'],
+                'lastName' => $request['lastName'],
+                'email' => $request['email'],
+                'telephone' => $request['telephone'],
+                'password' => bcrypt($request['password']),
+                'role' => 'customer',
+            ]);
+            $customer->assignRole('customer');
+            $customer->generateToken();
+    
+            $address = Address::create([
+                'street' => $request['street'],
+                'post' => $request['post'],
+                'postCode' => $request['postCode'],
+            ]);
+    
+            $customer->address()->associate($address);
+            $customer->save();
+            $user->customers()->attach($customer);
+
+            return redirect()->intended('/home')->with('success', 'Customer created successfully');
+        }
+
+        return view('seller.home')->with('error', 'Error occured when creating new profile!');
+        
     }
 
 }
