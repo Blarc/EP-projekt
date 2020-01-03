@@ -37,6 +37,8 @@
     <string name="profileActivity.shoppingLists">Shopping lists</string>
     <string name="profileToolbarLayout.username">%1$s %2$s</string>
     <string name="profileActivity.newShoppingListButton">New shopping list</string>
+    <string name="shoppingListDetailsToolbar.deleteButton">Delete</string>
+    <string name="shoppingListDetails.checkoutButton">Checkout</string>
 
     <string-array name="profileSpinnerEntries">
         <item>Shopping lists</item>

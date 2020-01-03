@@ -1,5 +1,6 @@
 package ep.project.androidapp.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -60,6 +61,7 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
             val editText = dialogLayout.findViewById<EditText>(R.id.alertDialogEditText)
             builder.setView(dialogLayout)
             builder.setPositiveButton("Create") { _, _ ->
+                loadingProfile.visibility = View.VISIBLE
                 addNewShoppingList(editText.text.trim().toString())
             }
             builder.show()
@@ -71,10 +73,11 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
         val call = ShoppingListService.instance.insert("Bearer ${user.apiToken}", name)
         call.enqueue(object : Callback<ShoppingList> {
             override fun onResponse(call: Call<ShoppingList>, response: Response<ShoppingList>) {
+                loadingProfile.visibility = View.GONE
                 Toast.makeText(
                     this@ProfileActivity,
                     "Created!",
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show();
                 refreshProfile()
             }
@@ -119,6 +122,21 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: ShoppingList) {
-        Toast.makeText(this, "Clicked on: ${item.name}!", Toast.LENGTH_LONG).show()
+        loadingProfile.visibility = View.VISIBLE
+        val call = ShoppingListService.instance.get(item.id)
+        call.enqueue(object : Callback<ShoppingList> {
+            override fun onResponse(call: Call<ShoppingList>, response: Response<ShoppingList>) {
+                val intent = Intent(this@ProfileActivity, ShoppingListDetailsActivity::class.java)
+                intent.putExtra("shoppingList", response.body()!!)
+                startActivity(intent);
+                loadingProfile.visibility = View.GONE
+            }
+
+            override fun onFailure(call: Call<ShoppingList>, t: Throwable) {
+                Toast.makeText(this@ProfileActivity, "Error: ${t.message}", Toast.LENGTH_LONG)
+                    .show()
+                loadingProfile.visibility = View.GONE
+            }
+        })
     }
 }
