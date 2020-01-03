@@ -20,7 +20,7 @@
                             <label for="firstName" class="col-md-4 col-form-label text-md-right">{{ __('First name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="firstName"  value={{ Auth::user()->firstName }} type="text" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}"   autocomplete="firstName" autofocus>
+                                <input id="firstName"  value='{{ Auth::user()->firstName }}' type="text" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}"   autocomplete="firstName" autofocus>
 
                                 @error('firstName')
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
                             <label for="lastName" class="col-md-4 col-form-label text-md-right">{{ __('Last name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="lastName"  value={{ Auth::user()->lastName }} type="text" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}"   autocomplete="lastName" autofocus>
+                                <input id="lastName"  value='{{ Auth::user()->lastName }}' type="text" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}"   autocomplete="lastName" autofocus>
 
                                 @error('lastName')
                                     <span class="invalid-feedback" role="alert">
@@ -48,7 +48,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email"  value={{ Auth::user()->email }} type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"   autocomplete="email">
+                                <input id="email"  value='{{ Auth::user()->email }}' type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"   autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">

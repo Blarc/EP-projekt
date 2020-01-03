@@ -99,14 +99,14 @@ class HomeController extends Controller
     public function editManagedProfile(Request $request, $id) {
 
         $user = auth()->user();
-        if ($user->role == 'admin') {
+        if ($user->hasRole('admin')) {
             $seller = $user->sellers->find($id);
             $response = (new UsersController)->putAdminOrSeller($request, $seller->id);
         }
 
         else {
             $customer = $user->customers->find($id);
-            $response = (new UsersController)->putAdminOrSeller($request, $customer->id);
+            $response = (new UsersController)->put($request, $customer->id);
         }
     
         //dd($response);

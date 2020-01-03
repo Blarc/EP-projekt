@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
             'firstName' => "customer",
             'lastName' => "customer",
             'email' => 'customer@gmail.com',
-            'telephone' => '01999999',
+            'telephone' => '01 999 999',
             'password' => bcrypt('asdfasdf'),
             'role' => 'customer',
         ]);

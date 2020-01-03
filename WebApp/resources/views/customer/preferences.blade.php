@@ -20,7 +20,7 @@
                             <label for="firstName" class="col-md-4 col-form-label text-md-right">{{ __('First name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="firstName"  value={{ Auth::user()->firstName }} type="text" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}"   autocomplete="firstName" autofocus>
+                                <input id="firstName"  value='{{ Auth::user()->firstName }}' type="text" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}"   autocomplete="firstName" autofocus>
 
                                 @error('firstName')
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
                             <label for="lastName" class="col-md-4 col-form-label text-md-right">{{ __('Last name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="lastName"  value={{ Auth::user()->lastName }} type="text" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}"   autocomplete="lastName" autofocus>
+                                <input id="lastName"  value='{{ Auth::user()->lastName }}' type="text" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}"   autocomplete="lastName" autofocus>
 
                                 @error('lastName')
                                     <span class="invalid-feedback" role="alert">
@@ -48,7 +48,7 @@
                             <label for="street" class="col-md-4 col-form-label text-md-right">{{ __('Street') }}</label>
 
                             <div class="col-md-6">
-                                <input id="street"  value={{ $address->street }} type="street" class="form-control @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}"   autocomplete="street">
+                                <input id="street"  value='{{ $address->street }}' type="street" class="form-control @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}"   autocomplete="street">
 
                                 @error('street')
                                     <span class="invalid-feedback" role="alert">
@@ -62,7 +62,7 @@
                             <label for="post" class="col-md-4 col-form-label text-md-right">{{ __('Post') }}</label>
 
                             <div class="col-md-6">
-                                <input id="post"  value={{ $address->post }} type="post" class="form-control @error('post') is-invalid @enderror" name="post" value="{{ old('post') }}"   autocomplete="post">
+                                <input id="post"  value='{{ $address->post }}' type="post" class="form-control @error('post') is-invalid @enderror" name="post" value="{{ old('post') }}"   autocomplete="post">
 
                                 @error('post')
                                     <span class="invalid-feedback" role="alert">
@@ -77,7 +77,7 @@
                             <label for="postCode" class="col-md-4 col-form-label text-md-right">{{ __('Post Code') }}</label>
 
                             <div class="col-md-6">
-                                <input id="postCode"  value={{ $address->postCode }} type="postCode" class="form-control @error('postCode') is-invalid @enderror" name="postCode" value="{{ old('postCode') }}"   autocomplete="postCode">
+                                <input id="postCode"  value='{{ $address->postCode }}' type="postCode" class="form-control @error('postCode') is-invalid @enderror" name="postCode" value="{{ old('postCode') }}"   autocomplete="postCode">
 
                                 @error('postCode')
                                     <span class="invalid-feedback" role="alert">
@@ -92,7 +92,7 @@
                             <label for="telephone" class="col-md-4 col-form-label text-md-right">{{ __('Telephone') }}</label>
 
                             <div class="col-md-6">
-                                <input id="telephone"  value={{ Auth::user()->telephone }} type="telephone" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}"   autocomplete="telephone">
+                                <input id="telephone"  value='{{ Auth::user()->telephone }}' type="telephone" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}"   autocomplete="telephone">
 
                                 @error('telephone')
                                     <span class="invalid-feedback" role="alert">
@@ -107,7 +107,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email"  value={{ Auth::user()->email }} type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"   autocomplete="email">
+                                <input id="email"  value='{{ Auth::user()->email }}' type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"   autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">

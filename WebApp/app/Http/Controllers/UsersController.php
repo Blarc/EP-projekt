@@ -97,6 +97,7 @@ class UsersController extends Controller
                 }
 
                 $user->generateToken();
+                $address->save();
                 $user->address()->associate($address);
                 $user->save();
                 return new UsersDetailsResource($user);
