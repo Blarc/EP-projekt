@@ -2,7 +2,9 @@ package ep.project.androidapp.activities
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ep.project.androidapp.ApplicationObject
@@ -11,12 +13,21 @@ import ep.project.androidapp.R
 import ep.project.androidapp.TopSpacingItemDecoration
 import ep.project.androidapp.adapters.ShoppingListsAdapter
 import ep.project.androidapp.entities.ShoppingList
+import ep.project.androidapp.entities.User
+import ep.project.androidapp.services.ShoppingListService
+import ep.project.androidapp.services.UserService
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.profile_toolbar_layout.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
 
+    private lateinit var appObject: ApplicationObject
     private lateinit var shoppingListsAdapter: ShoppingListsAdapter
-
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -26,21 +37,75 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
 
         loadingProfile.visibility = View.VISIBLE
 
-        val appObject = application as ApplicationObject
+        appObject = (application as ApplicationObject)
+
         if (appObject.loggedIn) {
 
-            val user = appObject.user!!
+            user = appObject.user!!
 
-            idProfile.text = user.id.toString()
-            nameProfile.text =
-                getString(R.string.profileActivity_name, user.firstName, user.lastName)
-            emailProfile.text = user.email
+            usernameToolbarProfile.text =
+                getString(R.string.profileToolbarLayout_username, user.firstName, user.lastName)
             initRecyclerView()
             shoppingListsAdapter.submitList(user.shoppingLists)
             loadingProfile.visibility = View.GONE
 
         }
 
+        newShoppingListButton.setOnClickListener {
+
+            val builder = AlertDialog.Builder(this)
+            val inflater = layoutInflater
+            builder.setTitle("New shopping list's name: ")
+            val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
+            val editText = dialogLayout.findViewById<EditText>(R.id.alertDialogEditText)
+            builder.setView(dialogLayout)
+            builder.setPositiveButton("Create") { _, _ ->
+                addNewShoppingList(editText.text.trim().toString())
+            }
+            builder.show()
+        }
+
+    }
+
+    private fun addNewShoppingList(name: String) {
+        val call = ShoppingListService.instance.insert("Bearer ${user.apiToken}", name)
+        call.enqueue(object : Callback<ShoppingList> {
+            override fun onResponse(call: Call<ShoppingList>, response: Response<ShoppingList>) {
+                Toast.makeText(
+                    this@ProfileActivity,
+                    "Created!",
+                    Toast.LENGTH_LONG
+                ).show();
+                refreshProfile()
+            }
+
+            override fun onFailure(call: Call<ShoppingList>, t: Throwable) {
+                Toast.makeText(
+                    this@ProfileActivity,
+                    "Failed to create: ${t.message}",
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+        })
+    }
+
+    private fun refreshProfile() {
+        val call = UserService.instance.getCurrent("Bearer ${user.apiToken}")
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                appObject.user = response.body()!!
+                user = response.body()!!
+                shoppingListsAdapter.submitList(user.shoppingLists)
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Toast.makeText(
+                    this@ProfileActivity,
+                    "Failed to refresh: ${t.message}",
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+        })
     }
 
     private fun initRecyclerView() {

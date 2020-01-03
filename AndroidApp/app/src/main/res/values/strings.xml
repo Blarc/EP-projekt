@@ -34,6 +34,9 @@
     <string name="registerTelephone">Telephone number</string>
     <string name="singleItemLayout.price">%1$.2f€</string>
     <string name="itemDetailsPriceTag">Price:</string>
+    <string name="profileActivity.shoppingLists">Shopping lists</string>
+    <string name="profileToolbarLayout.username">%1$s %2$s</string>
+    <string name="profileActivity.newShoppingListButton">New shopping list</string>
 
     <string-array name="profileSpinnerEntries">
         <item>Shopping lists</item>

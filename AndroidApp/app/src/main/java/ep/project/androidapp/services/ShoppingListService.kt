@@ -3,6 +3,8 @@ package ep.project.androidapp.services
 import ep.project.androidapp.entities.Item
 import ep.project.androidapp.entities.ShoppingList
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 object ShoppingListService {
@@ -17,8 +19,8 @@ object ShoppingListService {
         @FormUrlEncoded
         @POST("shoppingLists")
         fun insert(
-            @Field("name") name: String,
-            @Field("user_id") userId: Int
+            @Header("Authorization") apiToken: String,
+            @Field("name") name: String
         ): Call<ShoppingList>
 
         @FormUrlEncoded
@@ -37,5 +39,15 @@ object ShoppingListService {
 
         @DELETE("shoppingLists/{id}")
         fun delete(@Path("id") id: Int): Call<Void>
+    }
+
+    val instance: RestApi by lazy {
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(ep.project.androidapp.Constants.URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        retrofit.create(RestApi::class.java)
     }
 }

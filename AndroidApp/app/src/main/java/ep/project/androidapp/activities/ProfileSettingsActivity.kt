@@ -11,6 +11,7 @@ import ep.project.androidapp.R
 import ep.project.androidapp.entities.User
 import ep.project.androidapp.services.UserService
 import kotlinx.android.synthetic.main.activity_profile_settings.*
+import kotlinx.android.synthetic.main.profile_toolbar_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +26,9 @@ class ProfileSettingsActivity : AppCompatActivity(), Callback<User> {
         ProfileSpinner(this)
 
         val user = (application as ApplicationObject).user!!
+
+        usernameToolbarProfile.text =
+            getString(R.string.profileToolbarLayout_username, user.firstName, user.lastName)
 
         firstNameSettingsProfile.setText(user.firstName)
         lastNameSettingsProfile.setText(user.lastName)
@@ -51,7 +55,7 @@ class ProfileSettingsActivity : AppCompatActivity(), Callback<User> {
                     streetSettingsProfile.text.trim().toString(),
                     postSettingsProfile.text.trim().toString(),
                     postCodeSettingsProfile.text.trim().toString(),
-                    telephoneSettingsProfile.text.replace("\\s".toRegex(), ""),
+                    telephoneSettingsProfile.text.toString(),
                     password,
                     passwordConfirmSettingsProfile.text.trim().toString()
                 ).enqueue(this)

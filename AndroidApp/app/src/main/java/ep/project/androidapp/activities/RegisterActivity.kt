@@ -19,6 +19,7 @@ class RegisterActivity : AppCompatActivity(), Callback<User> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        setSupportActionBar(findViewById(R.id.registerToolbar))
 
         registerButton.setOnClickListener {
 
@@ -32,13 +33,13 @@ class RegisterActivity : AppCompatActivity(), Callback<User> {
                 UserService.instance.register(
                     registerFirstName.text.trim().toString(),
                     registerLastName.text.trim().toString(),
-                    registerStreet.text.trim().toString(),
-                    registerPost.text.trim().toString(),
-                    registerPostCode.text.trim().toString(),
-                    registerTelephone.text.replace("\\s".toRegex(), ""),
                     registerEmail.text.trim().toString(),
                     password,
-                    passwordConfirm
+                    passwordConfirm,
+                    registerTelephone.text.toString(),
+                    registerStreet.text.trim().toString(),
+                    registerPost.text.trim().toString(),
+                    registerPostCode.text.trim().toString()
                 ).enqueue(this)
             } else {
                 registerLoading.visibility = View.GONE

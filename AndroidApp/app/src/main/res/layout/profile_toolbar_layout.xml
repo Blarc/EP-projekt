@@ -23,7 +23,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="20"
             android:textSize="20sp"
-            android:id="@+id/tabNameToolbarProfile" />
+            android:text="@string/profileToolbarLayout.username"
+            android:id="@+id/usernameToolbarProfile" />
 
         <Spinner
             android:layout_width="wrap_content"
