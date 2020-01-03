@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Item;
 use App\Address;
 use Auth;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\ItemsController;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -197,7 +199,29 @@ class HomeController extends Controller
 
     }
 
-    public function createItem(){
+    public function editItemSeller(Request $request, $id){
+
+        $item = Item::find($id);
+        $response = (new ItemsController)->put($request, $item->id);
+
+        //dd($response);
+        if (!isset($response->id)) {
+            return redirect()->back()->with('error', $response->original);
+        }
+        return redirect()->intended('/item-manage')->with('success', 'Item updated successfully');
+    }
+
+    public function createItem(Request $request){
+        $item = Item::create([
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'price' => $request['price']
+        ]);
+        $item->save();
+        return redirect()->intended('/item-manage')->with('success', 'Item created successfully');
+    }
+
+    public function viewCreateItemForm(){
         // TODO
         return view('seller.create-item');
     }

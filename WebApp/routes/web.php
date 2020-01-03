@@ -38,9 +38,11 @@ Route::get('/customer-create', 'HomeController@createManagedProfile')->name('cre
 Route::get('/changeProfileStatus/{id}', 'HomeController@changeProfileStatus')->name('changeProfileStatus');
 
 Route::get('/item-manage', 'ItemsController@sellerindex')->name('manageItems');
-Route::get('/item-create', 'HomeController@createItem')->name('createItem');
+Route::get('/item-create', 'HomeController@viewCreateItemForm')->name('createItem');
+Route::post('/item-create', 'HomeController@createItem')->name('createItem.post');
+Route::post('/customer-edit-profile/{id}', 'HomeController@editItemSeller')->name('sellerItem.submit');
 Route::get('/item-show/{id}', 'ItemsController@sellershow')->name('showItem');
-Route::get('/item/{id}/edit', 'ItemsController@selleredit')->name('editItem');
+Route::get('/seller/item/{id}/edit', 'ItemsController@selleredit')->name('editItem');
 Route::get('/customer-create', 'HomeController@viewCreateForm')->name('createCustomer');
 Route::post('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer.post');
 Route::get('/seller/shoppingLists', 'ShoppingListsController@index')->name('indexSL');
