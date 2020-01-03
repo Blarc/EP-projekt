@@ -147,7 +147,7 @@ class UsersController extends Controller
                 else {
                     return new Response("Password must be at least 8 long and must match!", Response::HTTP_BAD_REQUEST);
                 }
-                
+
                 $user->generateToken();
                 $user->save();
                 return new UsersDetailsResource($user);
