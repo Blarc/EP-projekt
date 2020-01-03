@@ -6,11 +6,9 @@ use DB;
 use App\Http\Resources\ShoppingListsDetailsResource;
 use App\Http\Resources\ShoppingListsResource;
 use App\ShoppingList;
-use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class ShoppingListsController extends Controller
 {
@@ -138,12 +136,14 @@ class ShoppingListsController extends Controller
         try {
             $shoppingList = new ShoppingList;
             $name = $request->input('name');
+            $userId = $request->input('userId');
             if ($name != null) {
                 $shoppingList->name = $name;
             } else {
                 return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
             }
-            $shoppingList->user()->associate(User::query()->find(Auth::id()));
+
+            $shoppingList->user_id = $request->user('api')->id;
 
 //            $items = $request->input('items');
 //            if (count($items) > 0) {
