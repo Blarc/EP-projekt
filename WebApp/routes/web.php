@@ -42,8 +42,8 @@ Route::post('/customer-create', 'HomeController@createManagedProfile')->name('cr
 Route::get('/seller/shoppingLists', 'ShoppingListsController@index')->name('indexSL');
 Route::get('/seller/sl/{id}/delete', 'ShoppingListsController@destroy')->name('deleteSL');
 Route::get('/seller/item/{id}/delete', 'ItemsController@destroy')->name('deleteItem');
-
-//Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->name('acceptSL');
+Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->name('acceptSL');
+Route::get('/seller/sl/{id}/stornate', 'ShoppingListsController@stornate')->name('stornateSL');
 
 
 Route::resource('/', 'ItemsController');

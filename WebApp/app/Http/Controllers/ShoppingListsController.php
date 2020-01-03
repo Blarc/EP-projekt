@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Http\Resources\ShoppingListsDetailsResource;
 use App\Http\Resources\ShoppingListsResource;
 use App\ShoppingList;
@@ -89,6 +90,18 @@ class ShoppingListsController extends Controller
     {
         $sl = ShoppingList::find($id);
         $sl->delete();
+        return redirect('/seller/shoppingLists');
+    }
+
+    public function accept($id)
+    {
+        DB::table('shopping_lists')->where('id', $id)->update(['status' => '1']);
+        return redirect('/seller/shoppingLists');
+    }
+
+    public function stornate($id)
+    {
+        DB::table('shopping_lists')->where('id', $id)->update(['status' => '0']);
         return redirect('/seller/shoppingLists');
     }
 
