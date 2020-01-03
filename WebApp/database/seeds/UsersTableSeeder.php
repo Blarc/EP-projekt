@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             'telephone' => "",
             'password' => bcrypt('asdfasdf'),
             'role' => 'admin',
+            'active' => true,
         ]);
         
         $admin->assignRole('admin');
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder
             'telephone' => '01 999 999',
             'password' => bcrypt('asdfasdf'),
             'role' => 'customer',
+            'active' => true,
         ]);
         $customer->assignRole('customer');
         $customer->generateToken();
@@ -45,6 +47,7 @@ class UsersTableSeeder extends Seeder
             'telephone' => "",
             'password' => bcrypt('asdfasdf'),
             'role' => 'seller',
+            'active' => true,
         ]);
         $seller->assignRole('seller');
         $seller->generateToken();

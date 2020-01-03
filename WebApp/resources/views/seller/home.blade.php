@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header">
                     SELLER Dashboard
-                    <a style='float: right;' href='/preferences' class="btn btn-primary">
-                        {{ __('Preferences') }}
+                    <a style='float: right;' href='/edit-profile' class="btn btn-primary">
+                        {{ __('Edit profile') }}
                     </a>
                 </div>
 
@@ -25,8 +25,11 @@
                                 {{ $customer->firstName }}
                                 {{ $customer->lastName }}
                                 <a style='float: right;' href='{{ route('manageCustomer.submit', $customer->id) }}' type="button" class="btn btn-primary btn-sm">Edit customer profile</a>
-                                <a style='float: right;' href='{{ route('manageCustomer.submit', $customer->id) }}' type="button" class="btn btn-danger btn-sm">Deactivate customer</a>
-                                <a style='float: right;' href='{{ route('manageCustomer.submit', $customer->id) }}' type="button" class="btn btn-success btn-sm">Activate customer</a>
+                                @if($customer->active)
+                                    <a style='float: right;' href='{{ route('changeProfileStatus', $customer->id) }}' type="button" class="btn btn-danger btn-sm">Deactivate customer</a>
+                                @else
+                                    <a style='float: right;' href='{{ route('changeProfileStatus', $customer->id) }}' type="button" class="btn btn-success btn-sm">Activate customer</a>
+                                @endif
                             </li>
                         @endforeach
                     </ul>

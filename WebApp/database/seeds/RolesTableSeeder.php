@@ -12,15 +12,15 @@ class RolesTableSeeder extends Seeder
         
         $role = Role::query()->create(['name' => 'admin']);
         $role->givePermissionTo('viewAdminHome');
-        $role->givePermissionTo('viewAdminPreferences');
+        $role->givePermissionTo('viewAdminEditProfile');
 
         $role = Role::query()->create(['name' => 'customer']);
         $role->givePermissionTo('viewCustomerHome');
-        $role->givePermissionTo('viewCustomerPreferences');
+        $role->givePermissionTo('viewCustomerEditProfile');
 
         $role = Role::query()->create(['name' => 'seller']);
         $role->givePermissionTo('viewSellerHome');
-        $role->givePermissionTo('viewSellerPreferences');
+        $role->givePermissionTo('viewSellerEditProfile');
 
     }
 }

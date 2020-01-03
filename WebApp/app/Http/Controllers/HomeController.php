@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Address;
+use Auth;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AddressesController;
 use Illuminate\Http\Request;
@@ -29,41 +30,49 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->hasPermissionTo('viewAdminHome')) {
-            return view('admin.home');
+        if ($user->active) {
+            if ($user->hasPermissionTo('viewAdminHome')) {
+                return view('admin.home');
+            }
+    
+            if ($user->hasPermissionTo('viewCustomerHome')) {
+                return view('customer.home');
+            }
+    
+            if ($user->hasPermissionTo('viewSellerHome')) {
+                return view('seller.home');
+            }
+
+            return view('welcome');
         }
 
-        if ($user->hasPermissionTo('viewCustomerHome')) {
-            return view('customer.home');
+        else {
+            Auth::logout();
+            return redirect()->back()->with('error', 'Can\'t login.');
         }
-
-        if ($user->hasPermissionTo('viewSellerHome')) {
-            return view('seller.home');
-        }
-
-        return view('welcome');
+        
     }
 
-    // preferences of current user
-    public function getPreferences() {
+    // edit-profile of current user
+    public function getEditProfile() {
 
         $user = auth()->user();
         $address = (new AddressesController)->get($user->address_id);
 
-        if ($user->hasPermissionTo('viewAdminPreferences')) {
-            return view('admin.preferences');
+        if ($user->hasPermissionTo('viewAdminEditProfile')) {
+            return view('admin.edit-profile');
         }
 
-        if ($user->hasPermissionTo('viewCustomerPreferences')) {
-            return view('customer.preferences')->with('address', $address);
+        if ($user->hasPermissionTo('viewCustomerEditProfile')) {
+            return view('customer.edit-profile')->with('address', $address);
         }
 
-        if ($user->hasPermissionTo('viewSellerPreferences')) {
-            return view('seller.preferences');
+        if ($user->hasPermissionTo('viewSellerEditProfile')) {
+            return view('seller.edit-profile');
         }
     }
 
-    public function postPreferences(Request $request) {
+    public function postEditProfile(Request $request) {
 
         $user = auth()->user();
 
@@ -78,12 +87,11 @@ class HomeController extends Controller
     }
 
 
-    public function viewManagedProfile(Request $request, $id) {
-
         $user = auth()->user();
+
         if ($user->hasRole('admin')) {
             $seller = $user->sellers->find($id);
-            return view('admin.seller-preferences')->with('seller', $seller);
+            return view('admin.seller-edit-profile')->with('seller', $seller);
         }
 
         if ($user->hasRole('seller')) {
@@ -93,7 +101,7 @@ class HomeController extends Controller
                 'address'  => $address,
                 'customer' => $customer,
             ];
-            return view('seller.customer-preferences')->with($data);
+            return view('seller.customer-edit-profile')->with($data);
         }
 
     }
@@ -147,6 +155,7 @@ class HomeController extends Controller
                 'telephone' => "",
                 'password' => bcrypt($request['password']),
                 'role' => 'seller',
+                'active' => true,
             ]);
 
             $seller->assignRole('seller');
@@ -167,6 +176,7 @@ class HomeController extends Controller
                 'telephone' => $request['telephone'],
                 'password' => bcrypt($request['password']),
                 'role' => 'customer',
+                'active' => true,
             ]);
             $customer->assignRole('customer');
             $customer->generateToken();
@@ -185,6 +195,18 @@ class HomeController extends Controller
         }
 
         return view('seller.home')->with('error', 'Error occured when creating new profile!');
+
+    }
+
+    public function changeProfileStatus($id) {
+
+        $user = auth()->user();
+        
+        $profile = ($user->hasRole('admin') ? $user->sellers->find($id) : $user->customers->find($id));
+        $profile->active = !$profile->active;
+        $profile->save();
+        
+        return redirect()->intended('/home');
 
     }
 

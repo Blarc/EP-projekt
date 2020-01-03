@@ -5,10 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Edit profile') }}</div>
+                <div class="card-header">
+                    {{ __('Edit profile') }}
+                    <a style='float: right;' href='/home' class="btn btn-primary">
+                        {{ __('Back') }}
+                    </a>
+                </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('preferences.submit') }}">
+                    <form method="POST" action="{{ route('edit-profile.submit') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -80,9 +85,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Edit') }}
                                 </button>
-                                <a style='float: right;' href='/home' class="btn btn-primary">
-                                    {{ __('Back') }}
-                                </a>
                             </div>
                         </div>
                     </form>

@@ -6,14 +6,14 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    CUSTOMER Dashboard
-                    <a style='float: right;' href='/preferences' class="btn btn-primary">
-                        {{ __('Preferences') }}
+                    ADMIN Dashboard
+                    <a style='float: right;' href='/home' class="btn btn-primary">
+                        {{ __('Back') }}
                     </a>
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('preferences.submit') }}">
+                    <form method="POST" action="{{ route('edit-profile.submit') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -43,65 +43,6 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="street" class="col-md-4 col-form-label text-md-right">{{ __('Street') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="street"  value='{{ $address->street }}' type="street" class="form-control @error('street') is-invalid @enderror" name="street" value="{{ old('street') }}"   autocomplete="street">
-
-                                @error('street')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="post" class="col-md-4 col-form-label text-md-right">{{ __('Post') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="post"  value='{{ $address->post }}' type="post" class="form-control @error('post') is-invalid @enderror" name="post" value="{{ old('post') }}"   autocomplete="post">
-
-                                @error('post')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="postCode" class="col-md-4 col-form-label text-md-right">{{ __('Post Code') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="postCode"  value='{{ $address->postCode }}' type="postCode" class="form-control @error('postCode') is-invalid @enderror" name="postCode" value="{{ old('postCode') }}"   autocomplete="postCode">
-
-                                @error('postCode')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="telephone" class="col-md-4 col-form-label text-md-right">{{ __('Telephone') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="telephone"  value='{{ Auth::user()->telephone }}' type="telephone" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}"   autocomplete="telephone">
-
-                                @error('telephone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

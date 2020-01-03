@@ -20,19 +20,23 @@ Route::get('/services', 'PagesController@services');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/preferences', 'HomeController@getPreferences')->name('preferences');
-Route::post('/preferences', 'HomeController@postPreferences')->name('preferences.submit');
+Route::get('/edit-profile', 'HomeController@getEditProfile')->name('edit-profile');
+Route::post('/edit-profile', 'HomeController@postEditProfile')->name('edit-profile.submit');
 
 // for updating and creating seller accounts
-Route::get('/seller-preferences/{id}', 'HomeController@viewManagedProfile')->name('manageSeller');
-Route::post('/seller-preferences/{id}', 'HomeController@editManagedProfile')->name('manageSeller.submit');
+Route::get('/seller-edit-profile/{id}', 'HomeController@viewManagedProfile')->name('manageSeller');
+Route::post('/seller-edit-profile/{id}', 'HomeController@editManagedProfile')->name('manageSeller.submit');
 Route::get('/seller-create', 'HomeController@viewCreateForm')->name('createSeller');
 Route::post('/seller-create', 'HomeController@createManagedProfile')->name('createSeller.post');
 
 // for updating and creating customer accounts
-Route::get('/customer-preferences/{id}', 'HomeController@viewManagedProfile')->name('manageCustomer');
-Route::post('/customer-preferences/{id}', 'HomeController@editManagedProfile')->name('manageCustomer.submit');
+Route::get('/customer-edit-profile/{id}', 'HomeController@viewManagedProfile')->name('manageCustomer');
+Route::post('/customer-edit-profile/{id}', 'HomeController@editManagedProfile')->name('manageCustomer.submit');
 Route::get('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer');
+
+// for making user accounts active/inactive
+Route::get('/changeProfileStatus/{id}', 'HomeController@changeProfileStatus')->name('changeProfileStatus');
+
 Route::get('/item-manage', 'ItemsController@sellerindex')->name('manageItems');
 Route::get('/item-create', 'HomeController@createItem')->name('createItem');
 Route::get('/item-show/{id}', 'ItemsController@sellershow')->name('showItem');
