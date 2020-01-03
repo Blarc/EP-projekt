@@ -34,11 +34,11 @@ class HomeController extends Controller
             if ($user->hasPermissionTo('viewAdminHome')) {
                 return view('admin.home');
             }
-    
+
             if ($user->hasPermissionTo('viewCustomerHome')) {
                 return view('customer.home');
             }
-    
+
             if ($user->hasPermissionTo('viewSellerHome')) {
                 return view('seller.home');
             }
@@ -50,7 +50,7 @@ class HomeController extends Controller
             Auth::logout();
             return redirect()->back()->with('error', 'Can\'t login.');
         }
-        
+
     }
 
     // edit-profile of current user
@@ -72,20 +72,7 @@ class HomeController extends Controller
         }
     }
 
-    public function postEditProfile(Request $request) {
-
-        $user = auth()->user();
-
-        $response = ($user->role == 'admin' || $user->role == 'seller' ?
-            (new UsersController)->putAdminOrSeller($request, $user->id) : (new UsersController)->put($request, $user->id));
-
-        if (!isset($response->id)) {
-            return redirect()->back()->with('error', $response->original);
-        }
-        return redirect()->back()->with('success', 'Profile updated successfully');
-
-    }
-
+    public function postEditProfile(Request $request, $id) {
 
         $user = auth()->user();
 
@@ -201,11 +188,11 @@ class HomeController extends Controller
     public function changeProfileStatus($id) {
 
         $user = auth()->user();
-        
+
         $profile = ($user->hasRole('admin') ? $user->sellers->find($id) : $user->customers->find($id));
         $profile->active = !$profile->active;
         $profile->save();
-        
+
         return redirect()->intended('/home');
 
     }

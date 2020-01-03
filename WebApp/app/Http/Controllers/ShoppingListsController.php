@@ -55,6 +55,13 @@ class ShoppingListsController extends Controller
         // TODO
     }
 
+    public function slshow($id){
+
+        $sl = ShoppingList::find($id);
+        return view('seller.slshow')->with('sl', $sl);
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -99,7 +106,7 @@ class ShoppingListsController extends Controller
 
     public function stornate($id)
     {
-        DB::table('shopping_lists')->where('id', $id)->update(['status' => '0']);
+        DB::table('shopping_lists')->where('id', $id)->update(['status' => '2']);
         return redirect('/seller/shoppingLists');
     }
 
@@ -189,7 +196,7 @@ class ShoppingListsController extends Controller
     {
         try {
             $shoppingList = ShoppingList::query()->find($id);
-            
+
             if ($shoppingList != null) {
                 if ($request != null) {
                     $shoppingList->items()->attach($request->input('id'));

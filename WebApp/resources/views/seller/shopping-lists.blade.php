@@ -12,7 +12,7 @@
                             @foreach($shoppingLists as $sl)
                                 <div class="well">
                                     @if($sl->status == 0)
-                                        <h3><a href="/item-show/{{$sl->id}}">{{$sl->name}}</a></h3>
+                                        <h3><a href="/seller/sl-show/{{$sl->id}}">{{$sl->name}}</a></h3>
                                         <small>added {{$sl->created_at}}</small>
                                         <a href="/seller/sl/{{$sl->id}}/delete" class="btn btn-danger" style="float: right">Delete</a>
                                         <a href="/seller/sl/{{$sl->id}}/accept" class="btn btn-dark" style="float: right">Accept</a>
@@ -31,9 +31,27 @@
                             @foreach($shoppingLists as $sl)
                                 <div class="well">
                                     @if($sl->status == 1)
-                                        <h3><a href="/item-show/{{$sl->id}}">{{$sl->name}}</a></h3>
+                                        <h3><a href="/seller/sl-show/{{$sl->id}}">{{$sl->name}}</a></h3>
                                         <small>added {{$sl->created_at}}</small>
                                         <a href="/seller/sl/{{$sl->id}}/stornate" class="btn btn-warning" style="float: right">Stornate</a>
+                                    @endif
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No shopping lists found</p>
+                        @endif
+                    </div>
+
+                    <div class="card-header">{{ __('Stornated shopping lists') }}</div>
+
+                    <div class="card-body">
+                        @if(count($shoppingLists) > 1)
+                            @foreach($shoppingLists as $sl)
+                                <div class="well">
+                                    @if($sl->status == 2)
+                                        <h3><a href="/seller/sl-show/{{$sl->id}}">{{$sl->name}}</a></h3>
+                                        <small>added {{$sl->created_at}}</small>
+                                        <a href="/seller/sl/{{$sl->id}}/delete" class="btn btn-danger" style="float: right">Delete</a>
                                     @endif
                                 </div>
                             @endforeach

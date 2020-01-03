@@ -48,6 +48,8 @@ Route::get('/seller/sl/{id}/delete', 'ShoppingListsController@destroy')->name('d
 Route::get('/seller/item/{id}/delete', 'ItemsController@destroy')->name('deleteItem');
 Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->name('acceptSL');
 Route::get('/seller/sl/{id}/stornate', 'ShoppingListsController@stornate')->name('stornateSL');
+Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slshow')->name('showSL');
+
 
 
 Route::resource('/', 'ItemsController');

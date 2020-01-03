@@ -49,7 +49,12 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO
+        $this->validate($request, [
+           'name' => 'required',
+           'description' => 'required',
+           'price' => 'required'
+        ]);
+        return 123;
     }
 
     /**
