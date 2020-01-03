@@ -31,10 +31,17 @@ object ShoppingListService {
         ): Call<ShoppingList>
 
         @FormUrlEncoded
-        @PUT("shoppingLists/{id}/addItems")
+        @PUT("shoppingLists/{id}/addItem")
         fun addItems(
             @Path("id") id: Int,
-            @Field("items") items: List<Item>
+            @Field("item") item: Item
+        ): Call<ShoppingList>
+
+        @PUT("shoppingLists/{id}/removeItem")
+        @FormUrlEncoded
+        fun removeItems(
+            @Path("id") id: Int,
+            @Field("item") item: Item
         ): Call<ShoppingList>
 
         @DELETE("shoppingLists/{id}")

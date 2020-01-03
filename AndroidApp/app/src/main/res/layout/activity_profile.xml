@@ -20,8 +20,8 @@
             android:paddingTop="10dp"
             android:paddingBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_weight="11"
             android:id="@+id/shoppingListsProfile" />
 
         <ProgressBar
@@ -31,13 +31,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:layout_weight="12"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/profileActivity.newShoppingListButton"
-            android:background="@color/colorPrimary"
-            android:id="@+id/newShoppingListButton" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/profileActivity.newShoppingListButton"
+                android:backgroundTint="@color/colorPrimary"
+                android:id="@+id/newShoppingListButton" />
+
+
+            <ImageButton
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_refresh_24px"
+                android:contentDescription="@string/refresh_profile"
+                android:id="@+id/refreshProfileButton" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

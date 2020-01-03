@@ -43,7 +43,7 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
         if (appObject.loggedIn) {
 
             user = appObject.user!!
-
+            refreshProfile()
             usernameToolbarProfile.text =
                 getString(R.string.profileToolbarLayout_username, user.firstName, user.lastName)
             initRecyclerView()
@@ -64,7 +64,15 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
                 loadingProfile.visibility = View.VISIBLE
                 addNewShoppingList(editText.text.trim().toString())
             }
+            builder.setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
             builder.show()
+        }
+
+        refreshProfileButton.setOnClickListener {
+            Toast.makeText(this, "Refreshed!", Toast.LENGTH_SHORT).show()
+            refreshProfile()
         }
 
     }

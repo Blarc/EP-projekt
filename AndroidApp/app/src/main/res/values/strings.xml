@@ -39,6 +39,8 @@
     <string name="profileActivity.newShoppingListButton">New shopping list</string>
     <string name="shoppingListDetailsToolbar.deleteButton">Delete</string>
     <string name="shoppingListDetails.checkoutButton">Checkout</string>
+    <string name="shoppingListSingleItemLayout.removeButtonDesc">Remove item from shopping list</string>
+    <string name="refresh_profile">Refresh profile</string>
 
     <string-array name="profileSpinnerEntries">
         <item>Shopping lists</item>
