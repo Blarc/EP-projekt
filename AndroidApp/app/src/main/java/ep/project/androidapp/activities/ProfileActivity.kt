@@ -40,7 +40,7 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
 
         appObject = (application as ApplicationObject)
 
-        if (appObject.loggedIn) {
+        if (appObject.user != null) {
 
             user = appObject.user!!
             refreshProfile()

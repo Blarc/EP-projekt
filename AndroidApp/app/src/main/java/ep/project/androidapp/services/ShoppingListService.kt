@@ -2,6 +2,8 @@ package ep.project.androidapp.services
 
 import ep.project.androidapp.entities.Item
 import ep.project.androidapp.entities.ShoppingList
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,18 +32,18 @@ object ShoppingListService {
             @Field("name") name: String
         ): Call<ShoppingList>
 
-        @FormUrlEncoded
-        @PUT("shoppingLists/{id}/addItem")
-        fun addItems(
+        @Headers("Content-Type: application/json")
+        @POST("shoppingLists/{id}/addItem")
+        fun addItem(
             @Path("id") id: Int,
-            @Field("item") item: Item
+            @Body item: Item
         ): Call<ShoppingList>
 
-        @PUT("shoppingLists/{id}/removeItem")
-        @FormUrlEncoded
-        fun removeItems(
+        @Headers("Content-Type: application/json")
+        @POST("shoppingLists/{id}/removeItem")
+        fun removeItem(
             @Path("id") id: Int,
-            @Field("item") item: Item
+            @Body item: Item
         ): Call<ShoppingList>
 
         @DELETE("shoppingLists/{id}")
@@ -50,8 +52,13 @@ object ShoppingListService {
 
     val instance: RestApi by lazy {
 
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
         val retrofit = Retrofit.Builder()
             .baseUrl(ep.project.androidapp.Constants.URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

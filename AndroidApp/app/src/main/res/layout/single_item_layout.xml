@@ -10,39 +10,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="ID"
-            android:padding="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/itemId"
-            android:gravity="start" />
 
         <TextView
             android:id="@+id/itemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:layout_toRightOf="@id/itemId"
-            android:layout_toEndOf="@id/itemId"
             android:text="Canada"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/itemPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/itemName"
-            android:layout_toRightOf="@id/itemName"
-            android:padding="10dp"
-            android:text="@string/singleItemLayout.price"
-            android:textSize="20sp" />
 
     </RelativeLayout>
 

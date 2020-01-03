@@ -46,15 +46,29 @@
         <ImageButton
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_gravity="center"
-            android:background="@color/colorAccentDim"
+            android:backgroundTint="@color/colorVeryRed"
             android:src="@drawable/ic_clear_24px"
             android:contentDescription="@string/shoppingListSingleItemLayout.removeButtonDesc"
             android:id="@+id/shoppingListItemRemoveButton" />
+
+        <ImageButton
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorVeryGreen"
+            android:src="@drawable/ic_add_24px"
+            android:contentDescription="@string/singleItemAddButtonDesc"
+            android:visibility="gone"
+            android:id="@+id/shoppingListItemAddButton" />
 
     </LinearLayout>
 

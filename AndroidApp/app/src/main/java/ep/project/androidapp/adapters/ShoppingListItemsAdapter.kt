@@ -9,9 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import ep.project.androidapp.R
 import ep.project.androidapp.entities.Item
 import kotlinx.android.synthetic.main.shopping_list_single_item_layout.view.*
-import kotlinx.android.synthetic.main.single_item_layout.view.itemId
-import kotlinx.android.synthetic.main.single_item_layout.view.itemName
-import kotlinx.android.synthetic.main.single_item_layout.view.itemPrice
 
 class ShoppingListItemsAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -74,7 +71,7 @@ class ShoppingListItemsAdapter(private val interaction: Interaction? = null) :
             itemView.itemPrice.text =
                 resources.getString(R.string.singleItemLayout_price, item.price)
             itemView.shoppingListItemRemoveButton.setOnClickListener {
-                interaction?.removeItem(it, item)
+                interaction?.removeItem(item)
             }
         }
     }
@@ -82,7 +79,7 @@ class ShoppingListItemsAdapter(private val interaction: Interaction? = null) :
     interface Interaction {
         fun onItemSelected(position: Int, item: Item)
 
-        fun removeItem(view: View, item: Item)
+        fun removeItem(item: Item)
     }
 }
 

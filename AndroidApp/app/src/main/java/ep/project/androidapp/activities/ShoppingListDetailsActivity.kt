@@ -2,7 +2,6 @@ package ep.project.androidapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -74,13 +73,13 @@ class ShoppingListDetailsActivity : AppCompatActivity(), ShoppingListItemsAdapte
         Toast.makeText(this, "Clicked on: ${item.name}", Toast.LENGTH_LONG).show()
     }
 
-    override fun removeItem(view: View, item: Item) {
+    override fun removeItem(item: Item) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Warning")
         builder.setMessage("Are you sure you want to remove ${item.name}?")
 
         builder.setPositiveButton("YES") { _, _ ->
-            val call = ShoppingListService.instance.removeItems(shoppingList.id, item)
+            val call = ShoppingListService.instance.removeItem(shoppingList.id, item)
             call.enqueue(object : Callback<ShoppingList> {
                 override fun onResponse(
                     call: Call<ShoppingList>,

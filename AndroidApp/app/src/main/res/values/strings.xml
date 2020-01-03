@@ -41,8 +41,10 @@
     <string name="shoppingListDetails.checkoutButton">Checkout</string>
     <string name="shoppingListSingleItemLayout.removeButtonDesc">Remove item from shopping list</string>
     <string name="refresh_profile">Refresh profile</string>
+    <string name="singleItemAddButtonDesc">Add item to shopping list</string>
 
     <string-array name="profileSpinnerEntries">
+        <item>Shop</item>
         <item>Shopping lists</item>
         <item>Settings</item>
         <item>Log out</item>

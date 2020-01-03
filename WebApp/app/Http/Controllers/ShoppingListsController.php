@@ -185,15 +185,34 @@ class ShoppingListsController extends Controller
         }
     }
 
-    public function addItems(Request $request, $id)
+    public function addItem(Request $request, $id)
+    {
+        try {
+            $shoppingList = ShoppingList::query()->find($id);
+            
+            if ($shoppingList != null) {
+                if ($request != null) {
+                    $shoppingList->items()->attach($request->input('id'));
+                }
+                $shoppingList->save();
+                return new ShoppingListsDetailsResource($shoppingList);
+            } else {
+                return new Response("Shopping list with specified id does not exist!", Response::HTTP_BAD_REQUEST);
+            }
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function removeItem(Request $request, $id)
     {
         try {
             $shoppingList = ShoppingList::query()->find($id);
 
             if ($shoppingList != null) {
-                $items = $request->input('items');
-                if (count($items) > 0) {
-                    $shoppingList->items()->sync(array_column($items, 'id'));
+                if ($request != null) {
+                    $shoppingList->items()->detach($request->input('id'));
+//                    DB::delete('DELETE FROM bonus_circle WHERE bonus_id = ? AND circle_id = ? LIMIT 1',[$bonus->id, $circle->id]);
                 }
                 $shoppingList->save();
                 return new ShoppingListsDetailsResource($shoppingList);
@@ -208,9 +227,10 @@ class ShoppingListsController extends Controller
     public function delete($id)
     {
         try {
-            $item = ShoppingList::query()->find($id);
-            if ($item != null) {
-                $item->delete();
+            $shoppingList = ShoppingList::query()->find($id);
+            if ($shoppingList != null) {
+                $shoppingList->items()->detach();
+                $shoppingList->delete();
             } else {
                 return new Response("Item with specified id does not exist!", Response::HTTP_BAD_REQUEST);
             }
