@@ -6,11 +6,9 @@ use DB;
 use App\Http\Resources\ShoppingListsDetailsResource;
 use App\Http\Resources\ShoppingListsResource;
 use App\ShoppingList;
-use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class ShoppingListsController extends Controller
 {
@@ -138,12 +136,14 @@ class ShoppingListsController extends Controller
         try {
             $shoppingList = new ShoppingList;
             $name = $request->input('name');
+            $userId = $request->input('userId');
             if ($name != null) {
                 $shoppingList->name = $name;
             } else {
                 return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
             }
-            $shoppingList->user()->associate(User::query()->find(Auth::id()));
+
+            $shoppingList->user_id = $request->user('api')->id;
 
 //            $items = $request->input('items');
 //            if (count($items) > 0) {
@@ -185,15 +185,34 @@ class ShoppingListsController extends Controller
         }
     }
 
-    public function addItems(Request $request, $id)
+    public function addItem(Request $request, $id)
+    {
+        try {
+            $shoppingList = ShoppingList::query()->find($id);
+            
+            if ($shoppingList != null) {
+                if ($request != null) {
+                    $shoppingList->items()->attach($request->input('id'));
+                }
+                $shoppingList->save();
+                return new ShoppingListsDetailsResource($shoppingList);
+            } else {
+                return new Response("Shopping list with specified id does not exist!", Response::HTTP_BAD_REQUEST);
+            }
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function removeItem(Request $request, $id)
     {
         try {
             $shoppingList = ShoppingList::query()->find($id);
 
             if ($shoppingList != null) {
-                $items = $request->input('items');
-                if (count($items) > 0) {
-                    $shoppingList->items()->sync(array_column($items, 'id'));
+                if ($request != null) {
+                    $shoppingList->items()->detach($request->input('id'));
+//                    DB::delete('DELETE FROM bonus_circle WHERE bonus_id = ? AND circle_id = ? LIMIT 1',[$bonus->id, $circle->id]);
                 }
                 $shoppingList->save();
                 return new ShoppingListsDetailsResource($shoppingList);
@@ -208,9 +227,10 @@ class ShoppingListsController extends Controller
     public function delete($id)
     {
         try {
-            $item = ShoppingList::query()->find($id);
-            if ($item != null) {
-                $item->delete();
+            $shoppingList = ShoppingList::query()->find($id);
+            if ($shoppingList != null) {
+                $shoppingList->items()->detach();
+                $shoppingList->delete();
             } else {
                 return new Response("Item with specified id does not exist!", Response::HTTP_BAD_REQUEST);
             }

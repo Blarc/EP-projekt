@@ -34,9 +34,11 @@ Route::get('shoppingLists/{id}', 'ShoppingListsController@get');
 Route::post('shoppingLists', 'ShoppingListsController@post');
 Route::put('shoppingLists/{id}', 'ShoppingListsController@put');
 Route::delete('shoppingLists/{id}', 'ShoppingListsController@delete');
-Route::put('shoppingLists/{id}/addItems', 'ShoppingListsController@addItems');
+Route::post('shoppingLists/{id}/addItem', 'ShoppingListsController@addItem');
+Route::post('shoppingLists/{id}/removeItem', 'ShoppingListsController@removeItem');
 
 // USERS (TODO will not be public)
+Route::get("users/current", 'UsersController@getCurrent');
 Route::get('users', 'UsersController@getAll');
 Route::get('users/{id}', 'UsersController@get');
 Route::put('users/{id}', 'UsersController@put');

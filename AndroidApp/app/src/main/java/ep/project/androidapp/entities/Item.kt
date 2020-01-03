@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class Item(
     val id: Int = 0,
-    val name: String = "testName",
+    val name: String,
     val price: Float,
     val description: String = "This is a test description." +
             " If you see this, then the item has no description."

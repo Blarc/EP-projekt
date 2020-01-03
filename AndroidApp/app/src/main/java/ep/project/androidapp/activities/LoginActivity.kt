@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity(), Callback<User> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setSupportActionBar(findViewById(R.id.loginToolbar))
 
         loginButton.setOnClickListener {
 

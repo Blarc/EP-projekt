@@ -10,7 +10,7 @@ import ep.project.androidapp.R
 import ep.project.androidapp.entities.Item
 import kotlinx.android.synthetic.main.shopping_list_single_item_layout.view.*
 
-class ItemsAdapter(private val interaction: Interaction? = null) :
+class ShoppingListItemsAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Item>() {
@@ -26,9 +26,10 @@ class ItemsAdapter(private val interaction: Interaction? = null) :
     }
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return ItemViewHolder(
+        return ShoppingListItemsViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.shopping_list_single_item_layout,
                 parent,
@@ -40,7 +41,7 @@ class ItemsAdapter(private val interaction: Interaction? = null) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ItemViewHolder -> {
+            is ShoppingListItemsViewHolder -> {
                 holder.bind(differ.currentList[position])
             }
         }
@@ -54,7 +55,7 @@ class ItemsAdapter(private val interaction: Interaction? = null) :
         differ.submitList(list)
     }
 
-    class ItemViewHolder
+    class ShoppingListItemsViewHolder
     constructor(
         itemView: View,
         private val interaction: Interaction?
@@ -69,27 +70,16 @@ class ItemsAdapter(private val interaction: Interaction? = null) :
             itemView.itemName.text = item.name
             itemView.itemPrice.text =
                 resources.getString(R.string.singleItemLayout_price, item.price)
-
-            shoppingListItemRemoveButton.visibility = View.GONE
-
-            itemView.shoppingListItemAddButton.setOnClickListener {
-                interaction?.addItem(item)
-            }
-
-            if (interaction?.loggedIn()!!) {
-                itemView.shoppingListItemAddButton.visibility = View.VISIBLE
-            } else {
-                itemView.shoppingListItemAddButton.visibility = View.GONE
+            itemView.shoppingListItemRemoveButton.setOnClickListener {
+                interaction?.removeItem(item)
             }
         }
     }
 
     interface Interaction {
-
         fun onItemSelected(position: Int, item: Item)
 
-        fun loggedIn(): Boolean
-
-        fun addItem(item: Item)
+        fun removeItem(item: Item)
     }
 }
+

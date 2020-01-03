@@ -46,6 +46,11 @@ object UserService {
             @Field("password_confirmation") passwordConfirmation: String
         ): Call<User>
 
+        @GET("users/current")
+        fun getCurrent(
+            @Header("Authorization") apiToken: String
+        ): Call<User>
+
     }
 
     val instance: RestApi by lazy {
