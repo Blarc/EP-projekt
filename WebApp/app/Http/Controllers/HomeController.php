@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Address;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AddressesController;
 use Illuminate\Http\Request;
@@ -76,7 +77,7 @@ class HomeController extends Controller
         
     }
 
-    public function viewManagedProfile(Request $request, $id) {
+    public function viewManagedProfile($id) {
         
         $user = auth()->user();
         if ($user->hasRole('admin')) {
@@ -99,6 +100,7 @@ class HomeController extends Controller
     public function editManagedProfile(Request $request, $id) {
 
         $user = auth()->user();
+
         if ($user->hasRole('admin')) {
             $seller = $user->sellers->find($id);
             $response = (new UsersController)->putAdminOrSeller($request, $seller->id);
@@ -117,9 +119,48 @@ class HomeController extends Controller
 
     }
 
+    public function viewCreateForm() {
+
+        $user = auth()->user();
+
+        if ($user->hasRole('admin')) {
+            return view('admin.create-form');
+        }
+
+        else if ($user->hasRole('seller')) {
+            return view('seller.create-form');
+        }
+
+    }
+
     public function createManagedProfile(Request $request) {
-        // TODO
-        return view('admin.create-seller');
+        
+        $user = auth()->user();
+
+        $customer = User::create([
+            'firstName' => $request['firstName'],
+            'lastName' => $request['lastName'],
+            'email' => $request['email'],
+            'telephone' => $request['telephone'],
+            'password' => bcrypt($request['password']),
+            'role' => 'customer',
+        ]);
+        $customer->assignRole('customer');
+        $customer->generateToken();
+
+        $address = Address::create([
+            'street' => $request['street'],
+            'post' => $request['post'],
+            'postCode' => $request['postCode'],
+        ]);
+
+        $customer->address()->associate($address);
+        $customer->save();
+
+        $user->customers()->attach($customer);
+
+        //return $user;
+        return view('seller.home');
     }
 
 }
