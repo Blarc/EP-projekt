@@ -20,7 +20,8 @@ class ShoppingListsController extends Controller
      */
     public function index()
     {
-        // TODO
+        $shoppingLists = ShoppingList::all();
+        return view('seller.shopping-lists')->with('shoppingLists', $shoppingLists);
     }
 
     /**
@@ -86,7 +87,9 @@ class ShoppingListsController extends Controller
      */
     public function destroy($id)
     {
-        // TODO
+        $sl = ShoppingList::find($id);
+        $sl->delete();
+        return redirect('/seller/shoppingLists');
     }
 
     /**

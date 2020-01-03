@@ -14,6 +14,7 @@
                                     <h3><a href="/item-show/{{$item->id}}">{{$item->name}}</a></h3>
                                     <small>added {{$item->created_at}}</small>
                                     <a href="/item/{{$item->id}}/edit" class="btn btn-dark" style="float: right">Edit</a>
+                                    <a href="/seller/item/{{$item->id}}/delete" class="btn btn-danger" style="float: right">Delete</a>
                                 </div>
                             @endforeach
                             {{$items->links()}}

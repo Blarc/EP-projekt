@@ -77,7 +77,6 @@ class HomeController extends Controller
 
     }
 
-    public function viewManagedProfile($id) {
 
     public function viewManagedProfile(Request $request, $id) {
 

@@ -108,7 +108,7 @@ class ItemsController extends Controller
     {
         $item = Item::find($id);
         $item->delete();
-        return redirect('/seller');
+        return redirect('/item-manage');
     }
 
     /**

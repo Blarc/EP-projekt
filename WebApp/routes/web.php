@@ -39,6 +39,12 @@ Route::get('/item-show/{id}', 'ItemsController@sellershow')->name('showItem');
 Route::get('/item/{id}/edit', 'ItemsController@selleredit')->name('editItem');
 Route::get('/customer-create', 'HomeController@viewCreateForm')->name('createCustomer');
 Route::post('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer.post');
+Route::get('/seller/shoppingLists', 'ShoppingListsController@index')->name('indexSL');
+Route::get('/seller/sl/{id}/delete', 'ShoppingListsController@destroy')->name('deleteSL');
+Route::get('/seller/item/{id}/delete', 'ItemsController@destroy')->name('deleteItem');
+
+//Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->name('acceptSL');
+
 
 Route::resource('/', 'ItemsController');
 
