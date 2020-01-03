@@ -9,17 +9,18 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         Role::query()->delete();
-        //$role = Role::query()->create(['guard_name' => 'admin', 'name' => 'admin']);
+        
         $role = Role::query()->create(['name' => 'admin']);
         $role->givePermissionTo('viewAdminHome');
+        $role->givePermissionTo('viewAdminPreferences');
 
         $role = Role::query()->create(['name' => 'customer']);
-        //$role = Role::query()->create(['guard_name' => 'customer', 'name' => 'customer']);
         $role->givePermissionTo('viewCustomerHome');
+        $role->givePermissionTo('viewCustomerPreferences');
 
         $role = Role::query()->create(['name' => 'seller']);
-        //$role = Role::query()->create(['guard_name' => 'seller', 'name' => 'seller']);
         $role->givePermissionTo('viewSellerHome');
+        $role->givePermissionTo('viewSellerPreferences');
 
     }
 }

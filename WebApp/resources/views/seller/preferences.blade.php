@@ -80,6 +80,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Edit') }}
                                 </button>
+                                <a style='float: right;' href='/home' class="btn btn-primary">
+                                    {{ __('Back') }}
+                                </a>
                             </div>
                         </div>
                     </form>

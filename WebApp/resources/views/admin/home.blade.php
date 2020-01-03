@@ -13,8 +13,19 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in as ADMIN!
+                    
+                    <ul class="list-group">
+                        @foreach(Auth::user()->sellers as $seller)
+                            <li class="list-group-item">
+                                {{ $seller->firstName }}
+                                {{ $seller->lastName }}
+                                <a style='float: right;' href='{{ route('manageSeller.submit', $seller->id) }}' type="button" class="btn btn-primary btn-sm">Edit seller profile</a>
+                                <a style='float: right;' href='{{ route('manageSeller.submit', $seller->id) }}' type="button" class="btn btn-danger btn-sm">Deactivate seller</a>
+                                <a style='float: right;' href='{{ route('manageSeller.submit', $seller->id) }}' type="button" class="btn btn-success btn-sm">Activate seller</a>
+                            </li>
+                        @endforeach 
+                    </ul>
+                    <a type="button" href='{{ route('createSeller') }}' class="btn btn-primary">Create new seller</a>
                 </div>
             </div>
         </div>

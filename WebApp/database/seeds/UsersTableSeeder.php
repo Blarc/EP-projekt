@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
         // Let's truncate our existing records to start from scratch.
         User::query()->truncate();
                 
-        $user = User::query()->create([
+        $admin = User::query()->create([
             'firstName' => "admin",
             'lastName' => "admin",
             'email' => 'admin@gmail.com',
@@ -20,25 +20,25 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('asdfasdf'),
             'role' => 'admin',
         ]);
-        $user->assignRole('admin');
-        $user->generateToken();
+        
+        $admin->assignRole('admin');
+        $admin->generateToken();
 
-        $user = User::query()->create([
+        $customer = User::query()->create([
             'firstName' => "customer",
             'lastName' => "customer",
             'email' => 'customer@gmail.com',
-            'telephone' => '01 999 999',
+            'telephone' => '01999999',
             'password' => bcrypt('asdfasdf'),
             'role' => 'customer',
         ]);
-        $user->assignRole('customer');
-        $user->generateToken();
+        $customer->assignRole('customer');
+        $customer->generateToken();
         $address = App\Address::find(1);
-        // $address->user()->associate($user);
-        $user->address()->associate($address);
-        $user->save();
+        $customer->address()->associate($address);
+        $customer->save();
 
-        $user = User::query()->create([
+        $seller = User::query()->create([
             'firstName' => "seller",
             'lastName' => "seller",
             'email' => 'seller@gmail.com',
@@ -46,7 +46,10 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('asdfasdf'),
             'role' => 'seller',
         ]);
-        $user->assignRole('seller');
-        $user->generateToken();
+        $seller->assignRole('seller');
+        $seller->generateToken();
+
+        $admin->sellers()->sync($seller);
+        $seller->customers()->sync($customer);
     }
 }

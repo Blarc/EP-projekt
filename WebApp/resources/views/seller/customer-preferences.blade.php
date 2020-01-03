@@ -5,22 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">
-                    CUSTOMER Dashboard
-                    <a style='float: right;' href='/preferences' class="btn btn-primary">
-                        {{ __('Preferences') }}
-                    </a>
-                </div>
+                <div class="card-header">{{ __('Edit profile') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('preferences.submit') }}">
+                    <form method="POST" action="{{ route('manageCustomer.submit', $customer->id) }}">
                         @csrf
 
                         <div class="form-group row">
                             <label for="firstName" class="col-md-4 col-form-label text-md-right">{{ __('First name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="firstName"  value={{ Auth::user()->firstName }} type="text" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}"   autocomplete="firstName" autofocus>
+                                <input id="firstName"  value={{ $customer->firstName }} type="text" class="form-control @error('firstName') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}"   autocomplete="firstName" autofocus>
 
                                 @error('firstName')
                                     <span class="invalid-feedback" role="alert">
@@ -34,7 +29,7 @@
                             <label for="lastName" class="col-md-4 col-form-label text-md-right">{{ __('Last name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="lastName"  value={{ Auth::user()->lastName }} type="text" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}"   autocomplete="lastName" autofocus>
+                                <input id="lastName"  value={{ $customer->lastName }} type="text" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}"   autocomplete="lastName" autofocus>
 
                                 @error('lastName')
                                     <span class="invalid-feedback" role="alert">
@@ -92,7 +87,7 @@
                             <label for="telephone" class="col-md-4 col-form-label text-md-right">{{ __('Telephone') }}</label>
 
                             <div class="col-md-6">
-                                <input id="telephone"  value={{ Auth::user()->telephone }} type="telephone" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}"   autocomplete="telephone">
+                                <input id="telephone"  value={{ $customer->telephone }} type="telephone" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}"   autocomplete="telephone">
 
                                 @error('telephone')
                                     <span class="invalid-feedback" role="alert">
@@ -107,7 +102,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email"  value={{ Auth::user()->email }} type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"   autocomplete="email">
+                                <input id="email"  value={{ $customer->email }} type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"   autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -145,6 +140,9 @@
                                     {{ __('Edit') }}
                                 </button>
                             </div>
+                            <a style='float: right;' href='/home' class="btn btn-primary">
+                                {{ __('Back') }}
+                            </a>
                         </div>
                     </form>
                 </div>

@@ -22,6 +22,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/preferences', 'HomeController@getPreferences')->name('preferences');
 Route::post('/preferences', 'HomeController@postPreferences')->name('preferences.submit');
+Route::get('/seller-preferences/{id}', 'HomeController@viewManagedProfile')->name('manageSeller');
+Route::post('/seller-preferences/{id}', 'HomeController@editManagedProfile')->name('manageSeller.submit');
+Route::get('/seller-create', 'HomeController@createManagedProfile')->name('createSeller');
+Route::get('/customer-preferences/{id}', 'HomeController@viewManagedProfile')->name('manageCustomer');
+Route::post('/customer-preferences/{id}', 'HomeController@editManagedProfile')->name('manageCustomer.submit');
+Route::get('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer');
 
 Route::resource('/', 'ItemsController');
 

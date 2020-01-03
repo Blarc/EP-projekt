@@ -15,5 +15,9 @@ class PermissionsTableSeeder extends Seeder
         $role = Permission::query()->create(['name' => 'viewCustomerHome']);
         $role = Permission::query()->create(['name' => 'viewSellerHome']);
 
+        $role = Permission::query()->create(['name' => 'viewAdminPreferences']);
+        $role = Permission::query()->create(['name' => 'viewCustomerPreferences']);
+        $role = Permission::query()->create(['name' => 'viewSellerPreferences']);
+
     }
 }

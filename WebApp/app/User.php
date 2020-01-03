@@ -62,4 +62,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Address');
     }
+
+    public function sellers() {
+        return $this->belongsToMany('App\User', 'seller_admin', 'admin_id', 'seller_id')->withTimestamps();
+    }
+
+    public function customers() {
+        return $this->belongsToMany('App\User', 'customer_seller', 'seller_id', 'customer_id')->withTimestamps();
+    }
 }
