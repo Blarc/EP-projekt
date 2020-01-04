@@ -31,6 +31,14 @@ class ItemsController extends Controller
         return view('seller.manage')->with('items', $items);
     }
 
+    public function shopItems()
+    {
+        $items = DB::table('items')->paginate(10);
+        return view('customer.home')->with('items', $items);
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -72,6 +80,12 @@ class ItemsController extends Controller
     {
         $item = Item::find($id);
         return view('seller.show')->with('item', $item);
+    }
+
+    public function shopShow($id)
+    {
+        $item = Item::find($id);
+        return view('customer.item-show')->with('item', $item);
     }
 
     /**

@@ -226,4 +226,11 @@ class HomeController extends Controller
         return view('seller.create-item');
     }
 
+    public function shoppingListsShow(){
+        $user = auth()->user();
+        $sls = $user->shoppingLists;
+        return view('customer.shopping-lists')->with('shoppingLists', $sls);
+    }
+
+
 }

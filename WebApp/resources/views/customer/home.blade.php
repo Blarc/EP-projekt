@@ -17,8 +17,21 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in as CUSTOMER!
+                    @if(count($items) > 1)
+                        @foreach($items as $item)
+                            <div class="well">
+                                <h3><a href="/shop/item-show/{{$item->id}}">{{$item->name}}</a></h3>
+                                <h4>{{$item->price}} €</h4>
+                                <small>added {{$item->created_at}}</small><br>
+                                <small>updated {{$item->updated_at}}</small>
+                                <a href="/seller/item/{{$item->id}}/edit" class="btn btn-dark" style="float: right">Add to basket</a> {{--TODO spremeni gumb, da bo dodajal--}}
+                                <hr>
+                            </div>
+                        @endforeach
+                        {{$items->links()}}
+                    @else
+                        <p>No items found</p>
+                    @endif
                 </div>
             </div>
         </div>

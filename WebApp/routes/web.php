@@ -52,6 +52,10 @@ Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->name('ac
 Route::get('/seller/sl/{id}/stornate', 'ShoppingListsController@stornate')->name('stornateSL');
 Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slshow')->name('showSL');
 
+Route::get('/shop', 'ItemsController@shopItems')->name('shop');
+Route::get('/shop/item-show/{id}', 'ItemsController@shopShow')->name('shopShowItem');
+Route::get('/shop/shoppingLists', 'HomeController@shoppingListsShow')->name('shoppingListsShow');
+
 
 
 Route::resource('/', 'ItemsController');
