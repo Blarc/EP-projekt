@@ -159,13 +159,13 @@ class ShoppingListsController extends Controller
         try {
             $shoppingList = new ShoppingList;
             $name = $request->input('name');
-            $userId = $request->input('userId');
             if ($name !== null) {
                 $shoppingList->name = $name;
             } else {
                 return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
             }
 
+            $shoppingList->status = 3;
             $shoppingList->user_id = $request->user('api')->id;
 
 //            $items = $request->input('items');
