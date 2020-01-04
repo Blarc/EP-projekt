@@ -260,7 +260,7 @@ class ShoppingListsController extends Controller
                         $items_amount = $shoppingList->items()->where('item_id', $itemId)->first()->pivot->items_amount;
 
                         if ($items_amount - 1 == 0) {
-                            $shoppingList->items()->detach($itemId, array('items_amount' => 1));
+                            $shoppingList->items()->detach($itemId);
                         } else {
                             $shoppingList->items()->updateExistingPivot($itemId, array('items_amount' => $items_amount - 1));
                         }
