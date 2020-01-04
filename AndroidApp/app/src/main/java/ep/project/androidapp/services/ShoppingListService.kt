@@ -33,15 +33,22 @@ object ShoppingListService {
         ): Call<ShoppingList>
 
         @Headers("Content-Type: application/json")
-        @POST("shoppingLists/{id}/addItem")
+        @POST("shoppingLists/{id}/add")
         fun addItem(
             @Path("id") id: Int,
             @Body item: Item
         ): Call<ShoppingList>
 
         @Headers("Content-Type: application/json")
-        @POST("shoppingLists/{id}/removeItem")
+        @POST("shoppingLists/{id}/remove")
         fun removeItem(
+            @Path("id") id: Int,
+            @Body item: Item
+        ): Call<ShoppingList>
+
+        @Headers("Content-Type: application/json")
+        @POST("shoppingLists/{id}/decrease")
+        fun decreaseItem(
             @Path("id") id: Int,
             @Body item: Item
         ): Call<ShoppingList>

@@ -236,9 +236,12 @@ class ShoppingListsController extends Controller
 
                     if ($shoppingList->items()->where('item_id', $itemId)->exists()) {
                         $items_amount = $shoppingList->items()->where('item_id', $itemId)->first()->pivot->items_amount;
-                        $shoppingList->items()->updateExistingPivot($itemId, array('items_amount' => $items_amount - 1));
-                    } else {
-                        $shoppingList->items()->detach($itemId, array('items_amount' => 1));
+
+                        if ($items_amount - 1 == 0) {
+                            $shoppingList->items()->detach($itemId, array('items_amount' => 1));
+                        } else {
+                            $shoppingList->items()->updateExistingPivot($itemId, array('items_amount' => $items_amount - 1));
+                        }
                     }
                 }
 
