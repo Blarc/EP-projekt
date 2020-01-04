@@ -27,7 +27,7 @@
                                 <h4>{{$item->price}} €</h4>
                                 <small>added {{$item->created_at}}</small><br>
                                 <small>updated {{$item->updated_at}}</small>
-                                <a style="color: white; float: right" data-toggle="modal" data-target="#yourModal" class="btn btn-dark">Add to basket</a> TODO spremeni gumb, da bo dodajal
+                                <a style="color: white; float: right" data-toggle="modal" data-target="#yourModal" class="btn btn-dark">Add to basket</a>
                                 <div class="modal" tabindex="-1" role="dialog" id="yourModal">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -69,9 +69,8 @@
                                                     @if(count($shoppingLists) > 1)
                                                         @foreach($shoppingLists as $sl)
                                                             <div class="well">
-                                                                @if($sl->status == 1)
+                                                                @if($sl->status == 3)
                                                                     <h3><a href="/shop/shoppingLists/{{$sl->id}}">{{$sl->name}}</a></h3>
-{{--                                                                TODO dodaj item shoppingListu--}}
                                                                     <hr>
                                                                 @endif
                                                             </div>
@@ -81,7 +80,7 @@
                                                 @endif
 
                                             </div>
-x                                            <div class="modal-footer">
+                                            <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
