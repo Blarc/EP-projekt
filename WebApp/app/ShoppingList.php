@@ -53,4 +53,13 @@ class ShoppingList extends Model
             ->withPivot('items_amount')
             ->withTimestamps();
     }
+
+    public function totalAmount(){
+        $items = $this->items;
+        $amount = 0;
+        foreach ($items as $item){
+            $amount = $amount + $item->pivot->items_amount * $item->price;
+        }
+        return $amount;
+    }
 }

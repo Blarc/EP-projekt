@@ -13,6 +13,7 @@
                                 <div class="well">
                                     @if($sl->status == 0)
                                         <h3><a href="/seller/sl-show/{{$sl->id}}">{{$sl->name}}</a></h3>
+                                        <h5><strong>Total Amount: {{$sl->totalAmount()}}€</strong></h5>
                                         <small>added {{$sl->created_at}}</small><br>
                                         <small>updated {{$sl->updated_at}}</small>
                                         <a href="/seller/sl/{{$sl->id}}/delete" class="btn btn-danger" style="float: right">Delete</a>
@@ -34,6 +35,7 @@
                                 <div class="well">
                                     @if($sl->status == 1)
                                         <h3><a href="/seller/sl-show/{{$sl->id}}">{{$sl->name}}</a></h3>
+                                        <h5><strong>Total Amount: {{$sl->totalAmount()}}€</strong></h5>
                                         <small>added {{$sl->created_at}}</small><br>
                                         <small>updated {{$sl->updated_at}}</small>
                                         <a href="/seller/sl/{{$sl->id}}/stornate" class="btn btn-warning" style="float: right">Stornate</a>
@@ -54,6 +56,7 @@
                                 <div class="well">
                                     @if($sl->status == 2)
                                         <h3><a href="/seller/sl-show/{{$sl->id}}">{{$sl->name}}</a></h3>
+                                        <h5><strong>Total Amount: {{$sl->totalAmount()}}€</strong></h5>
                                         <small>added {{$sl->created_at}}</small><br>
                                         <small>updated {{$sl->updated_at}}</small>
                                         <a href="/seller/sl/{{$sl->id}}/delete" class="btn btn-danger" style="float: right">Delete</a>

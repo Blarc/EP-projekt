@@ -13,7 +13,6 @@
                         <div>Date of creation:  <strong>{{$sl->created_at}}</strong></div>
                         <div>Date of last update:  <strong>{{$sl->updated_at}}</strong></div>
                         <div>Id:  <strong>{{$sl->id}}</strong></div>
-                        <div>User Id:  <strong>{{$sl->user_id}}</strong></div>
                         <div>Status:  <strong>{{$sl->status}}</strong></div>
 {{--                        {{$sl -> items() -> pluck('name')}}--}}
                         <div class="card-header">Items</div>

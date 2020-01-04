@@ -55,11 +55,19 @@ class ShoppingListsController extends Controller
         // TODO
     }
 
-    public function slshow($id)
+    public function slSellerShow($id)
     {
 
         $sl = ShoppingList::find($id);
         return view('seller.slshow')->with('sl', $sl);
+
+    }
+
+    public function slShopShow($id)
+    {
+
+        $sl = ShoppingList::find($id);
+        return view('Customer.slshow')->with('sl', $sl);
 
     }
 
