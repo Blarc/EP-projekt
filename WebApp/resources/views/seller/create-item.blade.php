@@ -43,7 +43,7 @@
                                 <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('Price [€]') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="price" type="number" min="0" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price" autofocus>
+                                    <input id="price" type="number" step="0.01" min="0" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required autocomplete="price" autofocus>
 
                                     @error('price')
                                     <span class="invalid-feedback" role="alert">
