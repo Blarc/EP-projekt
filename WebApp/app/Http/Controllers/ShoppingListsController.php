@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use App\Http\Resources\ShoppingListsDetailsResource;
 use App\Http\Resources\ShoppingListsResource;
 use App\ShoppingList;
+use DB;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -55,7 +55,8 @@ class ShoppingListsController extends Controller
         // TODO
     }
 
-    public function slshow($id){
+    public function slshow($id)
+    {
 
         $sl = ShoppingList::find($id);
         return view('seller.slshow')->with('sl', $sl);
@@ -198,9 +199,49 @@ class ShoppingListsController extends Controller
             $shoppingList = ShoppingList::query()->find($id);
 
             if ($shoppingList != null) {
+
                 if ($request != null) {
-                    $shoppingList->items()->attach($request->input('id'));
+
+                    $itemId = $request->input('id');
+
+                    if ($shoppingList->items()->where('item_id', $itemId)->exists()) {
+                        $items_amount = $shoppingList->items()->where('item_id', $itemId)->first()->pivot->items_amount;
+                        $shoppingList->items()->updateExistingPivot($itemId, array('items_amount' => $items_amount + 1));
+                    } else {
+                        $shoppingList->items()->attach($itemId, array('items_amount' => 1));
+                    }
+
                 }
+
+                $shoppingList->save();
+                return new ShoppingListsDetailsResource($shoppingList);
+            } else {
+                return new Response("Shopping list with specified id does not exist!", Response::HTTP_BAD_REQUEST);
+            }
+        } catch (Exception $e) {
+            return new Response($e, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function decreaseItemAmount(Request $request, $id)
+    {
+        try {
+            $shoppingList = ShoppingList::query()->find($id);
+
+            if ($shoppingList != null) {
+
+                if ($request != null) {
+
+                    $itemId = $request->input('id');
+
+                    if ($shoppingList->items()->where('item_id', $itemId)->exists()) {
+                        $items_amount = $shoppingList->items()->where('item_id', $itemId)->first()->pivot->items_amount;
+                        $shoppingList->items()->updateExistingPivot($itemId, array('items_amount' => $items_amount - 1));
+                    } else {
+                        $shoppingList->items()->detach($itemId, array('items_amount' => 1));
+                    }
+                }
+
                 $shoppingList->save();
                 return new ShoppingListsDetailsResource($shoppingList);
             } else {
@@ -219,7 +260,6 @@ class ShoppingListsController extends Controller
             if ($shoppingList != null) {
                 if ($request != null) {
                     $shoppingList->items()->detach($request->input('id'));
-//                    DB::delete('DELETE FROM bonus_circle WHERE bonus_id = ? AND circle_id = ? LIMIT 1',[$bonus->id, $circle->id]);
                 }
                 $shoppingList->save();
                 return new ShoppingListsDetailsResource($shoppingList);

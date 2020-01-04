@@ -20,7 +20,10 @@ class ItemsDetailsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
-            'description' => $this->description
+            'description' => $this->description,
+            'items_amount' => $this->whenPivotLoaded('item_shopping_list', function () {
+                return $this->pivot->items_amount;
+            })
         ];
     }
 }

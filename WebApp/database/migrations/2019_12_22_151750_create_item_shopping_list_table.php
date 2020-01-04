@@ -26,6 +26,14 @@ class CreateItemShoppingListTable extends Migration
 
             $table->integer('shopping_list_id')->unsigned();
 
+            $table->integer('items_amount')
+                ->unsigned()
+                ->nullable();
+
+//            $table->float('items_price')
+//                ->unsigned()
+//                ->nullable();
+
             $table->timestamps();
         });
     }
