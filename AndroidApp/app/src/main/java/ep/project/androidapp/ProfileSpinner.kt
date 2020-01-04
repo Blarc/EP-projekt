@@ -8,10 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
-import ep.project.androidapp.activities.ItemsListActivity
-import ep.project.androidapp.activities.MainActivity
-import ep.project.androidapp.activities.ProfileActivity
-import ep.project.androidapp.activities.ProfileSettingsActivity
+import ep.project.androidapp.activities.*
 import ep.project.androidapp.enums.ProfileSpinnerEnum
 
 
@@ -35,6 +32,9 @@ class ProfileSpinner(private val activity: Activity) : AdapterView.OnItemSelecte
             is ProfileSettingsActivity -> {
                 spinner.setSelection(ProfileSpinnerEnum.SETTINGS.ordinal, false)
             }
+            is ArchiveActivity -> {
+                spinner.setSelection(ProfileSpinnerEnum.ARCHIVE.ordinal, false)
+            }
             else -> {
                 spinner.setSelection(ProfileSpinnerEnum.ITEMS.ordinal, false)
             }
@@ -55,6 +55,11 @@ class ProfileSpinner(private val activity: Activity) : AdapterView.OnItemSelecte
 
             ProfileSpinnerEnum.SHOPPING_LISTS -> {
                 val intent = Intent(activity, ProfileActivity::class.java)
+                startActivity(activity, intent, null)
+            }
+
+            ProfileSpinnerEnum.ARCHIVE -> {
+                val intent = Intent(activity, ArchiveActivity::class.java)
                 startActivity(activity, intent, null)
             }
 

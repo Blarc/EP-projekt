@@ -35,11 +35,10 @@ class CheckoutActivity : AppCompatActivity(), CheckoutAdapter.Interaction {
         initRecyclerView()
         checkoutAdapter.submitList(shoppingList.items)
 
-        var sum = 0.0F
-        shoppingList.items.forEach {
-            sum += it.price
-        }
-        totalAmount.text = getString(R.string.singleItemLayout_price, sum)
+        totalAmount.text = getString(
+            R.string.singleItemLayout_price,
+            shoppingList.items.sumByDouble { it.price.toDouble() * it.items_amount.toDouble() }.toFloat()
+        )
 
         checkoutBuyButton.setOnClickListener {
             setShoppingListStatus()
