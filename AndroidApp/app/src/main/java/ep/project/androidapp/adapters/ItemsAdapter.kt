@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ep.project.androidapp.R
 import ep.project.androidapp.entities.Item
-import kotlinx.android.synthetic.main.shopping_list_single_item_layout.view.*
+import kotlinx.android.synthetic.main.items_list_single_item_layout.view.*
 
 class ItemsAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -30,7 +30,7 @@ class ItemsAdapter(private val interaction: Interaction? = null) :
 
         return ItemViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.shopping_list_single_item_layout,
+                R.layout.items_list_single_item_layout,
                 parent,
                 false
             ),
@@ -65,21 +65,20 @@ class ItemsAdapter(private val interaction: Interaction? = null) :
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            itemView.itemId.text = item.id.toString()
-            itemView.itemName.text = item.name
-            itemView.itemPrice.text =
+            itemView.itemListItemId.text = item.id.toString()
+            itemView.itemListItemName.text = item.name
+            itemView.itemListItemPrice.text =
                 resources.getString(R.string.singleItemLayout_price, item.price)
 
-            shoppingListItemRemoveButton.visibility = View.GONE
 
-            itemView.shoppingListItemAddButton.setOnClickListener {
+            itemView.itemListAddButton.setOnClickListener {
                 interaction?.addItem(item)
             }
 
             if (interaction?.loggedIn()!!) {
-                itemView.shoppingListItemAddButton.visibility = View.VISIBLE
+                itemView.itemListAddButton.visibility = View.VISIBLE
             } else {
-                itemView.shoppingListItemAddButton.visibility = View.GONE
+                itemView.itemListAddButton.visibility = View.GONE
             }
         }
     }

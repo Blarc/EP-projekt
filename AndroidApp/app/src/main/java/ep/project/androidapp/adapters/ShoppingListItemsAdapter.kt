@@ -66,12 +66,19 @@ class ShoppingListItemsAdapter(private val interaction: Interaction? = null) :
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            itemView.itemId.text = item.id.toString()
-            itemView.itemName.text = item.name
-            itemView.itemPrice.text =
-                resources.getString(R.string.singleItemLayout_price, item.price)
+            itemView.shoppingListItemId.text = item.id.toString()
+            itemView.shoppingListItemName.text = item.name
+            itemView.shoppingListItemPrice.text =
+                resources.getString(R.string.singleItemLayout_price, item.price * item.items_amount)
+            itemView.shoppingListItemAmount.text = item.items_amount.toString()
             itemView.shoppingListItemRemoveButton.setOnClickListener {
                 interaction?.removeItem(item)
+            }
+            itemView.shoppingListItemDecreaseButton.setOnClickListener {
+                interaction?.decreaseItem(item)
+            }
+            itemView.shoppingListItemAddButton.setOnClickListener {
+                interaction?.addItem(item)
             }
         }
     }
@@ -80,6 +87,10 @@ class ShoppingListItemsAdapter(private val interaction: Interaction? = null) :
         fun onItemSelected(position: Int, item: Item)
 
         fun removeItem(item: Item)
+
+        fun addItem(item: Item)
+
+        fun decreaseItem(item: Item)
     }
 }
 

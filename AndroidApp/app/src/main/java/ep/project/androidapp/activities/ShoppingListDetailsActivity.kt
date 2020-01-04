@@ -105,4 +105,40 @@ class ShoppingListDetailsActivity : AppCompatActivity(), ShoppingListItemsAdapte
 
         builder.show()
     }
+
+    override fun addItem(item: Item) {
+        val call = ShoppingListService.instance.addItem(shoppingList.id, item)
+        call.enqueue(object : Callback<ShoppingList> {
+            override fun onResponse(call: Call<ShoppingList>, response: Response<ShoppingList>) {
+                shoppingList = response.body()!!
+                itemsAdapter.submitList(shoppingList.items)
+            }
+
+            override fun onFailure(call: Call<ShoppingList>, t: Throwable) {
+                Toast.makeText(
+                    this@ShoppingListDetailsActivity,
+                    "Failed to add item: ${t.message}",
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+        })
+    }
+
+    override fun decreaseItem(item: Item) {
+        val call = ShoppingListService.instance.decreaseItem(shoppingList.id, item)
+        call.enqueue(object : Callback<ShoppingList> {
+            override fun onResponse(call: Call<ShoppingList>, response: Response<ShoppingList>) {
+                shoppingList = response.body()!!
+                itemsAdapter.submitList(shoppingList.items)
+            }
+
+            override fun onFailure(call: Call<ShoppingList>, t: Throwable) {
+                Toast.makeText(
+                    this@ShoppingListDetailsActivity,
+                    "Failed to decrease item: ${t.message}",
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+        })
+    }
 }
