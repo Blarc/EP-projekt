@@ -11,6 +11,7 @@ import ep.project.androidapp.TopSpacingItemDecoration
 import ep.project.androidapp.adapters.ShoppingListItemsAdapter
 import ep.project.androidapp.entities.Item
 import ep.project.androidapp.entities.ShoppingList
+import ep.project.androidapp.services.ItemService
 import ep.project.androidapp.services.ShoppingListService
 import kotlinx.android.synthetic.main.activity_shopping_list_details.*
 import kotlinx.android.synthetic.main.shopping_list_details_toolbar_layout.*
@@ -39,6 +40,33 @@ class ShoppingListDetailsActivity : AppCompatActivity(), ShoppingListItemsAdapte
             deleteShoppingList()
         }
 
+        shoppingListDetailsRefreshButton.setOnClickListener {
+            refreshShoppingList()
+        }
+
+    }
+
+    private fun refreshShoppingList() {
+        val call = ShoppingListService.instance.get(shoppingList.id)
+        call.enqueue(object : Callback<ShoppingList> {
+            override fun onResponse(call: Call<ShoppingList>, response: Response<ShoppingList>) {
+                shoppingList = response.body()!!
+                itemsAdapter.submitList(shoppingList.items)
+                Toast.makeText(
+                    this@ShoppingListDetailsActivity,
+                    "Refreshed!",
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+
+            override fun onFailure(call: Call<ShoppingList>, t: Throwable) {
+                Toast.makeText(
+                    this@ShoppingListDetailsActivity,
+                    "Failed to refresh shopping list: ${t.message}",
+                    Toast.LENGTH_LONG
+                ).show();
+            }
+        })
     }
 
     private fun initRecyclerView() {
@@ -70,7 +98,24 @@ class ShoppingListDetailsActivity : AppCompatActivity(), ShoppingListItemsAdapte
     }
 
     override fun onItemSelected(position: Int, item: Item) {
-        Toast.makeText(this, "Clicked on: ${item.name}", Toast.LENGTH_LONG).show()
+        val call = ItemService.instance.get(item.id)
+        call.enqueue(object : Callback<Item> {
+            override fun onResponse(call: Call<Item>, response: Response<Item>) {
+                val intent =
+                    Intent(this@ShoppingListDetailsActivity, ItemDetailsActivity::class.java)
+                intent.putExtra("item", response.body()!!)
+                startActivity(intent);
+            }
+
+            override fun onFailure(call: Call<Item>, t: Throwable) {
+                Toast.makeText(
+                    this@ShoppingListDetailsActivity,
+                    "Error: ${t.message}",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
+        })
     }
 
     override fun removeItem(item: Item) {
