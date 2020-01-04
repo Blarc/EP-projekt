@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ShoppingList;
 use App\User;
 use App\Item;
 use App\Address;
@@ -219,6 +220,17 @@ class HomeController extends Controller
         ]);
         $item->save();
         return redirect()->intended('/item-manage')->with('success', 'Item created successfully');
+    }
+
+    public function createShoppingList(Request $request){
+        $user = auth()->user();
+        $sl = ShoppingList::create([
+            'name' => $request['name'],
+            'status' => '3',
+            'user_id' => $user->id
+        ]);
+        $sl->save();
+        return redirect()->intended('/shop')->with('success', 'Item created successfully');
     }
 
     public function viewCreateItemForm(){

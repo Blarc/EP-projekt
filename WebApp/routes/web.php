@@ -58,6 +58,7 @@ Route::get('/shop/shoppingLists', 'HomeController@shoppingListsShow')->name('sho
 Route::get('/shop/shoppingLists/{id}', 'ShoppingListsController@slShopShow')->name('shopShowSL');
 Route::get('/shop/baskets', 'HomeController@slShopShowBaskets')->name('shopBaskets');
 Route::get('/shop/sl/{id}/checkout', 'ShoppingListsController@checkout')->name('checkoutSL');
+Route::post('/shoppingList-create', 'HomeController@createShoppingList')->name('createShoppingList.post');
 
 
 

@@ -33,4 +33,10 @@ Poženemo migracijo:
 Če želimo napolniti bazo poženemo:
 `php artisan db:seed`
 
+####shoppingLists statusi:
+* 0 - unprocessed
+* 1 - processed
+* 2 - stornated
+* 3 - checkout
+
 
