@@ -232,5 +232,11 @@ class HomeController extends Controller
         return view('customer.shopping-lists')->with('shoppingLists', $sls);
     }
 
+    public function slShopShowBaskets(){
+        $user = auth()->user();
+        $sls = $user->shoppingLists;
+        return view('customer.basket')->with('shoppingLists', $sls);
+    }
+
 
 }

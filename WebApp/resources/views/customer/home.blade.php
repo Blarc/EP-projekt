@@ -7,8 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     CUSTOMER Dashboard
-                    <a style='float: right;' href='/edit-profile' class="btn btn-primary">
+                    <a style='float: right; margin-left: 1ex' href='/edit-profile' class="btn btn-primary">
                         {{ __('Edit profile') }}
+                    </a>
+                    <a style='float: right; margin-left: 1ex' href='/shop/baskets' class="btn btn-primary">
+                        {{ __('Baskets') }}
                     </a>
                 </div>
                 <div class="card-body">

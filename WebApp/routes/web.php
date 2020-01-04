@@ -56,6 +56,9 @@ Route::get('/shop', 'ItemsController@shopItems')->name('shop');
 Route::get('/shop/item-show/{id}', 'ItemsController@shopShow')->name('shopShowItem');
 Route::get('/shop/shoppingLists', 'HomeController@shoppingListsShow')->name('shoppingListsShow');
 Route::get('/shop/shoppingLists/{id}', 'ShoppingListsController@slShopShow')->name('shopShowSL');
+Route::get('/shop/baskets', 'HomeController@slShopShowBaskets')->name('shopBaskets');
+Route::get('/shop/sl/{id}/checkout', 'ShoppingListsController@checkout')->name('checkoutSL');
+
 
 
 

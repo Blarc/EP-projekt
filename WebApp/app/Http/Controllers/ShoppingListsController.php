@@ -71,6 +71,7 @@ class ShoppingListsController extends Controller
 
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -117,6 +118,12 @@ class ShoppingListsController extends Controller
     {
         DB::table('shopping_lists')->where('id', $id)->update(['status' => '2']);
         return redirect('/seller/shoppingLists');
+    }
+
+    public function checkout($id)
+    {
+        DB::table('shopping_lists')->where('id', $id)->update(['status' => '0']);
+        return redirect('/shop/baskets');
     }
 
     /**
