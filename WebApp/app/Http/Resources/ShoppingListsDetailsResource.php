@@ -20,6 +20,7 @@ class ShoppingListsDetailsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'user_id' => $this->user_id,
+            'status' => $this->status,
             'items' => ItemsResource::collection($this->items)
         ];
     }

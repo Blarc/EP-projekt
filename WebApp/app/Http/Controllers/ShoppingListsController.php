@@ -145,7 +145,7 @@ class ShoppingListsController extends Controller
     {
         try {
             $shoppingList = ShoppingList::query()->find($id);
-            if ($shoppingList != null) {
+            if ($shoppingList !== null) {
                 return new ShoppingListsDetailsResource($shoppingList);
             }
             return new Response("Shopping list with specified ID doesn't exist!", Response::HTTP_BAD_REQUEST);
@@ -160,7 +160,7 @@ class ShoppingListsController extends Controller
             $shoppingList = new ShoppingList;
             $name = $request->input('name');
             $userId = $request->input('userId');
-            if ($name != null) {
+            if ($name !== null) {
                 $shoppingList->name = $name;
             } else {
                 return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
@@ -187,10 +187,17 @@ class ShoppingListsController extends Controller
 
             if ($shoppingList != null) {
                 $name = $request->input('name');
-                if ($name != null) {
+                if ($name !== null) {
                     $shoppingList->name = $name;
                 } else {
                     return new Response("Name must not be null!", Response::HTTP_BAD_REQUEST);
+                }
+
+                $status = $request->input('status');
+                if ($status !== null) {
+                    $shoppingList->status = $status;
+                } else {
+                    return new Response("Status must not be null!", Response::HTTP_BAD_REQUEST);
                 }
 
 //                $items = $request->input('items');
@@ -213,9 +220,9 @@ class ShoppingListsController extends Controller
         try {
             $shoppingList = ShoppingList::query()->find($id);
 
-            if ($shoppingList != null) {
+            if ($shoppingList !== null) {
 
-                if ($request != null) {
+                if ($request !== null) {
 
                     $itemId = $request->input('id');
 
@@ -243,9 +250,9 @@ class ShoppingListsController extends Controller
         try {
             $shoppingList = ShoppingList::query()->find($id);
 
-            if ($shoppingList != null) {
+            if ($shoppingList !== null) {
 
-                if ($request != null) {
+                if ($request !== null) {
 
                     $itemId = $request->input('id');
 
@@ -275,8 +282,8 @@ class ShoppingListsController extends Controller
         try {
             $shoppingList = ShoppingList::query()->find($id);
 
-            if ($shoppingList != null) {
-                if ($request != null) {
+            if ($shoppingList !== null) {
+                if ($request !== null) {
                     $shoppingList->items()->detach($request->input('id'));
                 }
                 $shoppingList->save();
@@ -293,7 +300,7 @@ class ShoppingListsController extends Controller
     {
         try {
             $shoppingList = ShoppingList::query()->find($id);
-            if ($shoppingList != null) {
+            if ($shoppingList !== null) {
                 $shoppingList->items()->detach();
                 $shoppingList->delete();
             } else {
