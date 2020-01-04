@@ -1,10 +1,12 @@
 package ep.project.androidapp.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ep.project.androidapp.ApplicationObject
+import ep.project.androidapp.ProfileSpinner
 import ep.project.androidapp.R
 import ep.project.androidapp.TopSpacingItemDecoration
 import ep.project.androidapp.adapters.ArchiveAdapter
@@ -33,6 +35,7 @@ class ArchiveActivity : AppCompatActivity(), ArchiveAdapter.Interaction {
         refreshProfile()
 
         archiveToolbarName.text = "Archive"
+        ProfileSpinner(this)
 
         calculateTotal()
 
@@ -82,21 +85,8 @@ class ArchiveActivity : AppCompatActivity(), ArchiveAdapter.Interaction {
     }
 
     override fun onItemSelected(position: Int, item: ShoppingList) {
-//        loadingProfile.visibility = View.VISIBLE
-//        val call = ShoppingListService.instance.get(item.id)
-//        call.enqueue(object : Callback<ShoppingList> {
-//            override fun onResponse(call: Call<ShoppingList>, response: Response<ShoppingList>) {
-//                val intent = Intent(this@ArchiveActivity, ShoppingListDetailsActivity::class.java)
-//                intent.putExtra("shoppingList", response.body()!!)
-//                startActivity(intent);
-//                loadingProfile.visibility = View.GONE
-//            }
-//
-//            override fun onFailure(call: Call<ShoppingList>, t: Throwable) {
-//                Toast.makeText(this@ArchiveActivity, "Error: ${t.message}", Toast.LENGTH_LONG)
-//                    .show()
-//                loadingProfile.visibility = View.GONE
-//            }
-//        })
+        val intent = Intent(this, ArchiveDetailsActivity::class.java)
+        intent.putExtra("shoppingList", item)
+        startActivity(intent)
     }
 }

@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ArchiveActivity"></activity>
+        <activity android:name=".activities.ArchiveDetailsActivity"></activity>
+        <activity android:name=".activities.ArchiveActivity" />
         <activity android:name=".activities.CheckoutActivity" />
         <activity android:name=".activities.ShoppingListDetailsActivity" />
         <activity android:name=".activities.ProfileSettingsActivity" />
