@@ -6,7 +6,8 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorAccentDim">#FFB5C7</color>
     <color name="colorVeryRed">#FC1908</color>
-    <color name="colorVeryOrange">#3F51B5</color>
+    <color name="colorVeryYellow">#FFE500</color>
+    <color name="colorVeryBlue">#3F51B5</color>
     <color name="yellow1">#FFC107</color>
     <color name="yellow2">#000</color>
     <color name="grey05">#000</color>

@@ -36,12 +36,18 @@ class ShoppingListDetailsActivity : AppCompatActivity(), ShoppingListItemsAdapte
         initRecyclerView()
         itemsAdapter.submitList(shoppingList.items)
 
-        shoppingListDetailsDeleteButton.setOnClickListener() {
+        shoppingListDetailsDeleteButton.setOnClickListener {
             deleteShoppingList()
         }
 
         shoppingListDetailsRefreshButton.setOnClickListener {
             refreshShoppingList()
+        }
+
+        shoppingListDetailsCheckoutButton.setOnClickListener {
+            val intent = Intent(this, CheckoutActivity::class.java)
+            intent.putExtra("shoppingList", shoppingList)
+            startActivity(intent)
         }
 
     }

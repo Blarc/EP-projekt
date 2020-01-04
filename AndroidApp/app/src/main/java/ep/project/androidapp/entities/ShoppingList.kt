@@ -6,6 +6,7 @@ import java.io.Serializable
 data class ShoppingList(
     val id: Int,
     val name: String,
+    val status: Int,
     val items: List<Item>
 
 ) : Serializable {
@@ -18,6 +19,7 @@ data class ShoppingList(
         if (id != other.id) return false
         if (name != other.name) return false
         if (items != other.items) return false
+        if (status != other.status) return false
 
         return true
     }
@@ -26,6 +28,7 @@ data class ShoppingList(
         var result = id
         result = 31 * result + name.hashCode()
         result = 31 * result + items.hashCode()
+        result = 31 * result + status
         return result
     }
 }

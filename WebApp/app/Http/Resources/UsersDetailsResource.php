@@ -26,7 +26,7 @@ class UsersDetailsResource extends JsonResource
             'role' => $this->role,
             'apiToken' => $this->api_token,
             'active' => $this->active,
-            'shoppingLists' => ShoppingListsResource::collection($this->shoppingLists)
+            'shoppingLists' => ShoppingListsDetailsResource::collection($this->shoppingLists)
         ];
     }
 }

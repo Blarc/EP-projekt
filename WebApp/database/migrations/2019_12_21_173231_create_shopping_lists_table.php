@@ -17,7 +17,7 @@ class CreateShoppingListsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('name')->default("New Shopping List");
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(3);
         });
     }
 

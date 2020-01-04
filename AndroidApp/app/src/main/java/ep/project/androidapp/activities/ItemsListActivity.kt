@@ -15,6 +15,7 @@ import ep.project.androidapp.TopSpacingItemDecoration
 import ep.project.androidapp.adapters.ItemsAdapter
 import ep.project.androidapp.entities.Item
 import ep.project.androidapp.entities.ShoppingList
+import ep.project.androidapp.enums.ShoppingListStatusEnum
 import ep.project.androidapp.services.ItemService
 import ep.project.androidapp.services.ShoppingListService
 import kotlinx.android.synthetic.main.activity_items_list.*
@@ -31,7 +32,9 @@ class ItemsListActivity : AppCompatActivity(), ItemsAdapter.Interaction {
 
     private lateinit var itemsAdapter: ItemsAdapter
 
-    private lateinit var shoppingListsNames: MutableList<CharSequence>
+    private lateinit var shoppingLists: List<ShoppingList>
+
+    private lateinit var shoppingListsNames: List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,10 +53,9 @@ class ItemsListActivity : AppCompatActivity(), ItemsAdapter.Interaction {
             usernameToolbarProfile.text =
                 getString(R.string.profileToolbarLayout_username, user.firstName, user.lastName)
 
-            shoppingListsNames = mutableListOf()
-            appObject.user?.shoppingLists?.forEach {
-                shoppingListsNames.add(it.name)
-            }
+            shoppingLists =
+                user.shoppingLists.filter { it.status == ShoppingListStatusEnum.ACTIVE.value }
+            shoppingListsNames = shoppingLists.map { it.name }
         }
 
         itemsListLoading.visibility = View.VISIBLE
@@ -116,7 +118,7 @@ class ItemsListActivity : AppCompatActivity(), ItemsAdapter.Interaction {
             setTitle("Pick a shopping list")
 
             builder.setItems(shoppingListsNames.toTypedArray()) { _, i ->
-                val shoppingList = appObject.user?.shoppingLists!![i]
+                val shoppingList = shoppingLists[i]
                 val call = ShoppingListService.instance.addItem(shoppingList.id, item)
                 call.enqueue(object : Callback<ShoppingList> {
                     override fun onResponse(
@@ -139,6 +141,7 @@ class ItemsListActivity : AppCompatActivity(), ItemsAdapter.Interaction {
                     }
                 })
             }
+            
 
             builder.setNegativeButton("Cancel") { dialog, _ ->
                 dialog.cancel()
@@ -147,4 +150,5 @@ class ItemsListActivity : AppCompatActivity(), ItemsAdapter.Interaction {
             show()
         }
     }
+
 }

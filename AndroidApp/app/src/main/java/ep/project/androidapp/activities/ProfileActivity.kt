@@ -15,6 +15,7 @@ import ep.project.androidapp.TopSpacingItemDecoration
 import ep.project.androidapp.adapters.ShoppingListsAdapter
 import ep.project.androidapp.entities.ShoppingList
 import ep.project.androidapp.entities.User
+import ep.project.androidapp.enums.ShoppingListStatusEnum
 import ep.project.androidapp.services.ShoppingListService
 import ep.project.androidapp.services.UserService
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -47,7 +48,7 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
             usernameToolbarProfile.text =
                 getString(R.string.profileToolbarLayout_username, user.firstName, user.lastName)
             initRecyclerView()
-            shoppingListsAdapter.submitList(user.shoppingLists)
+            shoppingListsAdapter.submitList(user.shoppingLists.filter { it.status == ShoppingListStatusEnum.ACTIVE.value })
             loadingProfile.visibility = View.GONE
 
         }
@@ -106,7 +107,7 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 appObject.user = response.body()!!
                 user = response.body()!!
-                shoppingListsAdapter.submitList(user.shoppingLists)
+                shoppingListsAdapter.submitList(user.shoppingLists.filter { it.status == ShoppingListStatusEnum.ACTIVE.value })
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
@@ -146,5 +147,26 @@ class ProfileActivity : AppCompatActivity(), ShoppingListsAdapter.Interaction {
                 loadingProfile.visibility = View.GONE
             }
         })
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        ProfileSpinner(this)
+
+        loadingProfile.visibility = View.VISIBLE
+
+        appObject = (application as ApplicationObject)
+
+        if (appObject.user != null) {
+
+            user = appObject.user!!
+            refreshProfile()
+            shoppingListsAdapter.submitList(user.shoppingLists.filter { it.status == ShoppingListStatusEnum.ACTIVE.value })
+            loadingProfile.visibility = View.GONE
+
+        } else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -25,11 +25,11 @@ object ShoppingListService {
             @Field("name") name: String
         ): Call<ShoppingList>
 
-        @FormUrlEncoded
+        @Headers("Content-Type: application/json")
         @PUT("shoppingLists/{id}")
         fun update(
             @Path("id") id: Int,
-            @Field("name") name: String
+            @Body shoppingList: ShoppingList
         ): Call<ShoppingList>
 
         @Headers("Content-Type: application/json")

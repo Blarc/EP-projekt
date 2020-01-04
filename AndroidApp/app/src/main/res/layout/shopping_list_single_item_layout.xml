@@ -87,7 +87,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/colorVeryOrange"
+                android:backgroundTint="@color/colorVeryBlue"
                 android:src="@drawable/ic_remove_24px"
                 android:contentDescription="@string/singleItemAddButtonDesc"
                 android:visibility="visible"
