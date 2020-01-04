@@ -43,6 +43,7 @@
     <string name="refresh_profile">Refresh profile</string>
     <string name="singleItemAddButtonDesc">Add item to shopping list</string>
     <string name="refresh_shopping_list">Refresh shopping list</string>
+    <string name="checkoutBuyButton">Buy</string>
 
     <string-array name="profileSpinnerEntries">
         <item>Shop</item>

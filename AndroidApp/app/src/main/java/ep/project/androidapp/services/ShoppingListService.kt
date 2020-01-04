@@ -18,6 +18,7 @@ object ShoppingListService {
         @GET("shoppingLists/{id}")
         fun get(@Path("id") id: Int): Call<ShoppingList>
 
+        @Headers("Content-Type: application/json")
         @FormUrlEncoded
         @POST("shoppingLists")
         fun insert(
@@ -25,11 +26,11 @@ object ShoppingListService {
             @Field("name") name: String
         ): Call<ShoppingList>
 
-        @FormUrlEncoded
+        @Headers("Content-Type: application/json")
         @PUT("shoppingLists/{id}")
         fun update(
             @Path("id") id: Int,
-            @Field("name") name: String
+            @Body shoppingList: ShoppingList
         ): Call<ShoppingList>
 
         @Headers("Content-Type: application/json")
