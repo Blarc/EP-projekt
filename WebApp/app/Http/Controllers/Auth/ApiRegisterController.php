@@ -80,6 +80,7 @@ class ApiRegisterController extends Controller
             'postCode' => $data['postCode'],
         ]);
 
+        $address->save();
         $user->address()->associate($address);
         $user->save();
 
