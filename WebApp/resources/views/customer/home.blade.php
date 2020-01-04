@@ -27,7 +27,7 @@
                                 <h4>{{$item->price}} €</h4>
                                 <small>added {{$item->created_at}}</small><br>
                                 <small>updated {{$item->updated_at}}</small>
-                                <a style="color: white; float: right" data-toggle="modal" data-target="#yourModal" class="btn btn-dark">Add to basket</a> {{--TODO spremeni gumb, da bo dodajal--}}
+                                <a style="color: white; float: right" data-toggle="modal" data-target="#yourModal" class="btn btn-dark">Add to basket</a> TODO spremeni gumb, da bo dodajal
                                 <div class="modal" tabindex="-1" role="dialog" id="yourModal">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -38,7 +38,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-
+                                                <h4>Add item to a new basket</h4>
                                                 <form method="POST" action="{{ route('createShoppingList.post') }}">
                                                     @csrf
 
@@ -63,9 +63,25 @@
                                                             </button>
                                                         </div>
                                                     </div>
+
+                                                    <hr>
+                                                    <h4>Add item to an existing basket</h4>
+                                                    @if(count($shoppingLists) > 1)
+                                                        @foreach($shoppingLists as $sl)
+                                                            <div class="well">
+                                                                @if($sl->status == 1)
+                                                                    <h3><a href="/shop/shoppingLists/{{$sl->id}}">{{$sl->name}}</a></h3>
+{{--                                                                TODO dodaj item shoppingListu--}}
+                                                                    <hr>
+                                                                @endif
+                                                            </div>
+                                                        @endforeach
+                                                    @else
+                                                        <p>No shopping lists found</p>
+                                                @endif
+
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary">Save changes</button>
+x                                            <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>

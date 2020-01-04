@@ -311,4 +311,8 @@ class ShoppingListsController extends Controller
             return new Response($e, Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function addItem(){
+
+    }
 }

@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use Auth;
 
 class ItemsController extends Controller
 {
@@ -33,8 +34,13 @@ class ItemsController extends Controller
 
     public function shopItems()
     {
-        $items = DB::table('items')->paginate(10);
-        return view('customer.home')->with('items', $items);
+        $user = auth()->user();
+        $sl = $user->shoppingLists;
+
+        $item = DB::table('items')->paginate(10);
+
+        return view('customer.home')->with('items', $item)->with('shoppingLists', $sl);
+
     }
 
 

@@ -51,6 +51,7 @@ Route::get('/seller/item/{id}/delete', 'ItemsController@destroy')->name('deleteI
 Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->name('acceptSL');
 Route::get('/seller/sl/{id}/stornate', 'ShoppingListsController@stornate')->name('stornateSL');
 Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->name('showSL');
+Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->name('showSL');
 
 Route::get('/shop', 'ItemsController@shopItems')->name('shop');
 Route::get('/shop/item-show/{id}', 'ItemsController@shopShow')->name('shopShowItem');
@@ -59,6 +60,8 @@ Route::get('/shop/shoppingLists/{id}', 'ShoppingListsController@slShopShow')->na
 Route::get('/shop/baskets', 'HomeController@slShopShowBaskets')->name('shopBaskets');
 Route::get('/shop/sl/{id}/checkout', 'ShoppingListsController@checkout')->name('checkoutSL');
 Route::post('/shoppingList-create', 'HomeController@createShoppingList')->name('createShoppingList.post');
+Route::post('/shoppingList-create', 'HomeController@createShoppingList')->name('createShoppingList.post');
+
 
 
 
