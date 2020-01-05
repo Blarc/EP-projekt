@@ -222,7 +222,7 @@ class HomeController extends Controller
         return redirect()->intended('/item-manage')->with('success', 'Item created successfully');
     }
 
-    public function createShoppingList(Request $request){
+    public function createShoppingList(Request $request, $id){
         $user = auth()->user();
         $sl = ShoppingList::create([
             'name' => $request['name'],
@@ -230,7 +230,7 @@ class HomeController extends Controller
             'user_id' => $user->id
         ]);
         $sl->save();
-        return redirect()->intended('/shop')->with('success', 'Item created successfully');
+        return redirect()->back()->with('success', 'Shopping list created successfully');
     }
 
     public function viewCreateItemForm(){
@@ -250,5 +250,29 @@ class HomeController extends Controller
         return view('customer.basket')->with('shoppingLists', $sls);
     }
 
+    public function accept($id)
+    {
+        DB::table('shopping_lists')->where('id', $id)->update(['status' => '1']);
+        return redirect('/seller/shoppingLists');
+    }
 
+    public function setAmountShoppingList(Request $request, $slid, $iid){
+        $shoppingList = ShoppingList::find($slid);
+//        $items_amount = $shoppingList->items()->where('item_id', $iid)->first()->pivot->items_amount;
+        $shoppingList->items()->updateExistingPivot($iid, array('items_amount' => $request['items_amount']));
+        $shoppingList->save();
+//        return redirect('/seller/shoppingLists');
+        return redirect()->back()->with('success', 'Shopping list updated successfully');
+
+    }
+
+
+
+    public function deleteItemShoppingList($slid, $iid){
+        $shoppingList = ShoppingList::find($slid);
+        $shoppingList->items()->detach($iid);
+        $shoppingList->save();
+        return redirect()->back()->with('success', 'Shopping list updated successfully');
+
+    }
 }

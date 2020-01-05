@@ -245,6 +245,7 @@ class ShoppingListsController extends Controller
         }
     }
 
+
     public function decreaseItemAmount(Request $request, $id)
     {
         try {
@@ -312,7 +313,4 @@ class ShoppingListsController extends Controller
         }
     }
 
-    public function addItem(){
-
-    }
 }

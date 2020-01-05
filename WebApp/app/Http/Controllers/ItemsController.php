@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ShoppingList;
 use DB;
 use App\Http\Resources\ItemsDetailsResource;
 use App\Http\Resources\ItemsResource;
@@ -41,6 +42,40 @@ class ItemsController extends Controller
 
         return view('customer.home')->with('items', $item)->with('shoppingLists', $sl);
 
+    }
+
+    public function toBasket($id)
+    {
+        $user = auth()->user();
+        $sl = $user->shoppingLists;
+
+        $item = Item::find($id);
+
+        return view('customer.choose-basket')->with('item', $item)->with('shoppingLists', $sl);
+
+    }
+
+    public function addItemShop($slid, $iid){
+        $shoppingList = ShoppingList::find($slid);
+
+        if ($shoppingList->items()->where('item_id', $iid)->exists()) {
+            $items_amount = $shoppingList->items()->where('item_id', $iid)->first()->pivot->items_amount;
+            $shoppingList->items()->updateExistingPivot($iid, array('items_amount' => $items_amount + 1));
+        } else {
+            $shoppingList->items()->attach($iid, array('items_amount' => 1));
+        }
+
+
+
+        $shoppingList->save();
+
+        $user = auth()->user();
+        $sl = $user->shoppingLists;
+
+        $item = DB::table('items')->paginate(10);
+
+        return view('customer.home')->with('items', $item)->with('shoppingLists', $sl);
+//        return redirect()->intended('/shop')->with('success', 'Item added successfully');
     }
 
 
