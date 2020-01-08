@@ -12,7 +12,8 @@
                         <div>Price:  <strong>{{$item->price}}</strong></div>
                         <div>Description:  <strong>{{$item->description}}</strong></div>
                         <div>Date of last update:  <strong>{{$item->updated_at}}</strong></div>
-                        <div><a href="/seller/item/{{$item->id}}/edit" class="btn btn-dark" style="float: right">Add to basket</a></div> {{--TODO spremeni gumb, da bo dodajal--}}
+                        <div><strong><h3>Price: {{$item->price}} €</h3></strong></div>
+                        <div><a href="/shop/add/{{$item->id}}" class="btn btn-dark" style="float: right">Add to basket</a></div> {{--TODO spremeni gumb, da bo dodajal--}}
                     </div>
                 </div>
             </div>

@@ -49,7 +49,8 @@
                                 <p>No items in shopping list</p>
                             @endif
                         </div>
-                        <div style="float: right"><h4>Total amount: {{$sl->totalAmount()}}€</h4></div>
+                        <div style="float: right"><h4>Total amount: {{$sl->totalAmount()}}€</h4></div><br><br>
+                        <a href="/shop/sl/{{$sl->id}}/checkout" class="btn btn-dark" style="float: right">Checkout</a>
                     </div>
                 </div>
             </div>
