@@ -44,7 +44,7 @@
                                 <a href="/home">Home</a>
                             </li>
                             <li class="dropdown-item">
-                                <a href="/preferences">Preferences</a>
+                                <a href="{{ route('edit-profile') }}">Preferences</a>
                             </li>
                             <li class="dropdown-item">
                                 <a href="{{ route('logout') }}"

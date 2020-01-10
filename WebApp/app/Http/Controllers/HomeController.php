@@ -75,8 +75,22 @@ class HomeController extends Controller
         }
     }
 
-    public function postEditProfile(Request $request, $id) {
+    public function postEditProfile(Request $request) {
 
+        $user = auth()->user();
+
+        $response = ($user->role == 'admin' || $user->role == 'seller' ?
+            (new UsersController)->putAdminOrSeller($request, $user->id) : (new UsersController)->put($request, $user->id));
+
+        if (!isset($response->id)) {
+            return redirect()->back()->with('error', $response->original);
+        }
+        return redirect()->back()->with('success', 'Profile updated successfully');
+
+    }
+
+    public function viewManagedProfile(Request $request, $id) {
+        
         $user = auth()->user();
 
         if ($user->hasRole('admin')) {
