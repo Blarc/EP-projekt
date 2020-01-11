@@ -68,13 +68,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        $u = User::where('email' , $data['email'])->first();
+        if ($u !== null) {
+            return redirect()->back()
+                ->with('error', 'Email already exists!')
+                ->withInput($request->input());
+        }
+
         $user = User::create([
-            'firstName' => $data['firstName'],
-            'lastName' => $data['lastName'],
-            'email' => $data['email'],
-            'telephone' => $data['telephone'],
-            'password' => bcrypt($data['password']),
+            'firstName' => strip_tags($data['firstName']),
+            'lastName' => strip_tags($data['firstName']),
+            'email' => strip_tags($data['firstName']),
+            'telephone' => strip_tags($data['firstName']),
+            'password' => strip_tags(bcrypt($data['firstName'])),
             'role' => 'customer',
+            'active' => true,
         ]);
         $user->assignRole('customer');
         $user->generateToken();

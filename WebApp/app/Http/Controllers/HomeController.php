@@ -167,12 +167,19 @@ class HomeController extends Controller
 
         if ($user->hasRole('admin')) {
 
+            $u = User::where('email' , $request->input('email'))->first();
+            if ($u !== null) {
+                return redirect()->back()
+                    ->with('error', 'Email already exists!')
+                    ->withInput($request->input());
+            }
+
             $seller = User::create([
-                'firstName' => $request['firstName'],
-                'lastName' => $request['lastName'],
-                'email' => $request['email'],
+                'firstName' => strip_tags($request->input('firstName')),
+                'lastName' => strip_tags($request->input('lastName')),
+                'email' => strip_tags($request->input('email')),
                 'telephone' => "",
-                'password' => bcrypt($request['password']),
+                'password' => strip_tags(bcrypt($request['password'])),
                 'role' => 'seller',
                 'active' => true,
             ]);
@@ -188,12 +195,19 @@ class HomeController extends Controller
 
         else if ($user->hasRole('seller')) {
 
+            $u = User::where('email' , $request->input('email'))->first();
+            if ($u !== null) {
+                return redirect()->back()
+                    ->with('error', 'Email already exists!')
+                    ->withInput($request->input());
+            }
+
             $customer = User::create([
-                'firstName' => $request['firstName'],
-                'lastName' => $request['lastName'],
-                'email' => $request['email'],
-                'telephone' => $request['telephone'],
-                'password' => bcrypt($request['password']),
+                'firstName' => strip_tags($request->input('firstName')),
+                'lastName' => strip_tags($request->input('lastName')),
+                'email' => strip_tags($request->input('email')),
+                'telephone' => strip_tags($request->input('telephone')),
+                'password' => strip_tags(bcrypt($request['password'])),
                 'role' => 'customer',
                 'active' => true,
             ]);
@@ -201,9 +215,9 @@ class HomeController extends Controller
             $customer->generateToken();
 
             $address = Address::create([
-                'street' => $request['street'],
-                'post' => $request['post'],
-                'postCode' => $request['postCode'],
+                'street' => strip_tags($request->input('street')),
+                'post' => strip_tags($request->input('post')),
+                'postCode' => strip_tags($request->input('postCode'))
             ]);
 
             $customer->address()->associate($address);

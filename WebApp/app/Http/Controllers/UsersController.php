@@ -49,15 +49,15 @@ class UsersController extends Controller
             $address = Address::query()->find($user->address->id);
 
             if ($user != null) {
-                $firstName = $request->input('firstName');
-                $lastName = $request->input('lastName');
-                $email = $request->input('email');
-                $password = $request->input('password');
-                $passwordConfirmation = $request->input('password_confirmation');
-                $telephone = $request->input('telephone');
-                $street = $request->input('street');
-                $post = $request->input('post');
-                $postCode = $request->input('postCode');
+                $firstName = strip_tags($request->input('firstName'));
+                $lastName = strip_tags($request->input('lastName'));
+                $email = strip_tags($request->input('email'));
+                $password = strip_tags($request->input('password'));
+                $passwordConfirmation = strip_tags($request->input('password_confirmation'));
+                $telephone = strip_tags($request->input('telephone'));
+                $street = strip_tags($request->input('street'));
+                $post = strip_tags($request->input('post'));
+                $postCode = strip_tags($request->input('postCode'));
 
                 if ($firstName != null) {
                     $user->firstName = $firstName;
@@ -120,11 +120,11 @@ class UsersController extends Controller
             $user = User::query()->find($id);
 
             if ($user != null) {
-                $firstName = $request->input('firstName');
-                $lastName = $request->input('lastName');
-                $email = $request->input('email');
-                $password = $request->input('password');
-                $passwordConfirmation = $request->input('password_confirmation');
+                $firstName = strip_tags($request->input('firstName'));
+                $lastName = strip_tags($request->input('lastName'));
+                $email = strip_tags($request->input('email'));
+                $password = strip_tags($request->input('password'));
+                $passwordConfirmation = strip_tags($request->input('password_confirmation'));
 
                 if ($firstName != null) {
                     $user->firstName = $firstName;
