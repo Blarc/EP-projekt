@@ -66,7 +66,6 @@ Route::post('/shoppingList/amount/{slid}/{iid}', 'HomeController@setAmountShoppi
 Route::get('/shop/delete/{slid}/{iid}', 'HomeController@deleteItemShoppingList')->name('deleteItemShoppingList');
 
 
-/shop/{{$sl->id}}/{{$item->id}}
 
 Route::resource('/', 'ItemsController');
 
