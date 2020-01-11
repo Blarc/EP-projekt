@@ -133,6 +133,9 @@
                             </div>
                         </div>
 
+                        
+                    <p class='row justify-content-center'>Alrea have an account? Click&nbsp<a href='{{route('login')}}'>here</a>&nbspto login.</p>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

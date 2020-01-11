@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         {{$item->name}}
-                        <a style='float: right;' href='/shop' class="btn btn-primary">
+                        <a style='float: right;' href='/' class="btn btn-primary">
                             {{ __('Back') }}
                         </a>
                     </div>
@@ -18,7 +18,9 @@
                         <div>Description:  <strong>{{$item->description}}</strong></div>
                         <div>Date of last update:  <strong>{{$item->updated_at}}</strong></div>
                         <div><strong><h3>Price: {{$item->price}} €</h3></strong></div>
-                        <div><a href="/shop/add/{{$item->id}}" class="btn btn-dark" style="float: right">Add to basket</a></div> {{--TODO spremeni gumb, da bo dodajal--}}
+                        @if(Auth::guest() || Auth::user()->role == 'customer')
+                        <a href="/shop/add/{{$item->id}}" class="btn btn-dark" style="float: right">Add to basket</a>
+                    @endif
                     </div>
                 </div>
             </div>

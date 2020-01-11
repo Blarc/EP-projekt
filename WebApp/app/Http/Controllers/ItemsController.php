@@ -23,7 +23,7 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        $items = DB::table('items')->paginate(10);
         return view('items.index')->with('items', $items);
     }
 
@@ -44,6 +44,11 @@ class ItemsController extends Controller
     public function toBasket($id)
     {
         $user = auth()->user();
+        
+        if (!$user || $user->role != 'customer') {
+            return redirect('/register')->with('warning', 'You need to be registered as customer to add item to basket!');
+        }
+
         $sl = $user->shoppingLists;
 
         $item = Item::find($id);
@@ -123,7 +128,7 @@ class ItemsController extends Controller
     public function shopShow($id)
     {
         $item = Item::find($id);
-        return view('customer.item-show')->with('item', $item);
+        return view('items.item-show')->with('item', $item);
     }
 
     /**

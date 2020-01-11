@@ -10,21 +10,25 @@
             </p>
         </div>
     @endif
-    <div class="row">
-        @foreach ($items as $item)
-        <div class="col-lg-2 card" >
-            <div class="card-body text-center">
-                <h4 class="card-title">{{$item->name}}</h4>
-                <p class="card-text">{{$item->description}}</p>
-                <b class="card-text">{{$item->price}}€</b>
-                <br></br>
-                <a class="btn btn-primary" style="margin:5px;">View more</a>
-                @if(Auth::user() && Auth::user()->role == 'customer')
-                    <a  class="btn btn-primary">Add to basket  <i class="fas fa-shopping-cart"></i></a>
-                @endif
-            </div>
-        </div>
-        
-        @endforeach
-        </div>
+    <div class="card-body">
+        @if(count($items) > 1)
+            @foreach($items as $item)
+                <div class="well">
+                    <span style='display: inline;'>
+                        <h3><a href="/shop/item-show/{{$item->id}}">{{$item->name}} {{$item->id}} </a> <div style='float: right;'>{{$item->price}} €</div></h3>
+                        <h4></h4>
+                    </span>
+                    <small>added {{$item->created_at}}</small><br>
+                    <small>updated {{$item->updated_at}}</small>
+                    @if(Auth::guest() || Auth::user()->role == 'customer')
+                        <a href="/shop/add/{{$item->id}}" class="btn btn-dark" style="float: right">Add to basket</a>
+                    @endif
+                    <hr>
+                </div>
+            @endforeach
+            {{$items->links()}}
+        @else
+            <p>No items found</p>
+        @endif
+    </div>
 @endsection
