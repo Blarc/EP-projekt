@@ -175,11 +175,11 @@ class HomeController extends Controller
             }
 
             $seller = User::create([
-                'firstName' => strip_tags($request->input('firstName')),
-                'lastName' => strip_tags($request->input('lastName')),
-                'email' => strip_tags($request->input('email')),
+                'firstName' => filter_var($request->input('firstName'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'lastName' => filter_var($request->input('lastName'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'email' => filter_var($request->input('email'), FILTER_SANITIZE_SPECIAL_CHARS),
                 'telephone' => "",
-                'password' => strip_tags(bcrypt($request['password'])),
+                'password' => filter_var(bcrypt($request['password']), FILTER_SANITIZE_SPECIAL_CHARS),
                 'role' => 'seller',
                 'active' => true,
             ]);
@@ -203,11 +203,11 @@ class HomeController extends Controller
             }
 
             $customer = User::create([
-                'firstName' => strip_tags($request->input('firstName')),
-                'lastName' => strip_tags($request->input('lastName')),
-                'email' => strip_tags($request->input('email')),
-                'telephone' => strip_tags($request->input('telephone')),
-                'password' => strip_tags(bcrypt($request['password'])),
+                'firstName' => filter_var($request->input('firstName'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'lastName' => filter_var($request->input('lastName'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'email' => filter_var($request->input('email'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'telephone' => filter_var($request->input('telephone'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'password' => filter_var(bcrypt($request['password']), FILTER_SANITIZE_SPECIAL_CHARS),
                 'role' => 'customer',
                 'active' => true,
             ]);
@@ -215,9 +215,9 @@ class HomeController extends Controller
             $customer->generateToken();
 
             $address = Address::create([
-                'street' => strip_tags($request->input('street')),
-                'post' => strip_tags($request->input('post')),
-                'postCode' => strip_tags($request->input('postCode'))
+                'street' => filter_var($request->input('street'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'post' => filter_var($request->input('post'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'postCode' => filter_var($request->input('postCode'), FILTER_SANITIZE_SPECIAL_CHARS)
             ]);
 
             $customer->address()->associate($address);
@@ -257,9 +257,9 @@ class HomeController extends Controller
 
     public function createItem(Request $request){
         $item = Item::create([
-            'name' => $request['name'],
-            'description' => $request['description'],
-            'price' => $request['price']
+            'name' => filter_var($request->input('name'), FILTER_SANITIZE_SPECIAL_CHARS),
+            'description' => filter_var($request->input('description'), FILTER_SANITIZE_SPECIAL_CHARS),
+            'price' => filter_var($request->input('price'), FILTER_SANITIZE_SPECIAL_CHARS)
         ]);
         $item->save();
         return redirect()->intended('/item-manage')->with('success', 'Item created successfully');
@@ -268,7 +268,7 @@ class HomeController extends Controller
     public function createShoppingList(Request $request, $id){
         $user = auth()->user();
         $sl = ShoppingList::create([
-            'name' => $request['name'],
+            'name' => filter_var($request['name'], FILTER_SANITIZE_SPECIAL_CHARS),
             'status' => '3',
             'user_id' => $user->id
         ]);

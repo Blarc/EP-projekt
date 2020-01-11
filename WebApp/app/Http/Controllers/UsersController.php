@@ -49,15 +49,15 @@ class UsersController extends Controller
             $address = Address::query()->find($user->address->id);
 
             if ($user != null) {
-                $firstName = strip_tags($request->input('firstName'));
-                $lastName = strip_tags($request->input('lastName'));
-                $email = strip_tags($request->input('email'));
-                $password = strip_tags($request->input('password'));
-                $passwordConfirmation = strip_tags($request->input('password_confirmation'));
-                $telephone = strip_tags($request->input('telephone'));
-                $street = strip_tags($request->input('street'));
-                $post = strip_tags($request->input('post'));
-                $postCode = strip_tags($request->input('postCode'));
+                $firstName = filter_var($request->input('firstName'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $lastName = filter_var($request->input('lastName'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $email = filter_var($request->input('email'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $password = filter_var($request->input('password'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $passwordConfirmation = filter_var($request->input('password_confirmation'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $telephone = filter_var($request->input('telephone'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $street = filter_var($request->input('street'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $post = filter_var($request->input('post'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $postCode = filter_var($request->input('postCode'), FILTER_SANITIZE_SPECIAL_CHARS);
 
                 if ($firstName != null) {
                     $user->firstName = $firstName;
@@ -120,11 +120,11 @@ class UsersController extends Controller
             $user = User::query()->find($id);
 
             if ($user != null) {
-                $firstName = strip_tags($request->input('firstName'));
-                $lastName = strip_tags($request->input('lastName'));
-                $email = strip_tags($request->input('email'));
-                $password = strip_tags($request->input('password'));
-                $passwordConfirmation = strip_tags($request->input('password_confirmation'));
+                $firstName = filter_var($request->input('firstName'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $lastName = filter_var($request->input('lastName'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $email = filter_var($request->input('email'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $password = filter_var($request->input('password'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $passwordConfirmation = filter_var($request->input('password_confirmation'), FILTER_SANITIZE_SPECIAL_CHARS);
 
                 if ($firstName != null) {
                     $user->firstName = $firstName;

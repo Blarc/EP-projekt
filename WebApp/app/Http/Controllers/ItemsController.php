@@ -202,8 +202,8 @@ class ItemsController extends Controller
     {
         try {
             $item = new Item;
-            $name = $request->input('name');
-            $price = $request->input('price');
+            $name = filter_var($request->input('name'), FILTER_SANITIZE_SPECIAL_CHARS);
+            $price = filter_var($request->input('price'), FILTER_SANITIZE_SPECIAL_CHARS);
             if ($name != null) {
                 $item->name = $name;
             } else {
@@ -215,7 +215,7 @@ class ItemsController extends Controller
                 return new Response("Price must not be null!", Response::HTTP_BAD_REQUEST);
             }
 
-            $item->description = $request->input('description');
+            $item->description = filter_var($request->input('description'), FILTER_SANITIZE_SPECIAL_CHARS);
             $item->save();
 
             return new ItemsDetailsResource($item);
@@ -230,9 +230,8 @@ class ItemsController extends Controller
             $item = Item::query()->find($id);
 
             if ($item != null) {
-                $name = $request->input('name');
-                $description = $request->input('description');
-                $price = $request->input('price');
+                $name = filter_var($request->input('name'), FILTER_SANITIZE_SPECIAL_CHARS);
+                $price = filter_var($request->input('price'), FILTER_SANITIZE_SPECIAL_CHARS);
 
                 if ($name != null) {
                     $item->name = $name;
@@ -244,7 +243,7 @@ class ItemsController extends Controller
                 } else {
                     return new Response("Price must not be null!", Response::HTTP_BAD_REQUEST);
                 }
-                $item->description = $description;
+                $item->description = filter_var($request->input('description'), FILTER_SANITIZE_SPECIAL_CHARS);
                 $item->save();
 
                 return new ItemsDetailsResource($item);

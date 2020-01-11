@@ -77,11 +77,11 @@ class RegisterController extends Controller
         }
 
         $user = User::create([
-            'firstName' => strip_tags($data['firstName']),
-            'lastName' => strip_tags($data['firstName']),
-            'email' => strip_tags($data['firstName']),
-            'telephone' => strip_tags($data['firstName']),
-            'password' => strip_tags(bcrypt($data['firstName'])),
+            'firstName' => filter_var($data['firstName'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'lastName' => filter_var($data['firstName'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'email' => filter_var($data['firstName'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'telephone' => filter_var($data['firstName'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'password' => filter_var(bcrypt($data['firstName']), FILTER_SANITIZE_SPECIAL_CHARS),
             'role' => 'customer',
             'active' => true,
         ]);
@@ -89,9 +89,9 @@ class RegisterController extends Controller
         $user->generateToken();
 
         $address = Address::create([
-            'street' => $data['street'],
-            'post' => $data['post'],
-            'postCode' => $data['postCode'],
+            'street' => filter_var($data['street'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'post' => filter_var($data['post'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'postCode' => filter_var($data['postCode'], FILTER_SANITIZE_SPECIAL_CHARS),
         ]);
 
         $address->save();
