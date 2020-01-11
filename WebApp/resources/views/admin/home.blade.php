@@ -33,7 +33,7 @@
                             </li>
                         @endforeach 
                     </ul>
-                    <a type="button" href='{{ route('createSeller') }}' class="btn btn-primary">Create new seller</a>
+                    <a type="button" href='{{ route('createSeller') }}' class="btn btn-secondary">Create new seller</a>
                 </div>
             </div>
         </div>

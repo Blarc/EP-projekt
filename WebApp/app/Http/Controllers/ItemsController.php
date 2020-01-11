@@ -29,7 +29,7 @@ class ItemsController extends Controller
 
     public function sellerindex()
     {
-        $items = DB::table('items')->paginate(10);
+        $items = DB::table('items')->orderBy('updated_at', 'desc')->paginate(10);
         return view('seller.manage')->with('items', $items);
     }
 
@@ -170,7 +170,7 @@ class ItemsController extends Controller
     {
         $item = Item::find($id);
         $item->delete();
-        return redirect('/item-manage');
+        return redirect('/item-manage')->with('success', 'Item deleted successfully.');
     }
 
     /**

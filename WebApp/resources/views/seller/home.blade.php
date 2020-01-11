@@ -33,10 +33,9 @@
                             </li>
                         @endforeach
                     </ul>
-                    <a type="button" href='{{ route('createCustomer') }}' class="btn btn-primary">Create new customer</a>
-                    <a type="button" href='{{ route('manageItems') }}' class="btn btn-primary">Create new item</a>
-
-
+                    <br></br>
+                    <a type="button" href='{{ route('manageItems') }}' class="btn btn-secondary">Items management</a>
+                    <a style='float: right;' type="button" href='{{ route('createCustomer') }}' class="btn btn-secondary">Create new customer</a>
                 </div>
             </div>
         </div>

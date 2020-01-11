@@ -10,6 +10,9 @@
                         <a style='float: right;' href='/home' class="btn btn-primary">
                             {{ __('Back') }}
                         </a>
+                    <a style='float: right;' href='{{route('createItem')}}' class="btn btn-primary">
+                            {{ __('Create new item') }}
+                        </a>
                     </div>
 
                     <div class="card-body">
