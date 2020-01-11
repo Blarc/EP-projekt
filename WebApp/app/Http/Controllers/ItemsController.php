@@ -76,7 +76,7 @@ class ItemsController extends Controller
 
         $item = DB::table('items')->paginate(10);
 
-        return view('customer.home')->with('items', $item)->with('shoppingLists', $sl);
+        return redirect()->back()->with('success', 'Item added to shopping list');
 //        return redirect()->intended('/shop')->with('success', 'Item added successfully');
     }
 

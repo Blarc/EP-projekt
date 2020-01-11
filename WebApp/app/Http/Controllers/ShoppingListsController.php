@@ -67,7 +67,7 @@ class ShoppingListsController extends Controller
     {
 
         $sl = ShoppingList::find($id);
-        return view('Customer.slshow')->with('sl', $sl);
+        return view('customer.slshow')->with('sl', $sl);
 
     }
 
@@ -122,8 +122,11 @@ class ShoppingListsController extends Controller
 
     public function checkout($id)
     {
+        if (ShoppingList::where('id', $id)->first()->totalAmount() == 0) {
+            return redirect()->back()->with('error', 'Shopping list is empty!');
+        }
         DB::table('shopping_lists')->where('id', $id)->update(['status' => '0']);
-        return redirect('/shop/baskets');
+        return redirect('/home')->with('success', 'Shopping list checkout');
     }
 
     /**

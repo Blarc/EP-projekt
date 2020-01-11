@@ -39,7 +39,9 @@ class HomeController extends Controller
             }
 
             if ($user->hasPermissionTo('viewCustomerHome')) {
-                return view('customer.home')->with('items', []);
+                $user = auth()->user();
+                $sls = $user->shoppingLists;
+                return view('customer.home')->with('shoppingLists', $sls);
             }
 
             if ($user->hasPermissionTo('viewSellerHome')) {
@@ -269,12 +271,6 @@ class HomeController extends Controller
         $user = auth()->user();
         $sls = $user->shoppingLists;
         return view('customer.shopping-lists')->with('shoppingLists', $sls);
-    }
-
-    public function slShopShowBaskets(){
-        $user = auth()->user();
-        $sls = $user->shoppingLists;
-        return view('customer.basket')->with('shoppingLists', $sls);
     }
 
     public function accept($id)

@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         {{$sl->name}}
-                        <a style='float: right;' href='/shop/baskets' class="btn btn-primary">
+                        <a style='float: right;' href='/home' class="btn btn-primary">
                             {{ __('Back') }}
                         </a>
                     </div>

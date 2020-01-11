@@ -8,6 +8,10 @@
                     <div class="card-header">
                         <h5>{{$item->name}}</h5>
                         <h6>{{$item->price}}€</h6>
+                        <a style='float: right; margin-left: 1ex' href='/edit-profile' class="btn btn-primary">
+                            {{ __('Edit profile') }}
+                        </a>
+                        
                     </div>
 
                     <div class="card-body">
@@ -43,7 +47,8 @@
                             @foreach($shoppingLists as $sl)
                                 <div class="well">
                                     @if($sl->status == 3)
-                                        <h3><a href="/shop/{{$sl->id}}/{{$item->id}}">{{$sl->name}}</a></h3>
+                                        <h3><a href='/shop/shoppingLists/{{$sl->id}}'>{{$sl->name}}</a></h3>
+                                        <a class='btn btn-primary' href="/shop/{{$sl->id}}/{{$item->id}}">Add to {{$sl->name}}</a>
                                         <hr>
                                     @endif
                                 </div>

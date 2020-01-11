@@ -1,43 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    CUSTOMER Dashboard
-                    <a style='float: right; margin-left: 1ex' href='/edit-profile' class="btn btn-primary">
-                        {{ __('Edit profile') }}
-                    </a>
-                    <a style='float: right; margin-left: 1ex' href='/shop/baskets' class="btn btn-primary">
-                        {{ __('Baskets') }}
-                    </a>
-                </div>
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    @if(count($items) > 1)
-                        @foreach($items as $item)
-                            <div class="well">
-                                <h3><a href="/shop/item-show/{{$item->id}}">{{$item->name}} {{$item->id}}</a></h3>
-                                <h4>{{$item->price}} €</h4>
-                                <small>added {{$item->created_at}}</small><br>
-                                <small>updated {{$item->updated_at}}</small>
-                                <a href="/shop/add/{{$item->id}}" class="btn btn-dark" style="float: right">Add to basket</a>
-                                <hr>
-                            </div>
-                        @endforeach
-                        {{$items->links()}}
-                    @else
-                        <p>No items found</p>
-                    @endif
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        {{ __('Your Baskets') }}
+                        <a style='float: right; margin-left: 1ex' href='/edit-profile' class="btn btn-primary">
+                            {{ __('Edit profile') }}
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        @if(count($shoppingLists) > 1)
+                        {{$shoppingLists}}
+                            @foreach($shoppingLists as $sl)
+                                <div class="well">
+                                    @if($sl->status == 3)
+                                        <h3><a href="/shop/shoppingLists/{{$sl->id}}">{{$sl->name}}</a></h3>
+                                        <small>added {{$sl->created_at}}</small><br>
+                                        <small>updated {{$sl->updated_at}}</small>
+                                        {{--                                        <a href="/seller/sl/{{$sl->id}}/delete" class="btn btn-danger" style="float: right">Delete</a>--}}
+                                        <a href="/shop/sl/{{$sl->id}}/checkout" class="btn btn-dark" style="float: right">Checkout</a>
+                                        <hr>
+                                    @endif
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No shopping lists found</p>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
