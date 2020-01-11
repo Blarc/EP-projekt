@@ -79,6 +79,10 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
+        $u = User::where('email' , $request->input('email'))->first();
+        if ($u !== null && $u->email != $user->email) {
+            return redirect()->back()->with('error', 'Email already exists!');
+        }
         $response = ($user->role == 'admin' || $user->role == 'seller' ?
             (new UsersController)->putAdminOrSeller($request, $user->id) : (new UsersController)->put($request, $user->id));
 
@@ -116,11 +120,20 @@ class HomeController extends Controller
 
         if ($user->hasRole('admin')) {
             $seller = $user->sellers->find($id);
+            $u = User::where('email' , $request->input('email'))->first();
+            if ($u !== null && $u->email != $seller->email) {
+                return redirect()->back()->with('error', 'Email already exists!');
+            }
+
             $response = (new UsersController)->putAdminOrSeller($request, $seller->id);
         }
 
         else {
             $customer = $user->customers->find($id);
+            $u = User::where('email' , $request->input('email'))->first();
+            if ($u !== null && $u->email != $customer->email) {
+                return redirect()->back()->with('error', 'Email already exists!');
+            }
             $response = (new UsersController)->put($request, $customer->id);
         }
 
