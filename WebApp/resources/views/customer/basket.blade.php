@@ -5,7 +5,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Your Baskets') }}</div>
+                    <div class="card-header">
+                        {{ __('Your Baskets') }}
+                        <a style='float: right;' href='/home' class="btn btn-primary">
+                            {{ __('Back') }}
+                        </a>
+                    </div>
                     <div class="card-body">
                         @if(count($shoppingLists) > 1)
                             @foreach($shoppingLists as $sl)

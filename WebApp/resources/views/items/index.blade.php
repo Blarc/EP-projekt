@@ -18,8 +18,10 @@
                 <p class="card-text">{{$item->description}}</p>
                 <b class="card-text">{{$item->price}}€</b>
                 <br></br>
-                <button class="btn btn-primary" style="margin:5px;">View more</button>
-                <button class="btn btn-primary">Add to cart  <i class="fas fa-shopping-cart"></i></button>
+                <a class="btn btn-primary" style="margin:5px;">View more</a>
+                @if(Auth::user() && Auth::user()->role == 'customer')
+                    <a class="btn btn-primary">Add to cart  <i class="fas fa-shopping-cart"></i></a>
+                @endif
             </div>
         </div>
         

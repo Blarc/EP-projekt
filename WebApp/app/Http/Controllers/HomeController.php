@@ -39,7 +39,7 @@ class HomeController extends Controller
             }
 
             if ($user->hasPermissionTo('viewCustomerHome')) {
-                return view('customer.home');
+                return view('customer.home')->with('items', []);
             }
 
             if ($user->hasPermissionTo('viewSellerHome')) {
