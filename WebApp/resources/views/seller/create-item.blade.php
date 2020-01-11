@@ -5,7 +5,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Create new item') }}</div>
+                    <div class="card-header">
+                        {{ __('Create new item') }}
+                        <a style='float: right;' href='/home' class="btn btn-primary">
+                            {{ __('Back') }}
+                        </a>
+                    </div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('createItem.post') }}">

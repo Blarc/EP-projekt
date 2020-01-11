@@ -35,12 +35,9 @@ class ItemsController extends Controller
 
     public function shopItems()
     {
-        $user = auth()->user();
-        $sl = $user->shoppingLists;
-
         $item = DB::table('items')->paginate(10);
 
-        return view('customer.home')->with('items', $item)->with('shoppingLists', $sl);
+        return view('customer.home')->with('items', $item);
 
     }
 

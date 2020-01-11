@@ -17,7 +17,7 @@ class ShoppingListsTableSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             ShoppingList::query()->create([
                 'name' => $faker->firstName,
-                'user_id' => 1
+                'user_id' => 3
             ]);
         }
     }

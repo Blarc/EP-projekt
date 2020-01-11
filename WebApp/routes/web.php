@@ -40,7 +40,7 @@ Route::get('/changeProfileStatus/{id}', 'HomeController@changeProfileStatus')->n
 Route::get('/item-manage', 'ItemsController@sellerindex')->name('manageItems');
 Route::get('/item-create', 'HomeController@viewCreateItemForm')->name('createItem');
 Route::post('/item-create', 'HomeController@createItem')->name('createItem.post');
-Route::post('/customer-edit-profile/{id}', 'HomeController@editItemSeller')->name('sellerItem.submit');
+Route::post('/seller/edit-item/{id}', 'HomeController@editItemSeller')->name('sellerItem.submit');
 Route::get('/item-show/{id}', 'ItemsController@sellershow')->name('showItem');
 Route::get('/seller/item/{id}/edit', 'ItemsController@selleredit')->name('editItem');
 Route::get('/customer-create', 'HomeController@viewCreateForm')->name('createCustomer');

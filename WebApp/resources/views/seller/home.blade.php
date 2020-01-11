@@ -24,7 +24,7 @@
                             <li class="list-group-item">
                                 {{ $customer->firstName }}
                                 {{ $customer->lastName }}
-                                <a style='float: right;' href='{{ route('manageCustomer.submit', $customer->id) }}' type="button" class="btn btn-primary btn-sm">Edit customer profile</a>
+                                <a href='{{route('manageCustomer', $customer->id)}}' style='float: right;'  type="button" class="btn btn-primary btn-sm">Edit customer profile</a>
                                 @if($customer->active)
                                     <a style='float: right;' href='{{ route('changeProfileStatus', $customer->id) }}' type="button" class="btn btn-danger btn-sm">Deactivate customer</a>
                                 @else

@@ -5,7 +5,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{$sl->name}}</div>
+                    <div class="card-header">
+                        {{$sl->name}}
+                        <a style='float: right;' href='/shop/baskets' class="btn btn-primary">
+                            {{ __('Back') }}
+                        </a>
+                    </div>
 
                     <div class="card-body">
                         <div>Name of user:  <strong>{{$sl->user->firstName}} {{$sl->user->lastName}}</strong></div>
