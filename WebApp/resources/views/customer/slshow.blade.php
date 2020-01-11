@@ -8,7 +8,10 @@
                     <div class="card-header">
                         {{$sl->name}}
                         <a style='float: right;' href='/home' class="btn btn-primary">
-                            {{ __('Back') }}
+                            {{ __('My shopping lists') }}
+                        </a>
+                        <a style='float: right; margin-right: 20px;' href='/' class="btn btn-primary">
+                            {{ __('Back to shopping') }}
                         </a>
                     </div>
 

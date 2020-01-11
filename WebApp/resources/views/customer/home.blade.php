@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Your Baskets') }}
+                        {{ __('Active shopping lists') }}
                         <a style='float: right; margin-left: 1ex' href='/edit-profile' class="btn btn-primary">
                             {{ __('Edit profile') }}
                         </a>
@@ -30,7 +30,7 @@
                         @endif
                     </div>
 
-                    <div class="card-header">{{ __('Submitted shopping lists') }}</div>
+                    <div class="card-header">{{ __('Pending shopping lists') }}</div>
 
                     <div class="card-body">
                         @if(count($shoppingLists) > 1)

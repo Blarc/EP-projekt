@@ -72,11 +72,9 @@ class ItemsController extends Controller
         $shoppingList->save();
 
         $user = auth()->user();
-        $sl = $user->shoppingLists;
+        $sl = $shoppingList;
 
-        $item = DB::table('items')->paginate(10);
-
-        return redirect()->back()->with('success', 'Item added to shopping list');
+        return view('customer.slshow')->with('sl', $sl);
 //        return redirect()->intended('/shop')->with('success', 'Item added successfully');
     }
 
