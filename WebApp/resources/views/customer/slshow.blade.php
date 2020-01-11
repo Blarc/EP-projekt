@@ -29,23 +29,25 @@
                                         <div class="column well" style="float: left; width: 20%">{{$item->price}}€</div>
                                         <div class="column well" style="float: left; width: 20%">{{$item->pivot->items_amount}}x</div>
                                         <div class="column well" style="float: left; width: 40%">
-                                            <form method="POST" action="/shoppingList/amount/{{$sl->id}}/{{$item->id}}">
-                                                @csrf
+                                            @if($sl->status == 3)
+                                                <form method="POST" action="/shoppingList/amount/{{$sl->id}}/{{$item->id}}">
+                                                    @csrf
 
-                                                <div class="form-group">
-                                                    <label for="items_amount">amount</label>
+                                                    <div class="form-group">
+                                                        <label for="items_amount">amount</label>
 
-                                                    <input id="items_amount" type="number" step="1" min="1" class="form-control @error('items_amount') is-invalid @enderror" name="items_amount" value="{{$item->pivot->items_amount}}" required autocomplete="items_amount" autofocus>
+                                                        <input id="items_amount" type="number" step="1" min="1" class="form-control @error('items_amount') is-invalid @enderror" name="items_amount" value="{{$item->pivot->items_amount}}" required autocomplete="items_amount" autofocus>
 
-                                                    @error('items_amount')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                    <a href="/shop/delete/{{$sl->id}}/{{$item->id}}" class="btn btn-danger" style="float: right; margin-left: 0.5ex; margin-top: 0.5ex">Delete item</a>
-                                                    <button type="submit" style="float: right; margin-top: 0.5ex" class="btn btn-primary">Calculate</button>
-                                                </div>
-                                            </form>
+                                                        @error('items_amount')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                        <a href="/shop/delete/{{$sl->id}}/{{$item->id}}" class="btn btn-danger" style="float: right; margin-left: 0.5ex; margin-top: 0.5ex">Delete item</a>
+                                                        <button type="submit" style="float: right; margin-top: 0.5ex" class="btn btn-primary">Calculate</button>
+                                                    </div>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                     <hr>
@@ -55,7 +57,9 @@
                             @endif
                         </div>
                         <div style="float: right"><h4>Total amount: {{$sl->totalAmount()}}€</h4></div><br><br>
+                        @if($sl->status == 3)
                         <a href="/shop/sl/{{$sl->id}}/checkout" class="btn btn-dark" style="float: right">Checkout</a>
+                        @endif
                     </div>
                 </div>
             </div>
