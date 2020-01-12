@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\ShoppingList;
-use DB;
 use App\Http\Resources\ItemsDetailsResource;
 use App\Http\Resources\ItemsResource;
 use App\Item;
+use App\ShoppingList;
+use DB;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
-use Auth;
 
 class ItemsController extends Controller
 {
@@ -78,7 +77,8 @@ class ItemsController extends Controller
 
     }
 
-    public function addItemShop($slid, $iid){
+    public function addItemShop($slid, $iid)
+    {
 
         $user = auth()->user();
 
@@ -106,7 +106,6 @@ class ItemsController extends Controller
     }
 
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -126,9 +125,9 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-           'name' => 'required',
-           'description' => 'required',
-           'price' => 'required'
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required'
         ]);
         return 123;
     }
@@ -241,7 +240,7 @@ class ItemsController extends Controller
     public function getAll()
     {
         try {
-            $items = Item::all();
+            $items = Item::all()->where('active', '1');
             return ItemsResource::collection($items);
         } catch (Exception $e) {
             return new Response($e, Response::HTTP_BAD_REQUEST);
