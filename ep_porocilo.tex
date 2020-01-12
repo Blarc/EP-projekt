@@ -26,13 +26,13 @@
 % ######################################
 
 \newcommand{\naslov}     {Vzorčni naslov seminarske naloge}
-\newcommand{\prviavtor}  {Janez Novak}
-\newcommand{\prviindeks} {63000000}
-\newcommand{\drugiavtor} {Jana Novak}
-\newcommand{\drugiindeks}{63000001}
-\newcommand{\tretjiavtor} {Marija Novak}
-\newcommand{\tretjiindeks}{63000002}
-\newcommand{\kraj}       {Vzorčni kraj}
+\newcommand{\prviavtor}  {Jakob Maležič}
+\newcommand{\prviindeks} {63170191}
+\newcommand{\drugiavtor} {Jan Bajt}
+\newcommand{\drugiindeks}{63170048}
+\newcommand{\tretjiavtor} {Franc Benjamin Demšar}
+\newcommand{\tretjiindeks}{63170075}
+\newcommand{\kraj}       {Ljubljana}
 
 % -----------------------------------------------------------------------------
 % ###################
@@ -115,7 +115,23 @@ pdfkeywords={spletna prodajalna, PHP, SSL, MySQL}, a4paper, pagebackref=true, un
 % ##################
 \chapter{Uvod}
 
-V uvodu podajte kratko predstavitev teme seminarske naloge ter navedite seznam uporabljene tehnologije.
+Za seminarsko nalogo smo implementirali spletno trgovino in mobilno aplikacijo spletne trgovine. Spletno trgovino lahko uporabljamo kot gost, stranka, prodajalec ali pa kot administrator. Uporabniki imajo različne ravni dostopa glede na njihove vloge, čemur se spletna trgovina prilagaja.
+\vskip 0.2in
+Uporabili smo:
+\begin{itemize}
+    \item Laravel
+    \item PHP
+	\item Apache
+	\item Android
+	\item MySQL
+	\item JavaScript
+	\item CSS
+	\item Ajax
+	\item Git
+	\item Android
+	    
+	 
+\end{itemize}
 
 % -----------------------------------------------------------------------------
 % ###################
@@ -124,29 +140,63 @@ V uvodu podajte kratko predstavitev teme seminarske naloge ter navedite seznam u
 
 % -----------------------------------------------
 \chapter{Navedba realiziranih storitev}
-
-Navedite, katere razširjene storitve ste implementirali. Če ste katero storitev implementirali le deloma, opišite, kako daleč ste z implementacijo prišli. 
+Navedite, katere razširjene storitve ste implementirali. Če ste katero storitev implementirali le deloma, opišite, kako daleč ste z implementacijo prišli.  (ZBRIŠI)
+\newline
+\section{Spletna aplikacija}
+Na spletni aplikaciji smo implementirali zgolj osnovne storitve, brez certifikatne agencije, saj nam le te ni uspelo vzpostaviti na operacijskem sistemu Windows.
 
 Prav tako navedite, če katero od obveznih storitev niste implementirali v celoti.
 
+\section{Android aplikacija}
+Na android smo implementirali vse napredne funkcije:
+\begin{itemize}
+    \item Prijava in odjava uporabnika
+    \item Pregled profilnih podatkov ter možnost njihovega spreminjanja
+    \item Izvajanje nakupa. Implementirajte zaslon, kjer boste prikazali vsebino nakupovalne košarice skupaj z ustreznimi kontrolami za manipulacijo artiklov v košarici ter dialogom, kjer bo uporabnik lahko nakup tudi zaključil.
+    \item Implementacija nakupovalne košarice je sinhronizirana z računom prijavljenega uporabnika. Na primer, če je uporabnik prijavljen v mobilno in v spletno aplikacijo hkrati, je vsebina nakupovalne košarice v obeh vmesnikih ista. (potrebno ročno osveževanje)
+    \item Pregled preteklih nakupov. Implementacija obsega tako pregled seznama vseh nakupov kot tudi ogled podrobnosti posameznega nakupa kot so seznam artiklov, končni znesek ipd.
+\end{itemize}
 
 % -----------------------------------------------
 \chapter{Podatkovni model}
 
 Podajte sliko logičnega podatkovnega modela (denimo iz programa MySQL Workbench) ter navedite in kratko opišite uporabljene tabele. Če katera vsebuje netrivialne atribute, jih pojasnite.
 
+%{\bf users} -
+%{\bf shopping_lists} - 
+%{\bf items} - 
+%{\bf item_shopping_list} - 
+%{\bf model_has_permissions} - 
+%{\bf migrations} - 
+%{\bf permissions} - 
+%{\bf role_has_permissions} - 
+%{\bf seller_admin} - 
+%{\bf roles} -
+%{\bf addresses} - 
+%{\bf customer_seller} - 
+%{\bf model_has_roles} - 
+%{\bf password_resets} -
+
 % -----------------------------------------------
 \chapter{Varnost sistema}
 
-Opišite implementirane mehanizme za nadzor dostopa ter ostale kontrole, ki ste jih implementirali. Pri vsake navedite, kaj je njen namen oz. katere varnostne grožnje preprečuje.
+Našo spletno trgovino smo zavarovali z nekaterimi varnostnimi mehanizmi za nadzor dostopa ter ostale kontrole:
+\begin{itemize}
+    \item Avtentikacija uporabnikov z email naslovom ter geslom
+    \item Različni dostopi glede na vlogo uporabnika
+    \item Ob napak in neavtoriziranih dostopih uporabnika ustrezno preusmerimo na začetno ali pa na stran za napake
+    \item Striktno preverjanje izpolnjenost obrazcev za podatke, ali so izpolnjena vsa potrebna vnosna polja, ali se gesla pri registraciji ujemata
+    \item Poskrbeli smo za preprečitev SQL injekcij ter XSS napadov ??? A SMO?
+\end{itemize}
+
 
 % -----------------------------------------------
 \chapter{Izjava o avtorstvu seminarske naloge}
 
 Spodaj podpisani \textit{\prviavtor}, vpisna številka \textit{\prviindeks}, sem (so)avtor seminarske naloge z naslovom \textit{\naslov}. S svojim podpisom zagotavljam, da sem izdelal ali bil soudeležen pri izdelavi naslednjih sklopov seminarske naloge:
 \begin{itemize}
-    \item Vzorčni sklop 1
-	 \item Vzorčni sklop 2
+    \item Android aplikacija
+	\item REST API
 \end{itemize}
 
 Podpis: {\prviavtor}, l.r.
@@ -217,7 +267,7 @@ Besedilo odseka.
 % #######################
 \chapter{Zaključek}
 
-Zaključek.
+Pri tej seminarski nalogi smo se naučili veliko novega. Naučili smo se uporabljati Laravel ter spoznali koncepte MVC arhitekture v praksi. Veliko je bilo tudi dela z bazo: vzpostavljanje vseh relacij, ustvarjanje testnih podatkov ter ne nazadnje REST API. Naučili smo se tudi razvoja mobilne aplikacije v programskem jeziku Kotlin. Žal pa nam, zaradi pomanjkanja časa, ni uspelo implementirati vseh storitev, ki smo si jih na začetku želeli.
 
 % -----------------------------------------------------------------------------
 % ##############
@@ -240,15 +290,5 @@ Zaključek.
 \url{http://www.ipsec-howto.org/t1.html}
 
 \end{thebibliography}
-
-% -----------------------------------------------------------------------------
-% ###########
-% # DODATEK #
-% ###########
-
- \appendix
-
-\chapter{Naslov dodatka}
-{\it Po potrebi.}
 
 \end{document}
