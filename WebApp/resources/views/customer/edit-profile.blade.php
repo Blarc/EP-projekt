@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     CUSTOMER Dashboard
-                    <a style='float: right;' href='/home' class="btn btn-primary">
+                    <a style='float: right;' href='/' class="btn btn-primary">
                         {{ __('Back') }}
                     </a>
                 </div>
@@ -70,7 +70,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row">
@@ -85,7 +85,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row">

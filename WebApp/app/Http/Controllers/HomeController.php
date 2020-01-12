@@ -249,7 +249,7 @@ class HomeController extends Controller
     public function editItemSeller(Request $request, $id){
 
         $user = auth()->user();
-        dd($user);
+//        dd($user);
         if ($user && $user->role == 'seller') {
             $item = Item::find($id);
             $response = (new ItemsController)->put($request, $item->id);

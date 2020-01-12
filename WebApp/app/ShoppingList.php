@@ -63,15 +63,21 @@ class ShoppingList extends Model
         return $amount;
     }
 
-    public function addItemAndREDIRECT($id){
-        if ($this->items()->where('item_id', $id)->exists()) {
-            $items_amount = $this->items()->where('item_id', $id)->first()->pivot->items_amount;
-            $this->items()->updateExistingPivot($id, array('items_amount' => $items_amount + 1));
-        } else {
-            $this->items()->attach($id, array('items_amount' => 1));
-        }
+    public function addItemAndREDIRECT($iid){
 
-        $this->save();
+        $user = auth()->user();
+
+        if ($user && $user->role == 'customer') {
+
+            if ($this->items()->where('item_id', $iid)->exists()) {
+                $items_amount = $this->items()->where('item_id', $iid)->first()->pivot->items_amount;
+                $this->items()->updateExistingPivot($iid, array('items_amount' => $items_amount + 1));
+            } else {
+                $this->items()->attach($iid, array('items_amount' => 1));
+            }
+
+            $this->save();
+        }
     }
 
 }

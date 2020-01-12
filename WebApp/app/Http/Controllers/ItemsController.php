@@ -77,25 +77,13 @@ class ItemsController extends Controller
 
     }
 
-    public function addItemShop($slid, $iid)
+    public function addItemShop($slid)
     {
 
         $user = auth()->user();
 
         if ($user && $user->role == 'customer') {
-            $shoppingList = ShoppingList::find($slid);
-
-            if ($shoppingList->items()->where('item_id', $iid)->exists()) {
-                $items_amount = $shoppingList->items()->where('item_id', $iid)->first()->pivot->items_amount;
-                $shoppingList->items()->updateExistingPivot($iid, array('items_amount' => $items_amount + 1));
-            } else {
-                $shoppingList->items()->attach($iid, array('items_amount' => 1));
-            }
-
-            $shoppingList->save();
-
-            $user = auth()->user();
-            $sl = $shoppingList;
+            $sl = ShoppingList::find($slid);
 
             return view('customer.slshow')->with('sl', $sl);
         }

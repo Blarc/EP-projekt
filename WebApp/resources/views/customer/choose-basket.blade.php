@@ -49,7 +49,7 @@
                                     @if($sl->status == 3)
                                         <div class="card-body">
                                             <button onclick="{{ $sl->addItemAndREDIRECT($item->id) }}" class="btn btn-outline-primary btn-block" style="float: right; margin: 0.5ex; margin-top: 0.5ex"><h4>{{$sl->name}}</h4></button>
-                                            <a href="/shop/{{$sl->id}}}}" class="btn btn-primary" style="float: right; margin-right: 0.5ex; margin-top: 0.5ex">See Shopping List</a>
+                                            <a href="/shop/{{$sl->id}}" class="btn btn-primary" style="float: right; margin-right: 0.5ex; margin-top: 0.5ex">See Shopping List</a>
                                             <br>
                                             <br>
                                             <br>
