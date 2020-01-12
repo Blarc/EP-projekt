@@ -137,11 +137,11 @@ class ShoppingListsController extends Controller
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
     }
 
     public function stornate($id)
-    {   
+    {
         $user = auth()->user();
 
         if ($user->role == 'seller') {
@@ -150,7 +150,7 @@ class ShoppingListsController extends Controller
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
     }
 
     public function checkout($id)
@@ -162,11 +162,11 @@ class ShoppingListsController extends Controller
                 return redirect()->back()->with('error', 'Shopping list is empty!');
             }
             DB::table('shopping_lists')->where('id', $id)->update(['status' => '0']);
-            return redirect('/home')->with('success', 'Shopping list checkout');
+            return redirect('/')->with('success', 'Shopping list checkout');
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
     }
 
     /**

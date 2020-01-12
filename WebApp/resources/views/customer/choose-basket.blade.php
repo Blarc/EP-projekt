@@ -11,7 +11,7 @@
                         <a style='float: right; margin-left: 1ex' href='/' class="btn btn-primary">
                             {{ __('Back') }}
                         </a>
-                        
+
                     </div>
 
                     <div class="card-body">
@@ -47,10 +47,22 @@
                             @foreach($shoppingLists as $sl)
                                 <div class="well">
                                     @if($sl->status == 3)
-                                        <h3><a href="/shop/{{$sl->id}}/{{$item->id}}">{{$sl->name}}</a></h3>
-                                        <hr>
+                                        <div class="card-body">
+                                            <button onclick="{{ $sl->addItemAndREDIRECT($item->id) }}" class="btn btn-outline-primary btn-block" style="float: right; margin: 0.5ex; margin-top: 0.5ex"><h4>{{$sl->name}}</h4></button>
+                                            <a href="/shop/{{$sl->id}}}}" class="btn btn-primary" style="float: right; margin-right: 0.5ex; margin-top: 0.5ex">See Shopping List</a>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+
+                                        </div>
+{{--                                        <h3><a href="/shop/{{$sl->id}}/{{$item->id}}">{{$sl->name}}</a></h3> <a href="/shop/{{$sl->id}}"> --}}
+{{--                                        <button onclick="{{ $sl->addItemAndREDIRECT($item->id) }}" class="btn btn-outline-primary btn-block" style="float: right; margin-left: 0.5ex; margin-top: 0.5ex"><h4>{{$sl->name}}</h4></button>--}}
+{{--                                        <a href="/shop/{{$sl->id}}}}" class="btn btn-primary" style="float: right; margin-right: 0.5ex; margin-top: 0.5ex">See Shopping List</a>--}}
+
                                     @endif
                                 </div>
+
                             @endforeach
                         @else
                             <p>No shopping lists found</p>

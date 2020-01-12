@@ -62,4 +62,16 @@ class ShoppingList extends Model
         }
         return $amount;
     }
+
+    public function addItemAndREDIRECT($id){
+        if ($this->items()->where('item_id', $id)->exists()) {
+            $items_amount = $this->items()->where('item_id', $id)->first()->pivot->items_amount;
+            $this->items()->updateExistingPivot($id, array('items_amount' => $items_amount + 1));
+        } else {
+            $this->items()->attach($id, array('items_amount' => 1));
+        }
+
+        $this->save();
+    }
+
 }

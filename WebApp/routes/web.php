@@ -63,9 +63,10 @@ Route::get('/shop/baskets', 'HomeController@slShopShowBaskets')->name('shopBaske
 Route::get('/shop/sl/{id}/checkout', 'ShoppingListsController@checkout')->name('checkoutSL');
 Route::post('/shoppingList-create/{id}', 'HomeController@createShoppingList')->name('createShoppingList.post');
 Route::get('/shop/add/{id}', 'ItemsController@toBasket')->name('toBasket');
-Route::get('/shop/{slid}/{iid}', 'ItemsController@addItemShop')->name('addItemShop');
-Route::post('/shoppingList/amount/{slid}/{iid}', 'HomeController@setAmountShoppingList')->name('setAmountShoppingList.post');
+Route::get('/shop/{slid}', 'ItemsController@addItemShop')->name('addItemShop');
+//Route::get('/shop/{slid}/{iid}', 'ItemsController@addItemShop')->name('addItemShop');
 Route::get('/shop/delete/{slid}/{iid}', 'HomeController@deleteItemShoppingList')->name('deleteItemShoppingList');
+Route::post('/shoppingList/amount/{slid}/{iid}', 'HomeController@setAmountShoppingList')->name('setAmountShoppingList.post');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ShoppingListsDetailsResource;
 use App\ShoppingList;
 use App\User;
 use App\Item;
@@ -259,7 +260,7 @@ class HomeController extends Controller
             }
             return redirect()->intended('/item-manage')->with('success', 'Item updated successfully');
         }
-        
+
         return redirect('login')->with('warning', 'Unauthorized request');
     }
 
@@ -279,7 +280,7 @@ class HomeController extends Controller
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
     }
 
     public function createShoppingList(Request $request, $id){
@@ -296,21 +297,21 @@ class HomeController extends Controller
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
     }
 
     public function viewCreateItemForm(){
-        
+
         $user = auth()->user();
         if ($user->role == 'seller') {
             return view('seller.create-item');
         }
-        
+
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
     }
 
     public function shoppingListsShow(){
-        
+
         $user = auth()->user();
 
         if ($user->role == 'customer') {
@@ -319,7 +320,7 @@ class HomeController extends Controller
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
     }
 
     public function accept($id)
@@ -332,11 +333,11 @@ class HomeController extends Controller
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
     }
 
     public function setAmountShoppingList(Request $request, $slid, $iid){
-        
+
         $user = auth()->user();
 
         if ($user->role == 'customer') {

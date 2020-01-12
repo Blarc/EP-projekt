@@ -16,7 +16,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Items</h3>
+                        <a style='float: right; margin-left: 1ex' href='/edit-profile' class="btn btn-primary">
+                            {{ __('Edit profile') }}
+                        </a>
+                        <a style='float: right; margin-left: 1ex' href='/home' class="btn btn-primary">
+                            {{ __('My Shopping Lists') }}
+                        </a>
                     </div>
+
 
                     <div class="card-body">
                         @if(count($items) > 0)

@@ -37,7 +37,7 @@ class ItemsController extends Controller
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
     }
 
     public function sellerindexDeactivated()
@@ -101,7 +101,7 @@ class ItemsController extends Controller
         }
 
         return redirect()->intended('/home')->with('warning', 'Unauthorized request');
-        
+
 //        return redirect()->intended('/shop')->with('success', 'Item added successfully');
     }
 
