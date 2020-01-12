@@ -238,7 +238,10 @@ class HomeController extends Controller
 
         if ($user && $user->role == 'admin' || $user->role == 'seller'){
             $profile = ($user->role == 'admin' ? $user->sellers->find($id) : $user->customers->find($id));
-            $profile->active = !$profile->active;
+            if(!$profile) {
+                return redirect('/home')->with('warning', 'Cant\' find user to (de)activate.');
+            }
+            $profile->active = !($profile->active);
             $profile->save();
         }
 

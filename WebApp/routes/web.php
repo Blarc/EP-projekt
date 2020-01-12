@@ -32,7 +32,7 @@ Route::post('/seller-create', 'HomeController@createManagedProfile')->name('crea
 // for updating and creating customer accounts
 Route::get('/customer-edit-profile/{id}', 'HomeController@viewManagedProfile')->name('manageCustomer');
 Route::post('/customer-edit-profile/{id}', 'HomeController@editManagedProfile')->name('manageCustomer.submit');
-Route::get('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer');
+// Route::get('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer');
 
 // for making user accounts active/inactive
 Route::get('/changeProfileStatus/{id}', 'HomeController@changeProfileStatus')->name('changeProfileStatus');
@@ -59,7 +59,7 @@ Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->name
 Route::get('/shop/item-show/{id}', 'ItemsController@shopShow')->name('shopShowItem');
 Route::get('/shop/shoppingLists', 'HomeController@shoppingListsShow')->name('shoppingListsShow');
 Route::get('/shop/shoppingLists/{id}', 'ShoppingListsController@slShopShow')->name('shopShowSL');
-Route::get('/shop/baskets', 'HomeController@slShopShowBaskets')->name('shopBaskets');
+// Route::get('/shop/baskets', 'HomeController@slShopShowBaskets')->name('shopBaskets');
 Route::get('/shop/sl/{id}/checkout', 'ShoppingListsController@checkout')->name('checkoutSL');
 Route::post('/shoppingList-create/{id}', 'HomeController@createShoppingList')->name('createShoppingList.post');
 Route::get('/shop/add/{id}', 'ItemsController@toBasket')->name('toBasket');

@@ -19,8 +19,15 @@ class ShoppingListsController extends Controller
      */
     public function index()
     {
-        $shoppingLists = ShoppingList::all();
-        return view('seller.shopping-lists')->with('shoppingLists', $shoppingLists);
+        $user = auth()->user();
+
+        if ($user && $user->role == 'seller') {
+            $shoppingLists = ShoppingList::all();
+            return view('seller.shopping-lists')->with('shoppingLists', $shoppingLists);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+
     }
 
     /**

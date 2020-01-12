@@ -19,9 +19,11 @@
                         <a style='float: right; margin-left: 1ex' href='/edit-profile' class="btn btn-primary">
                             {{ __('Edit profile') }}
                         </a>
+                        @if(!Auth::guest() && Auth::user()->role == 'customer')
                         <a style='float: right; margin-left: 1ex' href='/home' class="btn btn-primary">
                             {{ __('My Shopping Lists') }}
                         </a>
+                        @endif
                     </div>
 
 
