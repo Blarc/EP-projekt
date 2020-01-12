@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Unprocessed shopping lists') }}</div>
                     <div class="card-body">
-                        @if(count($shoppingLists) > 1)
+                        @if(count($shoppingLists) > 0)
                             @foreach($shoppingLists as $sl)
                                 <div class="well">
                                     @if($sl->status == 0)
@@ -28,7 +28,7 @@
                     <div class="card-header">{{ __('Processed shopping lists') }}</div>
 
                     <div class="card-body">
-                        @if(count($shoppingLists) > 1)
+                        @if(count($shoppingLists) > 0)
                             @foreach($shoppingLists as $sl)
                                 <div class="well">
                                     @if($sl->status == 1)
@@ -48,7 +48,7 @@
                     <div class="card-header">{{ __('Stornated shopping lists') }}</div>
 
                     <div class="card-body">
-                        @if(count($shoppingLists) > 1)
+                        @if(count($shoppingLists) > 0)
                             @foreach($shoppingLists as $sl)
                                 <div class="well">
                                     @if($sl->status == 2)

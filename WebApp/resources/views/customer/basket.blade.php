@@ -12,7 +12,7 @@
                         </a>
                     </div>
                     <div class="card-body">
-                        @if(count($shoppingLists) > 1)
+                        @if(count($shoppingLists) > 0)
                             @foreach($shoppingLists as $sl)
                                 <div class="well">
                                     @if($sl->status == 3)

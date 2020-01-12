@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="card-body">
-                        @if(count($items) > 1)
+                        @if(count($items) > 0)
                             @foreach($items as $item)
                                 <div class="well">
                                     <span style='display: inline;'>
