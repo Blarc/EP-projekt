@@ -19,7 +19,8 @@ class ItemsTableSeeder extends Seeder
             Item::query()->create([
                 'name' => $faker->city,
                 'description' => $faker->paragraph,
-                'price' => $faker->randomFloat(2, 0, 1000)
+                'price' => $faker->randomFloat(2, 0, 1000),
+                'active' => 1
             ]);
         }
 

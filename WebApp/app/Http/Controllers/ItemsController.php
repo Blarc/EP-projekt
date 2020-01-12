@@ -23,14 +23,20 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        $items = DB::table('items')->paginate(10);
+        $items = DB::table('items')->where('active', '1')->paginate(8);
         return view('items.index')->with('items', $items);
     }
 
     public function sellerindex()
     {
-        $items = DB::table('items')->orderBy('updated_at', 'desc')->paginate(10);
+        $items = DB::table('items')->where('active', '1')->orderBy('updated_at', 'desc')->paginate(8);
         return view('seller.manage')->with('items', $items);
+    }
+
+    public function sellerindexDeactivated()
+    {
+        $notActive = DB::table('items')->where('active', '0')->orderBy('updated_at', 'desc')->paginate(8);
+        return view('seller.managedeactivated')->with('itemsNotActive', $notActive);
     }
 
     public function shopItems()
@@ -44,7 +50,7 @@ class ItemsController extends Controller
     public function toBasket($id)
     {
         $user = auth()->user();
-        
+
         if (!$user || $user->role != 'customer') {
             return redirect('/register')->with('warning', 'You need to be registered as customer to add item to basket!');
         }
@@ -167,8 +173,17 @@ class ItemsController extends Controller
     public function destroy($id)
     {
         $item = Item::find($id);
-        $item->delete();
-        return redirect('/item-manage')->with('success', 'Item deleted successfully.');
+        $item->active = 0;
+        $item->save();
+        return redirect('/item-manage')->with('success', 'Item deactivated successfully.');
+    }
+
+    public function activate($id)
+    {
+        $item = Item::find($id);
+        $item->active = 1;
+        $item->save();
+        return redirect('/item-manage')->with('success', 'Item reactivated successfully.');
     }
 
     /**

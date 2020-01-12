@@ -13,24 +13,23 @@
                         <a style='float: right; margin-left: 1ex' href='{{route('createItem')}}' class="btn btn-primary">
                             {{ __('Create new item') }}
                         </a>
-                        <a style='float: right; margin-left: 1ex' href='/item-deactivated' class="btn btn-primary">Deactivated Items</a>
-
+                        <a style='float: right; margin-left: 1ex' href='/item-manage' class="btn btn-primary">Active Items</a>
                     </div>
 
                     <div class="card-body">
-                        @if(count($items) > 1)
-                            @foreach($items as $item)
+                        @if(count($itemsNotActive) > 1)
+                            @foreach($itemsNotActive as $item)
                                     <div class="well">
                                         <h3><a href="/item-show/{{$item->id}}">{{$item->name}}</a></h3>
                                         <h4>{{$item->price}} €</h4>
                                         <small>added {{$item->created_at}}</small><br>
                                         <small>updated {{$item->updated_at}}</small>
                                         <a href="/seller/item/{{$item->id}}/edit" class="btn btn-dark" style="float: right">Edit</a>
-                                        <a href="/seller/item/{{$item->id}}/delete" class="btn btn-danger" style="float: right">Deactivate</a>
+                                        <a href="/seller/item/{{$item->id}}/activate" class="btn btn-danger" style="float: right">Reactivate</a>
                                         <hr>
                                     </div>
                             @endforeach
-                            {{$items->links()}}
+                            {{$itemsNotActive->links()}}
                         @else
                             <p>No items found</p>
                         @endif

@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->decimal('price');
+            $table->decimal('active');
         });
     }
 

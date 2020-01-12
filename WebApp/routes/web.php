@@ -38,6 +38,7 @@ Route::get('/customer-create', 'HomeController@createManagedProfile')->name('cre
 Route::get('/changeProfileStatus/{id}', 'HomeController@changeProfileStatus')->name('changeProfileStatus');
 
 Route::get('/item-manage', 'ItemsController@sellerindex')->name('manageItems');
+Route::get('/item-deactivated', 'ItemsController@sellerindexDeactivated')->name('manageDeactivatedItems');
 Route::get('/item-create', 'HomeController@viewCreateItemForm')->name('createItem');
 Route::post('/item-create', 'HomeController@createItem')->name('createItem.post');
 Route::post('/seller/edit-item/{id}', 'HomeController@editItemSeller')->name('sellerItem.submit');
@@ -48,6 +49,7 @@ Route::post('/customer-create', 'HomeController@createManagedProfile')->name('cr
 Route::get('/seller/shoppingLists', 'ShoppingListsController@index')->name('indexSL');
 Route::get('/seller/sl/{id}/delete', 'ShoppingListsController@destroy')->name('deleteSL');
 Route::get('/seller/item/{id}/delete', 'ItemsController@destroy')->name('deleteItem');
+Route::get('/seller/item/{id}/activate', 'ItemsController@activate')->name('activateItem');
 Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->name('acceptSL');
 Route::get('/seller/sl/{id}/stornate', 'ShoppingListsController@stornate')->name('stornateSL');
 Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->name('showSL');

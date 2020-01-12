@@ -96,7 +96,7 @@ class HomeController extends Controller
     }
 
     public function viewManagedProfile(Request $request, $id) {
-        
+
         $user = auth()->user();
 
         if ($user->hasRole('admin')) {
