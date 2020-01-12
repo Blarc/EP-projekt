@@ -58,16 +58,28 @@ class ShoppingListsController extends Controller
     public function slSellerShow($id)
     {
 
-        $sl = ShoppingList::find($id);
-        return view('seller.slshow')->with('sl', $sl);
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $sl = ShoppingList::find($id);
+            return view('seller.slshow')->with('sl', $sl);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
 
     }
 
     public function slShopShow($id)
     {
 
-        $sl = ShoppingList::find($id);
-        return view('customer.slshow')->with('sl', $sl);
+        $user = auth()->user();
+
+        if ($user->role == 'customer') {
+            $sl = ShoppingList::find($id);
+            return view('customer.slshow')->with('sl', $sl);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
 
     }
 
@@ -103,30 +115,58 @@ class ShoppingListsController extends Controller
      */
     public function destroy($id)
     {
-        $sl = ShoppingList::find($id);
-        $sl->delete();
-        return redirect('/seller/shoppingLists');
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $sl = ShoppingList::find($id);
+            $sl->delete();
+            return redirect('/seller/shoppingLists');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+
     }
 
     public function accept($id)
     {
-        DB::table('shopping_lists')->where('id', $id)->update(['status' => '1']);
-        return redirect('/seller/shoppingLists');
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            DB::table('shopping_lists')->where('id', $id)->update(['status' => '1']);
+            return redirect('/seller/shoppingLists');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
     }
 
     public function stornate($id)
-    {
-        DB::table('shopping_lists')->where('id', $id)->update(['status' => '2']);
-        return redirect('/seller/shoppingLists');
+    {   
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            DB::table('shopping_lists')->where('id', $id)->update(['status' => '2']);
+            return redirect('/seller/shoppingLists');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
     }
 
     public function checkout($id)
     {
-        if (ShoppingList::where('id', $id)->first()->totalAmount() == 0) {
-            return redirect()->back()->with('error', 'Shopping list is empty!');
+        $user = auth()->user();
+
+        if ($user->role == 'customer') {
+            if (ShoppingList::where('id', $id)->first()->totalAmount() == 0) {
+                return redirect()->back()->with('error', 'Shopping list is empty!');
+            }
+            DB::table('shopping_lists')->where('id', $id)->update(['status' => '0']);
+            return redirect('/home')->with('success', 'Shopping list checkout');
         }
-        DB::table('shopping_lists')->where('id', $id)->update(['status' => '0']);
-        return redirect('/home')->with('success', 'Shopping list checkout');
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
     }
 
     /**

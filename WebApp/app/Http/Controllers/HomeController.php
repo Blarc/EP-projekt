@@ -99,12 +99,12 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->role == 'admin') {
             $seller = $user->sellers->find($id);
             return view('admin.seller-edit-profile')->with('seller', $seller);
         }
 
-        if ($user->hasRole('seller')) {
+        if ($user->role == 'seller') {
             $customer = $user->customers->find($id);
             $address = $customer->address->find($customer->address_id);
             $data = [
@@ -120,7 +120,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->role == 'admin') {
             $seller = $user->sellers->find($id);
             $u = User::where('email' , $request->input('email'))->first();
             if ($u !== null && $u->email != $seller->email) {
@@ -151,11 +151,11 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->role == 'admin') {
             return view('admin.create-form');
         }
 
-        else if ($user->hasRole('seller')) {
+        else if ($user->role == 'seller') {
             return view('seller.create-form');
         }
 
@@ -165,7 +165,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->role == 'admin') {
 
             $u = User::where('email' , $request->input('email'))->first();
             if ($u !== null) {
@@ -193,7 +193,7 @@ class HomeController extends Controller
 
         }
 
-        else if ($user->hasRole('seller')) {
+        else if ($user->role == 'seller') {
 
             $u = User::where('email' , $request->input('email'))->first();
             if ($u !== null) {
@@ -227,7 +227,7 @@ class HomeController extends Controller
             return redirect()->intended('/home')->with('success', 'Customer created successfully');
         }
 
-        return view('seller.home')->with('error', 'Error occured when creating new profile!');
+        return redirect()->intended('/home')->with('error', 'Error occured when creating new profile!');
 
     }
 
@@ -235,9 +235,11 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        $profile = ($user->hasRole('admin') ? $user->sellers->find($id) : $user->customers->find($id));
-        $profile->active = !$profile->active;
-        $profile->save();
+        if ($user->role == 'admin' || $user->role == 'seller'){
+            $profile = ($user->role == 'admin' ? $user->sellers->find($id) : $user->customers->find($id));
+            $profile->active = !$profile->active;
+            $profile->save();
+        }
 
         return redirect()->intended('/home');
 
@@ -245,72 +247,124 @@ class HomeController extends Controller
 
     public function editItemSeller(Request $request, $id){
 
-        $item = Item::find($id);
-        $response = (new ItemsController)->put($request, $item->id);
+        $user = auth()->user();
+        dd($user);
+        if ($user->role == 'seller') {
+            $item = Item::find($id);
+            $response = (new ItemsController)->put($request, $item->id);
 
-        //dd($response);
-        if (!isset($response->id)) {
-            return redirect()->back()->with('error', $response->original);
+            //dd($response);
+            if (!isset($response->id)) {
+                return redirect()->back()->with('error', $response->original);
+            }
+            return redirect()->intended('/item-manage')->with('success', 'Item updated successfully');
         }
-        return redirect()->intended('/item-manage')->with('success', 'Item updated successfully');
+        
+        return redirect('login')->with('warning', 'Unauthorized request');
     }
 
     public function createItem(Request $request){
-        $item = Item::create([
-            'name' => filter_var($request->input('name'), FILTER_SANITIZE_SPECIAL_CHARS),
-            'description' => filter_var($request->input('description'), FILTER_SANITIZE_SPECIAL_CHARS),
-            'price' => filter_var($request->input('price'), FILTER_SANITIZE_SPECIAL_CHARS),
-            'active' => '1'
-        ]);
-        $item->save();
-        return redirect()->intended('/item-manage')->with('success', 'Item created successfully');
+
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $item = Item::create([
+                'name' => filter_var($request->input('name'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'description' => filter_var($request->input('description'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'price' => filter_var($request->input('price'), FILTER_SANITIZE_SPECIAL_CHARS),
+                'active' => '1'
+            ]);
+            $item->save();
+            return redirect()->intended('/item-manage')->with('success', 'Item created successfully');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
     }
 
     public function createShoppingList(Request $request, $id){
         $user = auth()->user();
-        $sl = ShoppingList::create([
-            'name' => filter_var($request['name'], FILTER_SANITIZE_SPECIAL_CHARS),
-            'status' => '3',
-            'user_id' => $user->id
-        ]);
-        $sl->save();
-        return redirect()->back()->with('success', 'Shopping list created successfully');
+
+        if ($user->role == 'customer') {
+            $sl = ShoppingList::create([
+                'name' => filter_var($request['name'], FILTER_SANITIZE_SPECIAL_CHARS),
+                'status' => '3',
+                'user_id' => $user->id
+            ]);
+            $sl->save();
+            return redirect()->back()->with('success', 'Shopping list created successfully');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
     }
 
     public function viewCreateItemForm(){
-        // TODO
-        return view('seller.create-item');
+        
+        $user = auth()->user();
+        if ($user->role == 'seller') {
+            return view('seller.create-item');
+        }
+        
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
     }
 
     public function shoppingListsShow(){
+        
         $user = auth()->user();
-        $sls = $user->shoppingLists;
-        return view('customer.shopping-lists')->with('shoppingLists', $sls);
+
+        if ($user->role == 'customer') {
+            $sls = $user->shoppingLists;
+            return view('customer.shopping-lists')->with('shoppingLists', $sls);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
     }
 
     public function accept($id)
     {
-        DB::table('shopping_lists')->where('id', $id)->update(['status' => '1']);
-        return redirect('/seller/shoppingLists');
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            DB::table('shopping_lists')->where('id', $id)->update(['status' => '1']);
+            return redirect('/seller/shoppingLists');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
     }
 
     public function setAmountShoppingList(Request $request, $slid, $iid){
-        $shoppingList = ShoppingList::find($slid);
-//        $items_amount = $shoppingList->items()->where('item_id', $iid)->first()->pivot->items_amount;
-        $shoppingList->items()->updateExistingPivot($iid, array('items_amount' => $request['items_amount']));
-        $shoppingList->save();
-//        return redirect('/seller/shoppingLists');
-        return redirect()->back()->with('success', 'Shopping list updated successfully');
+        
+        $user = auth()->user();
+
+        if ($user->role == 'customer') {
+            $shoppingList = ShoppingList::find($slid);
+            // $items_amount = $shoppingList->items()->where('item_id', $iid)->first()->pivot->items_amount;
+            $shoppingList->items()->updateExistingPivot($iid, array('items_amount' => $request['items_amount']));
+            $shoppingList->save();
+            // return redirect('/seller/shoppingLists');
+            return redirect()->back()->with('success', 'Shopping list updated successfully');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
 
     }
 
 
-
     public function deleteItemShoppingList($slid, $iid){
-        $shoppingList = ShoppingList::find($slid);
-        $shoppingList->items()->detach($iid);
-        $shoppingList->save();
-        return redirect()->back()->with('success', 'Shopping list updated successfully');
+
+        $user = auth()->user();
+
+        if ($user->role == 'customer') {
+            $shoppingList = ShoppingList::find($slid);
+            $shoppingList->items()->detach($iid);
+            $shoppingList->save();
+            return redirect()->back()->with('success', 'Shopping list updated successfully');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
 
     }
 }

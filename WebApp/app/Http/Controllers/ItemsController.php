@@ -29,14 +29,29 @@ class ItemsController extends Controller
 
     public function sellerindex()
     {
-        $items = DB::table('items')->where('active', '1')->orderBy('updated_at', 'desc')->paginate(8);
-        return view('seller.manage')->with('items', $items);
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $items = DB::table('items')->where('active', '1')->orderBy('updated_at', 'desc')->paginate(8);
+            return view('seller.manage')->with('items', $items);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
     }
 
     public function sellerindexDeactivated()
     {
-        $notActive = DB::table('items')->where('active', '0')->orderBy('updated_at', 'desc')->paginate(8);
-        return view('seller.managedeactivated')->with('itemsNotActive', $notActive);
+
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $notActive = DB::table('items')->where('active', '0')->orderBy('updated_at', 'desc')->paginate(8);
+            return view('seller.managedeactivated')->with('itemsNotActive', $notActive);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+
     }
 
     public function shopItems()
@@ -64,23 +79,29 @@ class ItemsController extends Controller
     }
 
     public function addItemShop($slid, $iid){
-        $shoppingList = ShoppingList::find($slid);
-
-        if ($shoppingList->items()->where('item_id', $iid)->exists()) {
-            $items_amount = $shoppingList->items()->where('item_id', $iid)->first()->pivot->items_amount;
-            $shoppingList->items()->updateExistingPivot($iid, array('items_amount' => $items_amount + 1));
-        } else {
-            $shoppingList->items()->attach($iid, array('items_amount' => 1));
-        }
-
-
-
-        $shoppingList->save();
 
         $user = auth()->user();
-        $sl = $shoppingList;
 
-        return view('customer.slshow')->with('sl', $sl);
+        if ($user->role == 'customer') {
+            $shoppingList = ShoppingList::find($slid);
+
+            if ($shoppingList->items()->where('item_id', $iid)->exists()) {
+                $items_amount = $shoppingList->items()->where('item_id', $iid)->first()->pivot->items_amount;
+                $shoppingList->items()->updateExistingPivot($iid, array('items_amount' => $items_amount + 1));
+            } else {
+                $shoppingList->items()->attach($iid, array('items_amount' => 1));
+            }
+
+            $shoppingList->save();
+
+            $user = auth()->user();
+            $sl = $shoppingList;
+
+            return view('customer.slshow')->with('sl', $sl);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+        
 //        return redirect()->intended('/shop')->with('success', 'Item added successfully');
     }
 
@@ -125,8 +146,14 @@ class ItemsController extends Controller
 
     public function sellershow($id)
     {
-        $item = Item::find($id);
-        return view('seller.show')->with('item', $item);
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $item = Item::find($id);
+            return view('seller.show')->with('item', $item);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
     }
 
     public function shopShow($id)
@@ -148,8 +175,15 @@ class ItemsController extends Controller
 
     public function selleredit($id)
     {
-        $item = Item::find($id);
-        return view('seller.show')->with('item', $item);
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $item = Item::find($id);
+            return view('seller.show')->with('item', $item);
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+
     }
 
     /**
@@ -172,18 +206,32 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        $item = Item::find($id);
-        $item->active = 0;
-        $item->save();
-        return redirect('/item-manage')->with('success', 'Item deactivated successfully.');
+
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $item = Item::find($id);
+            $item->active = 0;
+            $item->save();
+            return redirect('/item-manage')->with('success', 'Item deactivated successfully.');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
     }
 
     public function activate($id)
     {
-        $item = Item::find($id);
-        $item->active = 1;
-        $item->save();
-        return redirect('/item-deactived')->with('success', 'Item reactivated successfully.');
+        $user = auth()->user();
+
+        if ($user->role == 'seller') {
+            $item = Item::find($id);
+            $item->active = 1;
+            $item->save();
+            return redirect('/item-deactived')->with('success', 'Item reactivated successfully.');
+        }
+
+        return redirect()->intended('/home')->with('warning', 'Unauthorized request');
+
     }
 
     /**
