@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -78,10 +78,10 @@ class RegisterController extends Controller
 
         $user = User::create([
             'firstName' => filter_var($data['firstName'], FILTER_SANITIZE_SPECIAL_CHARS),
-            'lastName' => filter_var($data['firstName'], FILTER_SANITIZE_SPECIAL_CHARS),
-            'email' => filter_var($data['firstName'], FILTER_SANITIZE_SPECIAL_CHARS),
-            'telephone' => filter_var($data['firstName'], FILTER_SANITIZE_SPECIAL_CHARS),
-            'password' => filter_var(bcrypt($data['firstName']), FILTER_SANITIZE_SPECIAL_CHARS),
+            'lastName' => filter_var($data['lastName'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'email' => filter_var($data['email'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'telephone' => filter_var($data['telephone'], FILTER_SANITIZE_SPECIAL_CHARS),
+            'password' => filter_var(bcrypt($data['password']), FILTER_SANITIZE_SPECIAL_CHARS),
             'role' => 'customer',
             'active' => true,
         ]);
