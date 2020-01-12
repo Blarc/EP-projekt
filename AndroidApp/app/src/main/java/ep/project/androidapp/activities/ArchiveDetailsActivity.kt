@@ -33,6 +33,7 @@ class ArchiveDetailsActivity : AppCompatActivity(), CheckoutAdapter.Interaction 
 
         initRecyclerView()
         checkoutAdapter.submitList(shoppingList.items)
+        calculateTotal()
     }
 
     private fun initRecyclerView() {
@@ -43,6 +44,14 @@ class ArchiveDetailsActivity : AppCompatActivity(), CheckoutAdapter.Interaction 
             checkoutAdapter = CheckoutAdapter(this@ArchiveDetailsActivity)
             adapter = checkoutAdapter
         }
+    }
+
+    private fun calculateTotal() {
+        archiveDetailsTotalAmount.text = getString(
+            R.string.singleItemLayout_price,
+            shoppingList.items
+                .sumByDouble { it.price.toDouble() * it.items_amount.toDouble() }.toFloat()
+        )
     }
 
     override fun onItemSelected(position: Int, item: Item) {
