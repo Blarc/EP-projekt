@@ -259,7 +259,8 @@ class HomeController extends Controller
         $item = Item::create([
             'name' => filter_var($request->input('name'), FILTER_SANITIZE_SPECIAL_CHARS),
             'description' => filter_var($request->input('description'), FILTER_SANITIZE_SPECIAL_CHARS),
-            'price' => filter_var($request->input('price'), FILTER_SANITIZE_SPECIAL_CHARS)
+            'price' => filter_var($request->input('price'), FILTER_SANITIZE_SPECIAL_CHARS),
+            'active' => '1'
         ]);
         $item->save();
         return redirect()->intended('/item-manage')->with('success', 'Item created successfully');

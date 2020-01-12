@@ -60,8 +60,10 @@
                             @endif
                         </div>
                         <div style="float: right"><h4>Total amount: {{$sl->totalAmount()}}€</h4></div><br><br>
-                        @if($sl->status == 3)
-                        <a href="/shop/sl/{{$sl->id}}/checkout" class="btn btn-dark" style="float: right">Checkout</a>
+                        @if(count($sl -> items) > 0)
+                            @if($sl->status == 3)
+                                <a href="/shop/sl/{{$sl->id}}/checkout" class="btn btn-dark" style="float: right">Checkout</a>
+                            @endif
                         @endif
                     </div>
                 </div>

@@ -183,7 +183,7 @@ class ItemsController extends Controller
         $item = Item::find($id);
         $item->active = 1;
         $item->save();
-        return redirect('/item-manage')->with('success', 'Item reactivated successfully.');
+        return redirect('/item-deactived')->with('success', 'Item reactivated successfully.');
     }
 
     /**

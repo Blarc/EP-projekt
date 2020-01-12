@@ -7,9 +7,6 @@
                 <div class="card">
                     <div class="card-header">
                         {{ __('Items') }}
-                        <a style='float: right; margin-left: 1ex' href='/home' class="btn btn-primary">
-                            {{ __('Back') }}
-                        </a>
                         <a style='float: right; margin-left: 1ex' href='{{route('createItem')}}' class="btn btn-primary">
                             {{ __('Create new item') }}
                         </a>
@@ -18,7 +15,7 @@
                     </div>
 
                     <div class="card-body">
-                        @if(count($items) > 1)
+                        @if(count($items) > 0)
                             @foreach($items as $item)
                                     <div class="well">
                                         <h3><a href="/item-show/{{$item->id}}">{{$item->name}}</a></h3>
