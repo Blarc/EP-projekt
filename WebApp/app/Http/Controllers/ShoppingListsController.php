@@ -60,7 +60,7 @@ class ShoppingListsController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $sl = ShoppingList::find($id);
             return view('seller.slshow')->with('sl', $sl);
         }
@@ -74,7 +74,7 @@ class ShoppingListsController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'customer') {
+        if ($user && $user->role == 'customer') {
             $sl = ShoppingList::find($id);
             return view('customer.slshow')->with('sl', $sl);
         }
@@ -117,7 +117,7 @@ class ShoppingListsController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $sl = ShoppingList::find($id);
             $sl->delete();
             return redirect('/seller/shoppingLists');
@@ -131,7 +131,7 @@ class ShoppingListsController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             DB::table('shopping_lists')->where('id', $id)->update(['status' => '1']);
             return redirect('/seller/shoppingLists');
         }
@@ -144,7 +144,7 @@ class ShoppingListsController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             DB::table('shopping_lists')->where('id', $id)->update(['status' => '2']);
             return redirect('/seller/shoppingLists');
         }
@@ -157,7 +157,7 @@ class ShoppingListsController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'customer') {
+        if ($user && $user->role == 'customer') {
             if (ShoppingList::where('id', $id)->first()->totalAmount() == 0) {
                 return redirect()->back()->with('error', 'Shopping list is empty!');
             }

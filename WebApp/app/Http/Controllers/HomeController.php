@@ -86,7 +86,7 @@ class HomeController extends Controller
         if ($u !== null && $u->email != $user->email) {
             return redirect()->back()->with('error', 'Email already exists!');
         }
-        $response = ($user->role == 'admin' || $user->role == 'seller' ?
+        $response = ($user && $user->role == 'admin' || $user && $user->role == 'seller' ?
             (new UsersController)->putAdminOrSeller($request, $user->id) : (new UsersController)->put($request, $user->id));
 
         if (!isset($response->id)) {
@@ -100,12 +100,12 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'admin') {
+        if ($user && $user->role == 'admin') {
             $seller = $user->sellers->find($id);
             return view('admin.seller-edit-profile')->with('seller', $seller);
         }
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $customer = $user->customers->find($id);
             $address = $customer->address->find($customer->address_id);
             $data = [
@@ -121,7 +121,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'admin') {
+        if ($user && $user->role == 'admin') {
             $seller = $user->sellers->find($id);
             $u = User::where('email' , $request->input('email'))->first();
             if ($u !== null && $u->email != $seller->email) {
@@ -152,7 +152,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'admin') {
+        if ($user && $user->role == 'admin') {
             return view('admin.create-form');
         }
 
@@ -166,7 +166,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'admin') {
+        if ($user && $user->role == 'admin') {
 
             $u = User::where('email' , $request->input('email'))->first();
             if ($u !== null) {
@@ -236,7 +236,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'admin' || $user->role == 'seller'){
+        if ($user && $user->role == 'admin' || $user->role == 'seller'){
             $profile = ($user->role == 'admin' ? $user->sellers->find($id) : $user->customers->find($id));
             $profile->active = !$profile->active;
             $profile->save();
@@ -250,7 +250,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
         dd($user);
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $item = Item::find($id);
             $response = (new ItemsController)->put($request, $item->id);
 
@@ -268,7 +268,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $item = Item::create([
                 'name' => filter_var($request->input('name'), FILTER_SANITIZE_SPECIAL_CHARS),
                 'description' => filter_var($request->input('description'), FILTER_SANITIZE_SPECIAL_CHARS),
@@ -286,7 +286,7 @@ class HomeController extends Controller
     public function createShoppingList(Request $request, $id){
         $user = auth()->user();
 
-        if ($user->role == 'customer') {
+        if ($user && $user->role == 'customer') {
             $sl = ShoppingList::create([
                 'name' => filter_var($request['name'], FILTER_SANITIZE_SPECIAL_CHARS),
                 'status' => '3',
@@ -303,7 +303,7 @@ class HomeController extends Controller
     public function viewCreateItemForm(){
 
         $user = auth()->user();
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             return view('seller.create-item');
         }
 
@@ -314,7 +314,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'customer') {
+        if ($user && $user->role == 'customer') {
             $sls = $user->shoppingLists;
             return view('customer.shopping-lists')->with('shoppingLists', $sls);
         }
@@ -327,7 +327,7 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             DB::table('shopping_lists')->where('id', $id)->update(['status' => '1']);
             return redirect('/seller/shoppingLists');
         }
@@ -340,7 +340,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'customer') {
+        if ($user && $user->role == 'customer') {
             $shoppingList = ShoppingList::find($slid);
             // $items_amount = $shoppingList->items()->where('item_id', $iid)->first()->pivot->items_amount;
             $shoppingList->items()->updateExistingPivot($iid, array('items_amount' => $request['items_amount']));
@@ -358,7 +358,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'customer') {
+        if ($user && $user->role == 'customer') {
             $shoppingList = ShoppingList::find($slid);
             $shoppingList->items()->detach($iid);
             $shoppingList->save();

@@ -30,7 +30,7 @@ class ItemsController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $items = DB::table('items')->where('active', '1')->orderBy('updated_at', 'desc')->paginate(8);
             return view('seller.manage')->with('items', $items);
         }
@@ -44,7 +44,7 @@ class ItemsController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $notActive = DB::table('items')->where('active', '0')->orderBy('updated_at', 'desc')->paginate(8);
             return view('seller.managedeactivated')->with('itemsNotActive', $notActive);
         }
@@ -82,7 +82,7 @@ class ItemsController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'customer') {
+        if ($user && $user->role == 'customer') {
             $shoppingList = ShoppingList::find($slid);
 
             if ($shoppingList->items()->where('item_id', $iid)->exists()) {
@@ -147,7 +147,7 @@ class ItemsController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $item = Item::find($id);
             return view('seller.show')->with('item', $item);
         }
@@ -176,7 +176,7 @@ class ItemsController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $item = Item::find($id);
             return view('seller.show')->with('item', $item);
         }
@@ -208,7 +208,7 @@ class ItemsController extends Controller
 
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $item = Item::find($id);
             $item->active = 0;
             $item->save();
@@ -222,7 +222,7 @@ class ItemsController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->role == 'seller') {
+        if ($user && $user->role == 'seller') {
             $item = Item::find($id);
             $item->active = 1;
             $item->save();
