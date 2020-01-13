@@ -11,12 +11,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/services">Services</a>
-                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -30,9 +24,9 @@
                         <a class="nav-link" href="{{ route('register') }}">Register</a>
                     </li>
                 @else
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->firstName }} {{ Auth::user()->lastName }}<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -44,12 +38,13 @@
                             </li>
                             <li class="dropdown-item">
                                 <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+                                   onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>

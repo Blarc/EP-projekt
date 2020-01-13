@@ -12,8 +12,8 @@
 */
 
 //Route::get('/', 'PagesController@index');
-Route::get('/about', 'PagesController@about');
-Route::get('/services', 'PagesController@services');
+//Route::get('/about', 'PagesController@about');
+//Route::get('/services', 'PagesController@services');
 
 //Route::resource('/shoppingLists', 'ShoppingListsController');
 
@@ -67,7 +67,6 @@ Route::get('/shop/{slid}', 'ItemsController@addItemShop')->name('addItemShop');
 //Route::get('/shop/{slid}/{iid}', 'ItemsController@addItemShop')->name('addItemShop');
 Route::get('/shop/delete/{slid}/{iid}', 'HomeController@deleteItemShoppingList')->name('deleteItemShoppingList');
 Route::post('/shoppingList/amount/{slid}/{iid}', 'HomeController@setAmountShoppingList')->name('setAmountShoppingList.post');
-
 
 
 Route::resource('/', 'ItemsController');
