@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">AndroidApp</string>
+    <string name="registerActivityName">Name</string>
+    <string name="registerActivityEmail">Email</string>
+    <string name="registerActivityPassword">Password</string>
+    <string name="registerActivityPasswordConfirm">Confirm password</string>
+    <string name="registerActivityButton">Register</string>
+    <string name="loginActivityEmail">Email</string>
+    <string name="loginActivityPassword">Password</string>
+    <string name="loginActivityLogin">Login</string>
+    <string name="itemDetailsDescriptionPlaceholder">In post mean shot ye. There out her child sir his lived. Design at uneasy me season of branch on praise esteem. Abilities discourse believing consisted remaining to no. Mistaken no me denoting dashwood as screened. Whence or esteem easily he on. Dissuade husbands at of no if disposal. Eat imagine you chiefly few end ferrars compass. Be visitor females am ferrars inquiry. Latter law remark two lively thrown. Spot set they know rest its. Raptures law diverted believed jennings consider children the see. Had invited beloved carried the colonel. Occasional principles discretion it as he unpleasing boisterous. She bed sing dear now son half. Allow miles wound place the leave had. To sitting subject no improve studied limited. Ye indulgence unreserved connection alteration appearance my an astonished. Up as seen sent make he they of. Her raising and himself pasture believe females. Fancy she stuff after aware merit small his. Charmed esteems luckily age out.</string>
+    <string name="itemDetailsDescriptionTag">Description:</string>
+    <string name="itemDetailsIdTag">Id:</string>
+    <string name="itemDetailsRemoveButton">Remove from shopping list</string>
+    <string name="itemDetailsAddButton">Add to shopping list</string>
+    <string name="nameSettingsProfile">Name</string>
+    <string name="emailSettingsProfile">Email</string>
+    <string name="passwordSettingsProfile">Password</string>
+    <string name="passwordConfirmSettingsProfile">Confirm password</string>
+    <string name="saveButtonSettingsProfile">Save</string>
+    <string name="profileActivity.profile">Profile</string>
+    <string name="profileActivity.name">%1$s %2$s</string>
+    <string name="firstNameSettingsProfile">First name</string>
+    <string name="lastNameSettingsProfile">Last name</string>
+    <string name="streetSettingsProfile">Street name</string>
+    <string name="postSettingsProfile">Post</string>
+    <string name="postCodeSettingsProfile">Post code</string>
+    <string name="telephoneSettingsProfile">Telephone number</string>
+    <string name="registerFirstName">First name</string>
+    <string name="registerLastName">Last name</string>
+    <string name="registerStreet">Street name</string>
+    <string name="registerPost">Post</string>
+    <string name="registerPostCode">Post code</string>
+    <string name="registerTelephone">Telephone number</string>
+    <string name="singleItemLayout.price">%1$.2f€</string>
+    <string name="itemDetailsPriceTag">Price:</string>
+    <string name="profileActivity.shoppingLists">Shopping lists</string>
+    <string name="profileToolbarLayout.username">%1$s %2$s</string>
+    <string name="profileActivity.newShoppingListButton">New shopping list</string>
+    <string name="shoppingListDetailsToolbar.deleteButton">Delete</string>
+    <string name="shoppingListDetails.checkoutButton">Checkout</string>
+    <string name="shoppingListSingleItemLayout.removeButtonDesc">Remove item from shopping list</string>
+    <string name="refresh_profile">Refresh profile</string>
+    <string name="singleItemAddButtonDesc">Add item to shopping list</string>
+    <string name="refresh_shopping_list">Refresh shopping list</string>
+    <string name="checkoutBuyButton">Buy</string>
+    <string name="refresh_archive">Refresh archive</string>
+
+    <string-array name="profileSpinnerEntries">
+        <item>Shop</item>
+        <item>Shopping lists</item>
+        <item>Settings</item>
+        <item>Log out</item>
+    </string-array>
+</resources>

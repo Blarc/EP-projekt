@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ShoppingListDetailsActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/shopping_list_details_toolbar_layout" />
+
+    <!--    <ProgressBar-->
+    <!--        android:id="@+id/shoppingListDetailsLoading"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:visibility="gone"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:gravity="center|bottom">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/shoppingListDetailsItems" />
+
+        <LinearLayout
+            android:layout_weight="11"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/shoppingListDetails.checkoutButton"
+                android:backgroundTint="@color/colorPrimary"
+                android:id="@+id/shoppingListDetailsCheckoutButton" />
+
+
+            <ImageButton
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_refresh_24px"
+                android:contentDescription="@string/refresh_shopping_list"
+                android:id="@+id/shoppingListDetailsRefreshButton" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

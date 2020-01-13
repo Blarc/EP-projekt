@@ -20,14 +20,14 @@
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/edit-profile', 'HomeController@getEditProfile')->name('edit-profile');
-Route::post('/edit-profile', 'HomeController@postEditProfile')->name('edit-profile.submit');
+Route::get('/edit-profile', 'HomeController@getEditProfile')->middleware('auth.x509')->name('edit-profile');
+Route::post('/edit-profile', 'HomeController@postEditProfile')->middleware('auth.x509')->name('edit-profile.submit');
 
 // for updating and creating seller accounts
-Route::get('/seller-edit-profile/{id}', 'HomeController@viewManagedProfile')->name('manageSeller');
-Route::post('/seller-edit-profile/{id}', 'HomeController@editManagedProfile')->name('manageSeller.submit');
-Route::get('/seller-create', 'HomeController@viewCreateForm')->name('createSeller');
-Route::post('/seller-create', 'HomeController@createManagedProfile')->name('createSeller.post');
+Route::get('/seller-edit-profile/{id}', 'HomeController@viewManagedProfile')->middleware('auth.x509')->name('manageSeller');
+Route::post('/seller-edit-profile/{id}', 'HomeController@editManagedProfile')->middleware('auth.x509')->name('manageSeller.submit');
+Route::get('/seller-create', 'HomeController@viewCreateForm')->middleware('auth.x509')->name('createSeller');
+Route::post('/seller-create', 'HomeController@createManagedProfile')->middleware('auth.x509')->name('createSeller.post');
 
 // for updating and creating customer accounts
 Route::get('/customer-edit-profile/{id}', 'HomeController@viewManagedProfile')->name('manageCustomer');
@@ -35,24 +35,24 @@ Route::post('/customer-edit-profile/{id}', 'HomeController@editManagedProfile')-
 // Route::get('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer');
 
 // for making user accounts active/inactive
-Route::get('/changeProfileStatus/{id}', 'HomeController@changeProfileStatus')->name('changeProfileStatus');
+Route::get('/changeProfileStatus/{id}', 'HomeController@changeProfileStatus')->middleware('auth.x509')->name('changeProfileStatus');
 
-Route::get('/item-manage', 'ItemsController@sellerindex')->name('manageItems');
-Route::get('/item-deactivated', 'ItemsController@sellerindexDeactivated')->name('manageDeactivatedItems');
-Route::get('/item-create', 'HomeController@viewCreateItemForm')->name('createItem');
-Route::post('/item-create', 'HomeController@createItem')->name('createItem.post');
-Route::post('/seller/edit-item/{id}', 'HomeController@editItemSeller')->name('sellerItem.submit');
-Route::get('/item-show/{id}', 'ItemsController@sellershow')->name('showItem');
-Route::get('/seller/item/{id}/edit', 'ItemsController@selleredit')->name('editItem');
-Route::get('/customer-create', 'HomeController@viewCreateForm')->name('createCustomer');
-Route::post('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer.post');
-Route::get('/seller/shoppingLists', 'ShoppingListsController@index')->name('indexSL');
-Route::get('/seller/sl/{id}/delete', 'ShoppingListsController@destroy')->name('deleteSL');
-Route::get('/seller/item/{id}/delete', 'ItemsController@destroy')->name('deleteItem');
-Route::get('/seller/item/{id}/activate', 'ItemsController@activate')->name('activateItem');
-Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->name('acceptSL');
-Route::get('/seller/sl/{id}/stornate', 'ShoppingListsController@stornate')->name('stornateSL');
-Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->name('showSL');
+Route::get('/item-manage', 'ItemsController@sellerindex')->middleware('auth.x509')->name('manageItems');
+Route::get('/item-deactivated', 'ItemsController@sellerindexDeactivated')->middleware('auth.x509')->name('manageDeactivatedItems');
+Route::get('/item-create', 'HomeController@viewCreateItemForm')->middleware('auth.x509')->name('createItem');
+Route::post('/item-create', 'HomeController@createItem')->middleware('auth.x509')->name('createItem.post');
+Route::post('/seller/edit-item/{id}', 'HomeController@editItemSeller')->middleware('auth.x509')->name('sellerItem.submit');
+Route::get('/item-show/{id}', 'ItemsController@sellershow')->middleware('auth.x509')->name('showItem');
+Route::get('/seller/item/{id}/edit', 'ItemsController@selleredit')->middleware('auth.x509')->name('editItem');
+Route::get('/customer-create', 'HomeController@viewCreateForm')->middleware('auth.x509')->name('createCustomer');
+Route::post('/customer-create', 'HomeController@createManagedProfile')->middleware('auth.x509')->name('createCustomer.post');
+Route::get('/seller/shoppingLists', 'ShoppingListsController@index')->middleware('auth.x509')->name('indexSL');
+Route::get('/seller/sl/{id}/delete', 'ShoppingListsController@destroy')->middleware('auth.x509')->name('deleteSL');
+Route::get('/seller/item/{id}/delete', 'ItemsController@destroy')->middleware('auth.x509')->name('deleteItem');
+Route::get('/seller/item/{id}/activate', 'ItemsController@activate')->middleware('auth.x509')->name('activateItem');
+Route::get('/seller/sl/{id}/accept', 'ShoppingListsController@accept')->middleware('auth.x509')->name('acceptSL');
+Route::get('/seller/sl/{id}/stornate', 'ShoppingListsController@stornate')->middleware('auth.x509')->name('stornateSL');
+Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->middleware('auth.x509')->name('showSL');
 // Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->name('showSL');
 
 // Route::get('/shop', 'ItemsController@shopItems')->name('shop');
