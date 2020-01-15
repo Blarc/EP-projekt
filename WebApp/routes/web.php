@@ -19,7 +19,7 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->middleware('auth.x509')->name('home');
 Route::get('/edit-profile', 'HomeController@getEditProfile')->middleware('auth.x509')->name('edit-profile');
 Route::post('/edit-profile', 'HomeController@postEditProfile')->middleware('auth.x509')->name('edit-profile.submit');
 
@@ -30,8 +30,8 @@ Route::get('/seller-create', 'HomeController@viewCreateForm')->middleware('auth.
 Route::post('/seller-create', 'HomeController@createManagedProfile')->middleware('auth.x509')->name('createSeller.post');
 
 // for updating and creating customer accounts
-Route::get('/customer-edit-profile/{id}', 'HomeController@viewManagedProfile')->name('manageCustomer');
-Route::post('/customer-edit-profile/{id}', 'HomeController@editManagedProfile')->name('manageCustomer.submit');
+Route::get('/customer-edit-profile/{id}', 'HomeController@viewManagedProfile')->middleware('auth.x509')->name('manageCustomer');
+Route::post('/customer-edit-profile/{id}', 'HomeController@editManagedProfile')->middleware('auth.x509')->name('manageCustomer.submit');
 // Route::get('/customer-create', 'HomeController@createManagedProfile')->name('createCustomer');
 
 // for making user accounts active/inactive
@@ -56,19 +56,19 @@ Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->midd
 // Route::get('/seller/sl-show/{id}', 'ShoppingListsController@slSellerShow')->name('showSL');
 
 // Route::get('/shop', 'ItemsController@shopItems')->name('shop');
-Route::get('/shop/item-show/{id}', 'ItemsController@shopShow')->name('shopShowItem');
-Route::get('/shop/shoppingLists', 'HomeController@shoppingListsShow')->name('shoppingListsShow');
-Route::get('/shop/shoppingLists/{id}', 'ShoppingListsController@slShopShow')->name('shopShowSL');
+Route::get('/shop/shoppingLists', 'HomeController@shoppingListsShow')->middleware('auth.x509')->name('shoppingListsShow');
+Route::get('/shop/shoppingLists/{id}', 'ShoppingListsController@slShopShow')->middleware('auth.x509')->name('shopShowSL');
 // Route::get('/shop/baskets', 'HomeController@slShopShowBaskets')->name('shopBaskets');
-Route::get('/shop/sl/{id}/checkout', 'ShoppingListsController@checkout')->name('checkoutSL');
-Route::post('/shoppingList-create/{id}', 'HomeController@createShoppingList')->name('createShoppingList.post');
-Route::get('/shop/add/{id}', 'ItemsController@toBasket')->name('toBasket');
-Route::get('/shop/{slid}', 'ItemsController@addItemShop')->name('addItemShop');
+Route::get('/shop/sl/{id}/checkout', 'ShoppingListsController@checkout')->middleware('auth.x509')->name('checkoutSL');
+Route::post('/shoppingList-create/{id}', 'HomeController@createShoppingList')->middleware('auth.x509')->name('createShoppingList.post');
+Route::get('/shop/add/{id}', 'ItemsController@toBasket')->middleware('auth.x509')->name('toBasket');
+Route::get('/shop/{slid}', 'ItemsController@addItemShop')->middleware('auth.x509')->name('addItemShop');
 //Route::get('/shop/{slid}/{iid}', 'ItemsController@addItemShop')->name('addItemShop');
-Route::get('/shop/delete/{slid}/{iid}', 'HomeController@deleteItemShoppingList')->name('deleteItemShoppingList');
-Route::post('/shoppingList/amount/{slid}/{iid}', 'HomeController@setAmountShoppingList')->name('setAmountShoppingList.post');
+Route::get('/shop/delete/{slid}/{iid}', 'HomeController@deleteItemShoppingList')->middleware('auth.x509')->name('deleteItemShoppingList');
+Route::post('/shoppingList/amount/{slid}/{iid}', 'HomeController@setAmountShoppingList')->middleware('auth.x509')->name('setAmountShoppingList.post');
 
 
+Route::get('/shop/item-show/{id}', 'ItemsController@shopShow')->name('shopShowItem');
 Route::resource('/', 'ItemsController');
 
 

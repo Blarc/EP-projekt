@@ -18,4 +18,9 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+	# Force to HTTPS + exceptions
+	RewriteCond %{HTTPS} off
+	RewriteCond %{REQUEST_URI} !^\/(index.php)?($|api.*|shop\/item-show\/d+)$ [NC]
+	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>

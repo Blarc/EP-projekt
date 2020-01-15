@@ -1,7 +1,6 @@
 <?php
 
 use App\User;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -11,24 +10,24 @@ class UsersTableSeeder extends Seeder
     {
         // Let's truncate our existing records to start from scratch.
         User::query()->truncate();
-                
+
         $admin = User::query()->create([
             'firstName' => "admin",
             'lastName' => "admin",
-            'email' => 'admin@gmail.com',
+            'email' => 'jakob@ep.si',
             'telephone' => "",
             'password' => bcrypt('asdfasdf'),
             'role' => 'admin',
             'active' => true,
         ]);
-        
+
         $admin->assignRole('admin');
         $admin->generateToken();
 
         $customer = User::query()->create([
             'firstName' => "customer",
             'lastName' => "customer",
-            'email' => 'customer@gmail.com',
+            'email' => 'jan@ep.si',
             'telephone' => '01 999 999',
             'password' => bcrypt('asdfasdf'),
             'role' => 'customer',
@@ -43,7 +42,7 @@ class UsersTableSeeder extends Seeder
         $seller = User::query()->create([
             'firstName' => "seller",
             'lastName' => "seller",
-            'email' => 'seller@gmail.com',
+            'email' => 'franc@ep.si',
             'telephone' => "",
             'password' => bcrypt('asdfasdf'),
             'role' => 'seller',
