@@ -46,69 +46,102 @@ seller: franc@ep.si asdfasdf
 customer: jan@ep.si asdfasdf
 
 ## How to install
-git clone https://github.com/Blarc/EP-projekt.gi
 
 #### Configure manual updates
-* dpkg --configure -a
+```
+dpkg --configure -a
+```
 
 #### Update apt
-* apt-get update
+```
+apt-get update
+```
 
 #### Download nodejs setup files
-* apt-get install nodejs-dev node-gyp libssl1.0-dev -y
+```
+apt-get install nodejs-dev node-gyp libssl1.0-dev -y
+```
 
 #### Install required packages
-* apt install composer -y
-* apt install npm -y
+```
+apt install composer -y
+apt install npm -y
+```
 
 #### Configure apache2
-* cp ep.conf /etc/apache2/sites-available/
-* mkdir /etc/apache2/ssl
-* cp ./certs/localhost.pem /etc/apache2/ssl
-* cp ./certs/epca.crt /etc/apache2/ssl
-* cp ./certs/epca-crt.pem /etc/apache2/ssl
+```
+cp ep.conf /etc/apache2/sites-available/
+mkdir /etc/apache2/ssl
+cp ./certs/localhost.pem /etc/apache2/ssl
+cp ./certs/epca.crt /etc/apache2/ssl
+cp ./certs/epca-crt.pem /etc/apache2/ssl
+```
 
 #### Enable site
-* a2dissite 000-default.conf
-* a2ensite ep.conf
+```
+a2dissite 000-default.conf
+a2ensite ep.conf
+```
 
 #### Enable apache2 rewrite
-* sudo a2enmod rewrite
+```
+sudo a2enmod rewrite
+```
 
 #### Restart apache2 server
-* systemctl reload apache2
+```
+systemctl reload apache2
+```
 
 #### Change directory to WebApp
-* cd WebApp
+```
+cd WebApp
+```
 
 #### Install and compile npm dependencies
-* npm install
+```
+npm install
+```
 
 #### Install composer dependencies
-* composer install
-* ( composer require spatie/laravel-permission )
-* ( composer require ingria/laravel-x509-auth )
-* composer update
+```
+composer install
+composer update
+```
+
+( composer require spatie/laravel-permission )
+( composer require ingria/laravel-x509-auth )
 
 #### Add laravel database to mysql instance
-* mysql -u root -pep -e 'CREATE DATABASE IF NOT EXISTS laravel'
+```
+mysql -u root -pep -e 'CREATE DATABASE IF NOT EXISTS laravel'
+```
 
 #### Create .env file
-* cp .eny.example .env
+```
+cp .eny.example .env
+```
 
-#### Migrate data
-* php artisan migrate
-* php artisan db:seed
+#### Migrate and seed data
+```
+php artisan migrate
+php artisan db:seed
+```
 
 #### Generate Laravel key
-* php artisan key:generate 
+```
+php artisan key:generate
+```
 
 #### Set some permissions
-* chown -R $USER:www-data .
+```
+chown -R $USER:www-data .
+chmod -R 755 .
+```
+
 * ( chown -R $USER:www-data bootstrap/cache )
 * ( chmod -R 775 storage )
 * ( chmod -R 775 bootstrap/cache )
-* chmod -R 755 .
 
 
 
