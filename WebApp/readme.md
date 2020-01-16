@@ -41,9 +41,9 @@ Poženemo migracijo:
 
 
 #### Uporabniki
-admin: jakob@ep.si asdfasdf
-seller: franc@ep.si asdfasdf
-customer: jan@ep.si asdfasdf
+* admin: jakob@ep.si asdfasdf
+* seller: franc@ep.si asdfasdf
+* customer: jan@ep.si asdfasdf
 
 ## How to install
 
@@ -108,9 +108,9 @@ npm install
 composer install
 composer update
 ```
-
-( composer require spatie/laravel-permission )
-( composer require ingria/laravel-x509-auth )
+If needed:
+* ( composer require spatie/laravel-permission )
+* ( composer require ingria/laravel-x509-auth )
 
 #### Add laravel database to mysql instance
 ```
@@ -138,7 +138,7 @@ php artisan key:generate
 chown -R $USER:www-data .
 chmod -R 755 .
 ```
-
+Id needed:
 * ( chown -R $USER:www-data bootstrap/cache )
 * ( chmod -R 775 storage )
 * ( chmod -R 775 bootstrap/cache )
