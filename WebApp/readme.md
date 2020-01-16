@@ -33,14 +33,14 @@ Poženemo migracijo:
 Če želimo napolniti bazo poženemo:
 `php artisan db:seed`
 
-####shoppingLists statusi:
+#### shoppingLists statusi:
 * 0 - unprocessed
 * 1 - processed
 * 2 - stornated
 * 3 - checkout
 
 
-####Uporabniki
+#### Uporabniki
 admin: jakob@ep.si asdfasdf
 seller: franc@ep.si asdfasdf
 customer: jan@ep.si asdfasdf
@@ -48,9 +48,67 @@ customer: jan@ep.si asdfasdf
 ## How to install
 git clone https://github.com/Blarc/EP-projekt.gi
 
-# Configure manual updates
+#### Configure manual updates
 dpkg --configure -a
 
+#### Update apt
+apt-get update
+
+#### Download nodejs setup files
+apt-get install nodejs-dev node-gyp libssl1.0-dev -y
+
+#### Install required packages
+apt install composer -y
+apt install npm -y
+
+#### Configure apache2
+cp ep.conf /etc/apache2/sites-available/
+mkdir /etc/apache2/ssl
+cp ./certs/localhost.pem /etc/apache2/ssl
+cp ./certs/epca.crt /etc/apache2/ssl
+cp ./certs/epca-crt.pem /etc/apache2/ssl
+
+#### Enable site
+a2dissite 000-default.conf
+a2ensite ep.conf
+
+#### Enable apache2 rewrite
+sudo a2enmod rewrite
+
+#### Restart apache2 server
+systemctl reload apache2
+
+#### Change directory to WebApp
+cd WebApp
+
+#### Install and compile npm dependencies
+npm install
+
+#### Install composer dependencies
+composer install
+( composer require spatie/laravel-permission )
+( composer require ingria/laravel-x509-auth )
+composer update
+
+#### Add laravel database to mysql instance
+mysql -u root -pep -e 'CREATE DATABASE IF NOT EXISTS laravel'
+
+#### Create .env file
+cp .eny.example .env
+
+#### Migrate data
+php artisan migrate
+php artisan db:seed
+
+#### Generate Laravel key
+php artisan key:generate 
+
+#### Set some permissions
+chown -R $USER:www-data .
+( chown -R $USER:www-data bootstrap/cache )
+( chmod -R 775 storage )
+( chmod -R 775 bootstrap/cache )
+chmod -R 755 .
 
 
 
