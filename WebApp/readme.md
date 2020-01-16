@@ -83,9 +83,10 @@ a2dissite 000-default.conf
 a2ensite ep.conf
 ```
 
-#### Enable apache2 rewrite
+#### Enable apache2 rewrite/ssl
 ```
 sudo a2enmod rewrite
+sudo a2enmod ssl
 ```
 
 #### Restart apache2 server
