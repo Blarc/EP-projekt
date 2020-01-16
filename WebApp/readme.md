@@ -40,3 +40,17 @@ Poženemo migracijo:
 * 3 - checkout
 
 
+####Uporabniki
+admin: jakob@ep.si asdfasdf
+seller: franc@ep.si asdfasdf
+customer: jan@ep.si asdfasdf
+
+## How to install
+git clone https://github.com/Blarc/EP-projekt.gi
+
+# Configure manual updates
+dpkg --configure -a
+
+
+
+
